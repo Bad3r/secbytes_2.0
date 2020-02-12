@@ -5,7 +5,7 @@
     "develop": "rm -rf .cache && gatsby develop",
     "test": "echo \"no test specified\" && exit 0",
     "preDeploy": "gatsby build --prefix-paths",
-    "deploy": "yarn preDeploy && gh-pages -d public -b master -r -r https://$GITHUB_TOKEN@github.com/Bad3r/secbytes_2.0.git",
+    "deploy": "yarn preDeploy && gh-pages -d public -b master -r https://$GITHUB_TOKEN@github.com/Bad3r/secbytes_2.0.git",
     "clean": "gatsby clean"
   },
   "dependencies": {
