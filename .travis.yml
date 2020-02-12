@@ -8,7 +8,7 @@ cache:
   directories:
     - node_modules
 deploy:
-  provider: pages
+  provider: script
   script: yarn install && yarn run deploy
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
