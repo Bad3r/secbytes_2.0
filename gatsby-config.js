@@ -67,6 +67,7 @@ const siteMetadata = {
   ];
   
   module.exports = {
+    pathPrefix: "/secbytes_2.0",
     siteMetadata,
     plugins,
   };
