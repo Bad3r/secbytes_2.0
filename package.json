@@ -3,6 +3,7 @@
   "scripts": {
     "build": "gatsby build && cp -R _redirects public/",
     "develop": "rm -rf .cache && gatsby develop",
+    "test": "echo \"no test specified\" && exit 0",
     "preDeploy": "gatsby build --prefix-paths",
     "deploy": "yarn preDeploy && gh-pages -d public -b master",
     "clean": "gatsby clean"
