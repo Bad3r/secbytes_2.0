@@ -29,10 +29,10 @@
         {
           "name": "/home/bad3r/git/secbytes_2.0/node_modules/@emotion/babel-preset-css-prop/dist/babel-preset-css-prop.cjs.js",
           "options": {
-            "sourceMap": true,
-            "autoLabel": true,
+            "sourceMap": false,
+            "autoLabel": false,
             "plugins": [],
-            "displayName": true
+            "displayName": false
           }
         }
       ],
@@ -70,10 +70,10 @@
         {
           "name": "/home/bad3r/git/secbytes_2.0/node_modules/@emotion/babel-preset-css-prop/dist/babel-preset-css-prop.cjs.js",
           "options": {
-            "sourceMap": true,
-            "autoLabel": true,
+            "sourceMap": false,
+            "autoLabel": false,
             "plugins": [],
-            "displayName": true
+            "displayName": false
           }
         }
       ],
@@ -111,10 +111,10 @@
         {
           "name": "/home/bad3r/git/secbytes_2.0/node_modules/@emotion/babel-preset-css-prop/dist/babel-preset-css-prop.cjs.js",
           "options": {
-            "sourceMap": true,
-            "autoLabel": true,
+            "sourceMap": false,
+            "autoLabel": false,
             "plugins": [],
-            "displayName": true
+            "displayName": false
           }
         }
       ],
@@ -152,10 +152,10 @@
         {
           "name": "/home/bad3r/git/secbytes_2.0/node_modules/@emotion/babel-preset-css-prop/dist/babel-preset-css-prop.cjs.js",
           "options": {
-            "sourceMap": true,
-            "autoLabel": true,
+            "sourceMap": false,
+            "autoLabel": false,
             "plugins": [],
-            "displayName": true
+            "displayName": false
           }
         }
       ],

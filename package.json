@@ -1,4 +1,10 @@
 {
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "gatsby build && cp -R _redirects public/",
+    "develop": "rm -rf .cache && gatsby develop",
+    "clean": "gatsby clean"
+  },
   "dependencies": {
     "@narative/gatsby-theme-novela": "^0.13.3",
     "gatsby": "^2.19.16",
