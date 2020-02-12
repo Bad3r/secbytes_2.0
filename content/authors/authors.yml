@@ -1,0 +1,10 @@
+- name: Bad3r
+  bio: |
+    leet haxor.
+    You should follow him on Twitter.
+  avatar: ./avatars/avatar.jpg
+  featured: true
+  social:
+    - url: https://unsplash.com
+    - url: https://stackoverflow.com
+    - url: https://github.com
