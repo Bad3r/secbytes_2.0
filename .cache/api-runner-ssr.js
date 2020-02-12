@@ -13,9 +13,6 @@ var plugins = [{
     },{
       plugin: require('/home/bad3r/git/secbytes_2.0/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
       options: {"plugins":[],"name":"Novela by Narative","short_name":"Novela","start_url":"/","background_color":"#fff","theme_color":"#fff","display":"standalone","icon":"src/assets/tux.jpg"},
-    },{
-      plugin: require('/home/bad3r/git/secbytes_2.0/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
-      options: {"plugins":[],"trackingId":"UA-118232427-3"},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [
