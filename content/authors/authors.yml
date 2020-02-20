@@ -1,3 +1,4 @@
+---
 - name: Bad3r
   bio: |
     leet haxor.
@@ -8,6 +9,7 @@
     - url: https://unsplash.com
     - url: https://stackoverflow.com
     - url: https://github.com
+<<<<<<< HEAD
 - name: NotoriousRebel
   bio: |
       Core developer for theHarvester 
@@ -17,3 +19,5 @@
   social:
       - url: https://github.com/NotoriousRebel
       - url: https://twitter.com/NotoriousRebel1
+=======
+>>>>>>> 379503d22c262d6effb1efee54ad88420c078344
