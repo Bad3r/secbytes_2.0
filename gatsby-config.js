@@ -1,6 +1,6 @@
 const siteMetadata = {
     title: `SecBytes`,
-    name: `Narative`,
+    name: `SecBytes`,
     siteUrl: `https://secbytes.net`,
     description: `This is my description that will be used in the meta tags and important for search results`,
     hero: {
@@ -9,29 +9,12 @@ const siteMetadata = {
     },
     social: [
       {
-        url: `https://twitter.com/narative`,
+        name: 'twitter',
+        url: `https://twitter.com/0xBad3r`,
       },
       {
-        url: `https://behance.com/narative`,
-      },
-      {
-        url: `https://github.com/narative`,
-      },
-      {
-        url: `https://instagram.com/narative.co`,
-      },
-      {
-        url: `https://www.linkedin.com/company/narative/`,
-      },
-      {
-        url: `https://dribbble.com/narativestudio`,
-      },
-      {
-        url: `https://youtube.com`,
-      },
-      {
-        name: 'stackoverflow',
-        url: `https://bit.ly/1x0885j`,
+
+        url: `https://github.com/Bad3r/`,
       },
     ],
   };

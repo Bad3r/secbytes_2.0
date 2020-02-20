@@ -1,0 +1,292 @@
+yarn run v1.21.1
+$ rm -rf .cache && gatsby develop
+success open and validate gatsby-configs - 0.042s
+success load plugins - 0.411s
+success onPreInit - 0.002s
+success initialize cache - 0.005s
+success copy gatsby files - 0.020s
+success onPreBootstrap - 0.011s
+success createSchemaCustomization - 0.005s
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/basic.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/removeme.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/advanced.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_pshome.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_profile.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+success source and transform nodes - 0.970s
+success building schema - 0.315s
+{ local: true, contentful: false }
+
+[36mConfig rootPath [4m/[0m[0m
+
+
+[36mConfig basePath [4m/[0m[0m
+
+
+[36mConfig authorsPath [4m/authors[0m[0m
+
+
+[36mQuerying Authors & Articles source: [4mLocal[0m[0m
+
+warn
+                 The requested width "1200px" for a resolutions field for
+                 the file
+/home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/map.jpg
+                 was larger than the actual image width of 820px!
+                 If possible, replace the current image with a larger one.
+warn
+                 The requested width "1200px" for a resolutions field for
+                 the file
+/home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-automate-lolbas/images/hunt_lolbas_logo.png
+                 was larger than the actual image width of 749px!
+                 If possible, replace the current image with a larger one.
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-automate-lolbas/images/hunt_lolbas_logo.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-automate-lolbas/images/hunt_lolbas_logo.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-automate-lolbas/images/hunt_lolbas_logo.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/basic.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/removeme.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/advanced.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_pshome.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_profile.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/basic.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/removeme.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/advanced.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_pshome.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/profile_locations_profile.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-05-01-Power-Of-Covenant/images/easy_deployment.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-05-01-Power-Of-Covenant/images/launcher.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-05-01-Power-Of-Covenant/images/easy_deployment.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+
+ ERROR
+
+Failed to retrieve metadata from image /home/bad3r/git/secbytes_2.0/content/posts/2019-05-01-Power-Of-Covenant/images/launcher.png Input file contains unsupported image format
+
+
+[0m
+[0m  [0m[97m[41mError[0m[37m[41m:[0m[37m[41m [0m[97m[41mInput file contains unsupported image format[0m
+[0m
+[33m Missing hero for "Power of Covenant"
+
+[36mCreating [4marticles page[0m[0m
+
+
+[36mCreating [4marticle posts[0m[0m
+
+
+[36mCreating [4mauthors page[0m[0m
+
+success createPages - 1.206s
+success createPagesStatefully - 0.117s
+success onPreExtractQueries - 0.002s
+success update schema - 0.259s
+success extract queries from components - 0.460s
+success write out requires - 0.050s
+success write out redirect data - 0.012s
+success Build manifest and related icons - 0.138s
+success onPostBootstrap - 0.160s
+⠀
+info bootstrap finished - 5.569 s
+⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[Gsuccess run queries - 0.039s - 12/12 308.39/s
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G
+ ERROR
+
+Processing /home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-automate-lolbas/images/hunt_lolbas_logo.png failed
+
+Original error:
+Input file contains unsupported image format
+
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G
+[0m
+[0m  [0m[97m[41mWorkerError[0m[37m[41m:[0m[37m[41m [0m[97m[41mProcessing /home/bad3r/git/secbytes_2.0/content/posts/2019-07-13-[0m  [0m[97m[41mautomate-lolbas/images/hunt_lolbas_logo.png failed[0m
+[0m  [0m[97m[41mOriginal error:[0m
+[0m  [0m[97m[41mInput file contains unsupported image format[0m
+[0m  [0m
+[0m  [0m[90m-[0m [0m[93mjobs-manager.js[0m[90m:[0m[93m314[0m[37m [0m[37mexports.enqueueJob[0m
+[0m  [0m  [0m[90m[secbytes_2.0]/[gatsby]/dist/utils/jobs-manager.js:314:23[0m
+[0m  [0m
+[0m
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[Gnot finished Generating image thumbnails - 2.467s
+
+
+6 pages                                         In Progress
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

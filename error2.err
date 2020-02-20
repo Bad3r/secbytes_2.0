@@ -1,0 +1,119 @@
+yarn run v1.21.1
+$ rm -rf .cache && gatsby develop
+success open and validate gatsby-configs - 0.044s
+success load plugins - 0.456s
+success onPreInit - 0.003s
+success initialize cache - 0.008s
+success copy gatsby files - 0.017s
+success onPreBootstrap - 0.014s
+success createSchemaCustomization - 0.005s
+success source and transform nodes - 0.981s
+success building schema - 0.356s
+{ local: true, contentful: false }
+
+[36mConfig rootPath [4m/[0m[0m
+
+
+[36mConfig basePath [4m/[0m[0m
+
+
+[36mConfig authorsPath [4m/authors[0m[0m
+
+
+[36mQuerying Authors & Articles source: [4mLocal[0m[0m
+
+warn
+                 The requested width "1200px" for a resolutions field for
+                 the file
+/home/bad3r/git/secbytes_2.0/content/posts/2019-11-24-Abusing-Aliases/images/map.jpg
+                 was larger than the actual image width of 820px!
+                 If possible, replace the current image with a larger one.
+[33m Missing hero for "The Hunt for LOLBAS"
+[33m Missing hero for "Power of Covenant"
+
+[36mCreating [4marticles page[0m[0m
+
+
+[36mCreating [4marticle posts[0m[0m
+
+
+[36mCreating [4mauthors page[0m[0m
+
+success createPages - 0.980s
+success createPagesStatefully - 0.095s
+success onPreExtractQueries - 0.002s
+success update schema - 0.245s
+success extract queries from components - 0.424s
+success write out requires - 0.061s
+success write out redirect data - 0.040s
+success Build manifest and related icons - 0.132s
+success onPostBootstrap - 0.167s
+⠀
+info bootstrap finished - 5.457 s
+⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[Gsuccess run queries - 0.089s - 12/12 134.89/s
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[Gsuccess Generating image thumbnails - 3.876s - 91/91 23.48/s
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[GYou can now view (Unnamed package) in the browser.
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G  http://localhost:8000/
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[GView GraphiQL, an in-browser IDE, to explore your site's data and schema
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G  http://localhost:8000/___graphql
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[GNote that the development build is not optimized.
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[GTo create a production build, use gatsby build
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G⠀
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[Gsuccess Building development bundle - 4.136s
+
+
+6 pages                                         In Progress
+[2K[1A[2K[1A[2K[1A[2K[G
+
+6 pages                                           Success
