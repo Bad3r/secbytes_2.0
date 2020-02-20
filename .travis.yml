@@ -9,7 +9,7 @@ cache:
     - node_modules
 deploy:
   provider: script
-  script: yarn install && yarn run deploy
+  script: cd docs/ && yarn install && yarn run deploy
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   local_dir: public
