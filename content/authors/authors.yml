@@ -3,7 +3,7 @@
   bio: |
 
   avatar: ./avatars/avatar.jpg
-  featured: false
+  featured: true
   social:
     - url: https://twitter.com/0xBad3r
     - url: https://github.com/Bad3r
