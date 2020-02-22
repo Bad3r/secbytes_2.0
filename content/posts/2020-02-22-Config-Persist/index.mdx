@@ -4,7 +4,6 @@ author: NotoriousRebel
 date: 2020-02-22
 hero: ./images/binding.jpg
 excerpt: Utilizing the GAC and Configuration Files for Persistence
-secret: true
 ---
 
 ### Introduction
@@ -59,7 +58,7 @@ are three configuration files.
 </div>
 
 We already covered the application configuration file but what 
-about the other two? 
+about the other two?
 
 * The publisher policy file
 * Distributed by a component publisher as a fix or update to a shared component.
@@ -117,6 +116,7 @@ what an AppDomain is. AppDomains allow third-party untrusted
 code to run in an existing process. An AppDomain is a logical container for a set of assemblies.
 The appDomainManager class allows a host to override CLR default behavior by
 using managed code instead of using unmanged code.
+
 We need to create a class that derives from AppDomainManager
 which initializes a new domain.The appDomainManager can be set in a configuration file
 by using the appDomainManagerAssembly and appDomainManagerType elements.
