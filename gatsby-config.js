@@ -4,7 +4,7 @@ const siteMetadata = {
     siteUrl: `https://secbytes.net`,
     description: `This is my description that will be used in the meta tags and important for search results`,
     hero: {
-      heading: '<blockquote class="imgur-embed-pub" lang="en" data-id="X9eXbHQ"><a href="//imgur.com/X9eXbHQ">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>',
+      heading: '',
       maxWidth: 652,
     },
     social: [
