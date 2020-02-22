@@ -1,14 +1,13 @@
 ---
 - name: Bad3r
   bio: |
-    leet haxor.
-    You should follow him on Twitter.
+    Security enthusiast
   avatar: ./avatars/avatar.jpg
   featured: true
   social:
-    - url: https://unsplash.com
-    - url: https://stackoverflow.com
-    - url: https://github.com
+    - url: https://twitter.com/0xBad3r
+    - url: https://github.com/Bad3r
+    
 - name: NotoriousRebel
   bio: |
       Core developer for theHarvester 
