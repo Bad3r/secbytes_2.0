@@ -4,7 +4,7 @@ const siteMetadata = {
     siteUrl: `https://secbytes.net`,
     description: `This is my description that will be used in the meta tags and important for search results`,
     hero: {
-      heading: '',
+      heading: `<img src="./src/assets/secbytes.png" alt="SecBytes" />`,
       maxWidth: 652,
     },
     social: [
@@ -50,7 +50,7 @@ const siteMetadata = {
   ];
   
   module.exports = {
-    pathPrefix: "/secbytes_2.0",
+    pathPrefix: "/",
     siteMetadata,
     plugins,
   };
