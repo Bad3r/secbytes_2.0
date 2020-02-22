@@ -139,8 +139,9 @@ to accomplish persistence we have a few things we need to do:
 2. Create a strong signed .NET assembly using our newly created keyfile
     that assembly will be implementing an AppDomainManager
     and overriding InitiliazeNewDomain
-3. Install that assembly onto the GAC using [gacutil](https://docs.microsoft.com/en-us/dotnet/framework/tools/gacutil-exe-gac-tool) 
-or C# via [Publish.GacInstall](https://docs.microsoft.com/en-us/dotnet/api/system.enterpriseservices.internal.publish.gacinstall)
+3. Install that assembly onto the GAC using [gacutil](https://docs.microsoft.com/en-us/dotnet/framework/tools/gacutil-exe-gac-tool),
+C# via [Publish.GacInstall](https://docs.microsoft.com/en-us/dotnet/api/system.enterpriseservices.internal.publish.gacinstall),
+or PowerShell via this amazing [script](https://gitlab.com/snippets/1878274)
 4. Modify machine.config's runtime element attribute with the appDomainType and appDomainManagerAssembly elements:
 
 To get the appDomainManagerAssembly you can 
