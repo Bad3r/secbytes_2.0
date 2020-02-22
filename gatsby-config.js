@@ -4,7 +4,7 @@ const siteMetadata = {
     siteUrl: `https://secbytes.net`,
     description: `This is my description that will be used in the meta tags and important for search results`,
     hero: {
-      heading: `Welcome to Novela, the simplest way to start publishing with Gatsby.`,
+      heading: '<a href="https://fontmeme.com/mr-robot-tv-show-font/"><img src="https://fontmeme.com/permalink/200222/5516730691b0eed2efe5fdfd7b90e3fb.png" alt="mr-robot-tv-show-font" border="0"></a>',
       maxWidth: 652,
     },
     social: [
@@ -28,7 +28,7 @@ const siteMetadata = {
         rootPath: "/",
         basePath: "/",
         authorsPage: true,
-        mailchimp: true,
+        mailchimp: false,
         sources: {
           local: true,
           contentful: false,
