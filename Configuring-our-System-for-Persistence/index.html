@@ -54,18 +54,17 @@ sections that a developer has defined.</p><p class="css-8qp1bw ezkq0ko0">It’s 
 One section, in particular, stands out: the runtime section!</p><p class="css-8qp1bw ezkq0ko0">In total, the runtime section and its parent and child elements
 total to 55 items.</p><p class="css-8qp1bw ezkq0ko0">However, we only care about two:</p><ol class="css-1smg95t e37vq8s0"><li class="css-0"><a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/appdomainmanagertype-element" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">appDomainManagerType</a></li><li class="css-0"><a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/appdomainmanagerassembly-element" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">appDomainManagerAssembly</a></li></ol><h3 id="understanding-appdomainmanager--appdomainmanagerassembly" class="css-8fj7fw e18lclmb2">Understanding appDomainManager &amp; appDomainManagerAssembly</h3><p class="css-8qp1bw ezkq0ko0">To understand why we care about those two elements we must understand
 what an AppDomain is. AppDomains allow third-party untrusted
-code to run in an existing process. Essentially an AppDomain is a logical container for a set of assemblies.
+code to run in an existing process, essentially a logical container for a set of assemblies.
 The appDomainManager class allows a host to override CLR default behavior by
-using managed code instead of using unmanaged code.</p><p class="css-8qp1bw ezkq0ko0">We need to create a class that derives from AppDomainManager
-which initializes a new domain. The appDomainManager can be set in a configuration file
-by using the appDomainManagerAssembly and appDomainManagerType elements.
-The class needs to be installed into the GAC because the assembly needs to be granted full-trust,
+using managed code instead of unmanaged code.</p><p class="css-8qp1bw ezkq0ko0">In order to achieve this, we need to create a class that derives from AppDomainManager
+which initializes a new domain. The appDomainManager element can be configured in the runtime section
+of a configuration file this is accomplished via the elements appDomainManagerAssembly and appDomainManagerType.
+The class that derives from AppDomainManager needs to be installed into the GAC because the assembly needs to be granted full-trust and
 all assemblies in the GAC are always granted full-trust.</p><p class="css-8qp1bw ezkq0ko0"><strong class="css-0">TLDR:</strong>
 We can create a class that derives from appDomainManager class
 that initializes a new domain to run our code.
 The InitializeNewDomain method is called on the new instance of AppDomainManager.
-We are hooking all calls to AppDomain.CreateDomain
-to our AppDomainManager which in turn will run our code.</p><h3 id="putting-the-pieces-altogether" class="css-8fj7fw e18lclmb2">Putting the Pieces Altogether</h3><p class="css-8qp1bw ezkq0ko0">Now that we understand what machine.config and what appDomains are
+Allowing us to hook all calls to AppDomain.CreateDomain to our AppDomainManager which in turn will run our code.</p><h3 id="putting-the-pieces-altogether" class="css-8fj7fw e18lclmb2">Putting the Pieces Altogether</h3><p class="css-8qp1bw ezkq0ko0">Now that we understand what machine.config and what appDomains are
 and how we can leverage it. It’s time put all the pieces together
 to accomplish persistence we have a few things we need to do:</p><ol class="css-1smg95t e37vq8s0"><li class="css-0">Generate a keyfile simply do that with sn -k key.snk, <a href="https://docs.microsoft.com/en-us/dotnet/framework/tools/sn-exe-strong-name-tool" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">sn</a> standing for strong name tool</li><li class="css-0">Create a strong signed .NET assembly using our newly created keyfile
 that assembly will be implementing an AppDomainManager
