@@ -4,7 +4,7 @@ const siteMetadata = {
     siteUrl: `https://secbytes.net`,
     description: `This is my description that will be used in the meta tags and important for search results`,
     hero: {
-      heading: `<img src="./src/assets/secbytes.png" alt="SecBytes" />`,
+      heading: `<a href="https://secbytes.net"><img src="https://raw.githubusercontent.com/Bad3r/badScripts/master/secbytes.png" alt="SecBytes" border="0"></a>`,
       maxWidth: 652,
     },
     social: [
