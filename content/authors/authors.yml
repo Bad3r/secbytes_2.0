@@ -1,7 +1,7 @@
 ---
 - name: Bad3r
   bio: |
-      
+
   avatar: ./avatars/avatar.jpg
   featured: true
   social:
@@ -13,7 +13,7 @@
       Core developer for theHarvester 
       and enjoys red teaming Windows.
   avatar: ./avatars/rebel_avatar.jpg
-  featured: true
+  featured: false
   social:
       - url: https://github.com/NotoriousRebel
       - url: https://twitter.com/NotoriousRebel1
