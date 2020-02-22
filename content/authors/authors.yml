@@ -1,7 +1,7 @@
 ---
 - name: Bad3r
   bio: |
-    Security enthusiast
+      
   avatar: ./avatars/avatar.jpg
   featured: true
   social:
