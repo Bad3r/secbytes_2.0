@@ -1,15 +1,15 @@
 ---
-title: Configuring our System for Persistence
+title: Configuring our Machine for Persistence
 author: NotoriousRebel
-date: 2020-02-22
+date: 2020-02-24
 hero: ./images/binding.jpg
-excerpt: Utilizing the GAC and Machine Configuration Files for Persistence
+excerpt: CLR Hooking for Persistence via Config Files
 secret: true
 ---
 
 ### Introduction
 
-Preparing for an upcoming red teaming competition and becoming one with the MSDN documents, 
+Preparing for an upcoming red teaming competition and "becoming" one with the MSDN documents, 
 I stumbled across something very interesting. You may have noticed that when you create an .NET Framework application
 with Visual Studio an app.config is created. 
 A typical app.config looks like:
@@ -23,43 +23,44 @@ A typical app.config looks like:
 </configuration>
 ```
 
-- Configuration: Root element in every configuration file used by the common language runtime (CLR) and .NET Framework applications
-- Startup: Element specifies Common Language Runtime (CLR) startup information
-- Version: Specifies version of CLR this app 
-- Sku: Specifies which .NET Framework release this app supports
+- Configuration: Root element in every configuration file used by the Common Language Runtime  (CLR) and .NET Framework applications
+- Startup: Element specifies the CLR startup information
+- Version: Specifies version of the CLR the app supports 
+- Sku: Specifies which .NET Framework release the app supports
 
 
-That's great but why should you care? Remember what was just said: "Root element in every configuration file."
-There are more configuration files besides app.config :) 
+That's great but why should you care? Remember what was just said, "Root element in every configuration file."
+There are more configuration files besides app.config. 
 This is where our journey begins.
 
-### Note:
+### Note
 
-This post does not cover the internals of things such as GAC (Global Assembly Cache) CLR, or strong signed .NET assemblies. If you need a primer on those
-I encourage you to check out [am0nsec's](https://twitter.com/am0nsec) 
+This post does not cover the internals of things such as Global Assembly Cache (GAC), CLR, or strong signed .NET assemblies. 
+If you need a primer on those,
+I highly suggest you check out [am0nsec's](https://twitter.com/am0nsec) 
 [post](https://www.contextis.com/en/blog/common-language-runtime-hook-for-persistence) covering
 a different technique for CLR hooking.
 
 ### Digging Deeper
 
 Exactly what other config files exist? 
-But before we get to that we must first understand how the runtime locates assemblies.
-There are four steps:
+Before we get to that, we must first understand how the runtime locates assemblies.
+There are four steps in the process:
 
-1. Examining the Configuration Files
-2. Checking for Previously Referenced Assemblies
-3. Checking the Global Assembly Cache
-4. Locating the Assembly through Codebases or Probing
+1. Examining the configuration files
+2. Checking for previously referenced assemblies
+3. Checking the global assembly cache
+4. Locating the assembly through codebases or probing
 
-The first step is what we will be focusing on, there 
-are three configuration files.
+The first step is what we will be focusing on. 
+There are three configuration files.
 
 <div className="Image__Medium">
   <img src="./images/config_files.png" alt="Lists different config files" />
 </div>
 
-We already covered the application configuration file but what 
-about the other two?
+We already covered the application configuration file.
+But what about the other two?
 
 * The publisher policy file
 * Distributed by a component publisher as a fix or update to a shared component.
@@ -70,9 +71,10 @@ about the other two?
 The machine configuration file
 * Takes precedence over all other configuration settings
 * Applied to the entire machine.
-* File resides on local computer in the config subdirectory
-* Can be used by administrators to specify assembly binding restrictions that are local to that computer
-* Requires administrative permissions to Modify
+* Resides on the local computer in the config subdirectory
+* Can be used by administrators to specify assembly binding 
+restrictions that are local to the computer
+* Requires administrative permissions to modify
 
 ### Understanding machine.config
 
@@ -84,12 +86,12 @@ Simply type this in PowerShell:
 [System.Runtime.InteropServices.RuntimeEnvironment]::SystemConfigurationFile
 ```
 You will most likely get:
-**C:\Windows\Microsoft.NET\Framework64\v4.0.30319\config\machine.config**
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\config\machine.config
 
 There is also one here:
-**C:\Windows\Microsoft.NET\Framework64\v2.0.50727\config\machine.config**
+C:\Windows\Microsoft.NET\Framework64\v2.0.50727\config\machine.config
 
-**There are also config files in the 32-bit version of the .NET Framework as well**
+**There are also config files in the 32-bit version of the .NET Framework.**
 
 According to Microsoft:
 
@@ -98,10 +100,10 @@ will first examine the appSettings element and other
 sections that a developer has defined.
 
 It's those other sections that allow us to get persistence. 
-One section, in particular, stands out: the runtime section!
+One section in particular stands out, the runtime section!
 
-In total, the runtime section and its parent and child elements
-total to 55 items.
+In total, the runtime section, its parent and child elements
+total 55 items.
 
 However, we only care about two:
 
@@ -110,8 +112,8 @@ However, we only care about two:
 
 ### Understanding appDomainManager & appDomainManagerAssembly
 
-To understand why we care about those two elements we must understand
-what an AppDomain is. AppDomains allow third-party untrusted
+To understand why we care about those two elements, we must first understand
+what an AppDomain is. AppDomains allow  untrusted third-party
 code to run in an existing process, essentially a logical container for a set of assemblies.
 The appDomainManager class allows a host to override CLR default behavior by
 using managed code instead of unmanaged code.
@@ -119,9 +121,11 @@ using managed code instead of unmanaged code.
 
 In order to achieve this, we need to create a class that derives from AppDomainManager
 which initializes a new domain. The appDomainManager element can be configured in the runtime section 
-of a configuration file this is accomplished via the elements appDomainManagerAssembly and appDomainManagerType.
-The class that derives from AppDomainManager needs to be installed into the GAC because the assembly needs to be granted full-trust and
-all assemblies in the GAC are always granted full-trust.
+of a configuration file. This is accomplished via the elements appDomainManagerAssembly and appDomainManagerType.
+The class that derives from AppDomainManager 
+needs to be installed into the GAC because
+the assembly needs to be granted full-trust.
+All assemblies in the GAC are always granted full-trust.
 
 **TLDR:**
 We can create a class that derives from appDomainManager class
@@ -132,11 +136,11 @@ Allowing us to hook all calls to AppDomain.CreateDomain to our AppDomainManager 
 
 ### Putting the Pieces Altogether
 
-Now that we understand what machine.config and what appDomains are 
-and how we can leverage it. It's time put all the pieces together
-to accomplish persistence we have a few things we need to do:
+Now that we understand what machine.config and appDomains are 
+and how we can leverage them, it's time put all the pieces together
+to accomplish persistence. There are a few things we need to perform:
 
-1. Generate a keyfile simply do that with sn -k key.snk, [sn](https://docs.microsoft.com/en-us/dotnet/framework/tools/sn-exe-strong-name-tool) standing for strong name tool
+1. Generate a keyfile. Simply do that with sn -k key.snk, [sn](https://docs.microsoft.com/en-us/dotnet/framework/tools/sn-exe-strong-name-tool) standing for strong name tool
 2. Create a strong signed .NET assembly using our newly created keyfile
     with an assembly that derives from AppDomainManager
     and overrides InitiliazeNewDomain
@@ -154,23 +158,25 @@ To get the appDomainManagerAssembly you can
 </runtime> 
 ```
 
-Luckily machine.config is simply an xml file so we can use so it was easy to modify
-there also exists the [System.Configuration](https://docs.microsoft.com/en-us/dotnet/api/system.configuration) namespace which I also could've utilized; 
-however, xml was personally much easier to use.
+Luckily machine.config is simply an xml file so we can use so it was easy to modify.
+There also exists the [System.Configuration](https://docs.microsoft.com/en-us/dotnet/api/system.configuration) 
+namespace, which also could have been utilized. 
+However, the xml method was personally much easier to use.
 
 ### Demo Time
 
 Putting all those pieces together in a simple program
-that just requires you to put the keyfile in the correct spot automates
-the process :)
+which just requires you to put the keyfile in the 
+correct spot. This automates the process :)
 
 Assemblies installed onto the GAC are located here:
-**C:\Windows\Microsoft.NET\assembly**
+
+C:\Windows\Microsoft.NET\assembly
 You will most likely see three folders:
 
-- **GAC_32** : For assemblies targeting 32-bit platforms
-- **GAC_64** : For assemblies targeting 64-bit platforms
-- **GAC_MSIL** : For assemblies targeting both 32-bit and 64-bit platforms
+**GAC_32** : For assemblies targeting 32-bit platforms
+**GAC_64** : For assemblies targeting 64-bit platforms
+**GAC_MSIL** : For assemblies targeting both 32-bit and 64-bit platforms
 
 You will notice our strong-named assembly called test is installed in GAC_MSIL
 
@@ -195,11 +201,71 @@ using System;
 The full code can be found here:
 [ConfigPersist](https://github.com/NotoriousRebel/ConfigPersist/)
 
+### Creating Configs for Arbitrary .NET Assemblies
+
+Thank you to subtee for the amazing research on this technique.
+Remember what was said earlier about how the runtime locates assemblies.
+Specifically number 4:
+
+**Locating the assembly through codebases or probing**
+
+We can also take any arbitrary .NET assembly
+for example, FileHistory.exe and create a custom config for it
+such as FileHistory.exe.config looking like this:
+
+```xml
+<configuration>
+   <runtime>
+      <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+         <probing privatePath="C:\Windows\System32\com;" />
+      </assemblyBinding>
+      <appDomainManagerAssembly value="ArbConfig, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+      <appDomainManagerType value="MyAppDomainManager" />
+   </runtime>
+</configuration>
+```
+
+ArbConfig being the name of the unsigned assembly.
+We can then simply place that config file
+inside System32 and the next time FileHistory.exe
+is ran our code will be ran instead.
+
+1. Create your assembly that derives from AppDomainManager.
+2. Place your unsigned assembly in the same directory
+as the .NET assembly you want to affect.
+3. Modify your config with the privatePath being equal
+to where you placed your assembly.
+4. Place the config file in the same directory or a subdirectory
+as the .NET assembly you want to affect.
+
+Second Demo:
+
+![second_demo](./images/second_demo.gif)
+
+
+The code for ArbConfig.dll:
+
+```csharp
+using System;
+using System.Reflection;
+using System.EnterpriseServices;
+using System.Runtime.InteropServices;
+
+public sealed class MyAppDomainManager : AppDomainManager
+{
+    public override void InitializeNewDomain(AppDomainSetup appDomainInfo)
+    {
+        System.Windows.Forms.MessageBox.Show("Config Files are fun");
+        return;
+    }
+}
+```
+
 
 ### Mitigation
 
-- Monitoring of assemblies installed onto GAC
-- Monitoring modifications to machine.config
+- Monitoring for modifications to machine.config
+- Monitoring for dynamic compilation of C# code
 
 ### What's Next?
 
@@ -215,7 +281,7 @@ much more common and frequent.
 
 **Shout outs to:**
 - [am0nsec](https://twitter.com/am0nsec) for the amazing post
-on CLR hooking as well as insightful information on the .NET framework 
+on CLR hooking and for his awesome suggestions on this post.
 - [subTee](https://twitter.com/subTee) for motivating me to work harder
 and for his amazing research on the topic as well.
 
@@ -227,4 +293,4 @@ and for his amazing research on the topic as well.
 - [https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/runtime-element](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/runtime-element)
 - [https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element)
 - [https://docs.microsoft.com/en-us/dotnet/api/system.appdomain](https://docs.microsoft.com/en-us/dotnet/api/system.appdomain)
-
+- [https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/15hyw9x3(v=vs.100)](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/15hyw9x3(v=vs.100))
