@@ -1,0 +1,271 @@
+---
+title: "Hiding Your Tracks: Bash History"
+author: Bad3r
+date: 2020-01-20
+hero: ./images/Hiding-Your-Tracks-Bash-History.jpg
+excerpt: Tricks to hide bash history.
+---
+
+Different techniques for preventing commands from being stored in `$HISTFILE`
+<!--more-->
+# ❯ Bash history
+Bash maintains the list of commands internally in memory while it's running. They are written into `$HISTFILE` (i.e, `~/.bash_history`)  when a user logs off. 
+
+```powershell
+❯ echo $HISTFILE           
+/home/bad3r/.bash_history
+```
+
+This post is a cheat sheet for common methods attackers use to hide commands from being saved in the history file or in memory
+
+
+
+## ❯ Leading Space
+
+Might not be enabled by default in some distros 
+
+Starting each command with a leading space character
+
+```powershell
+❯ echo "hello"
+hello
+❯  echo "ritsec"
+ritsec
+❯ history 
+    1  ls
+    2  echo "hello"
+    3  history 
+```
+
+Notice that the command `$echo "hello"` was saved  history unlike the commas with a leading space `$ echo "ritsec"`. This is possible because of `HISTCONTROL` environment variable 
+
+```powershell
+❯ head -2 /etc/os-release
+ NAME="Ubuntu" 
+ VERSION="18.04.3 LTS (Bionic Beaver)" 
+❯ echo $HISTCONTROL
+ ignoredups:ignorespace
+```
+
+
+## ❯ `HISTFILE` 
+The `HISTFILE` environment variable specifies bash history file
+
+```powershell
+❯ man bash
+HISTFILE
+  The  name  of the file in which command history is saved (see HISTORY be‐
+  low).  The default value is ~/.bash_history.  If unset, the command  his‐
+  tory is not saved when a shell exits.
+  the  value of HISTIGNORE.  The pattern matching honors the setting of the
+  extglob shell option.
+```
+```powershell
+❯ echo $HISTFILE
+/home/bad3r/.bash_history
+```
+
+To avoid recording commands to the file in `$HISTFILE` set `HISTFILE` value to `/dev/null` 
+
+```powershell
+❯ HISTFILE=/dev/null
+OR
+❯ export HISTFILE=/dev/null
+```
+
+### ❯ Using unset 
+
+```powershell
+man bash
+unset
+  Remove variable or function names
+```
+We can use `unset` to remove the variable `HISTFILE` for the current session 
+```powershell
+❯ echo $HISTFILE
+/root/.bash_history
+❯ unset HISTFILE
+❯ echo $HISTFILE
+
+❯
+```  
+Note that it will only effect the current session. If you start another session the variable `HISTFILE` will still be set unlike changing `$HISTILE` value to `/dev/null`
+
+
+
+## ❯ `HISTSIZE` & `HISTFILESIZE`
+
+Notice the distinction between `file`: on disk - and `list`: in memory.
+
+`HISTSIZE` is the number of lines or commands that are stored in memory in a history list while your bash session is ongoing.
+
+```powershell
+❯ man bash
+
+HISTSIZE
+  The number of commands to remember in the command  history  (see  HISTORY
+  below).   If  the value is 0, commands are not saved in the history list.
+  Numeric values less than zero result in every command being saved on  the
+  history  list  (there  is no limit).  The shell sets the default value to
+  500 after reading any startup files.
+```
+
+In order to remove all commands from to the history list in memory change the size to 0
+
+```powershell
+❯ echo $HISTSIZE
+1000
+❯ HISTSIZE=0  # OR export HISTSIZE=0
+❯ echo $HISTSIZE
+0
+```
+
+`HISTFILESIZE` is the number of lines or commands that 
+-  are allowed in the history file at startup time of a session, and
+-  are stored in the history file at the end of your bash session for use in future sessions.
+
+```powershell
+❯ man bash
+
+HISTFILESIZE
+  The  maximum  number  of  lines contained in the history file.  When this
+  variable is assigned a value, the history file is  truncated,  if  neces‐
+  sary, to contain no more than that number of lines by removing the oldest
+  entries.  The history file is also truncated to this size  after  writing
+  it  when a shell exits.  If the value is 0, the history file is truncated
+  to zero size.  Non-numeric values and numeric values less than  zero  in‐
+  hibit truncation.  The shell sets the default value to the value of HIST‐
+  SIZE after reading any startup files.
+```
+&nbsp;
+
+```powershell
+❯ echo $HISTFILESIZE
+2000
+❯ HISTFILESIZE=0  # OR export HISTFILESIZE=0
+```
+
+## ❯ The Set & Shopt Builtin
+
+The `set` builtin allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.
+Using `set` we can avoid recording new commands to the history list in memory. And,  because it's not being saved in memory, it can not be recorded to file
+
+
+- `-o` option-name:    Set the option corresponding to option-name 
+
+The option name here is `history` and its enabled by default. Using ‘+’ rather than ‘-’ causes these options to be turned off
+
+```powershell
+❯ set +o history
+```
+Using ‘-’ we can enable it again;
+
+```powershell
+❯ set -o history
+```
+
+Alternatively the `shopt` builtin command can be used
+shopt builtin command allows you to change additional shell optional behavior.
+
+- `-u`    Disable (unset) each optname.
+` `-o`    Restricts the values of optname to be those defined for the -o option to the set builtin
+
+
+```powershell
+❯ shopt -ou history
+```
+
+Re-enable it using the `-s` flag; 
+- `-s`    Enable (set) each optname.
+
+
+```powershell
+❯ shopt -os history
+```
+
+
+## ❯ Clearing the History
+Rather than disabling command history, we can clear the history on the current bash shell by simply using the `history` command with the `-c` (clear) flag
+
+```powershell
+❯ history -c
+```
+Then, to make certain the changes are written to disk, we need to tell the history command to write to disk with the `-w` flag
+
+```powershell
+❯ history -w
+```
+This only clears the history of the current shell. Commands run in other shells will remain on disk.
+
+
+## ❯ Shredding the History
+
+```powershell
+❯ man shred
+  shred - overwrite a file to hide its contents, and optionally delete it
+```
+
+The `shred` command shreds the target file making it unreadable
+
+```powershell
+❯ cat $HISTFILE
+ls
+history -w
+❯ shred $HISTFILE
+❯ cat $HISTFILE
+ ,Iç!hù2g2V?ƥf[Æ{L´w٘Ì˿vCÓ/Zs
+PìPõä{K{ëúJ :i6­ÚûR܈?ÄñW?äÆn6»¬ËoûD;NGÖËÓâ¯TRú&Í__tÇÙ
+?ÏG5Ãö-òyÞÈ
+           OËã
+...
+```
+After using the `shred` command the history file contains bunch of binary data that is nonsense.
+
+The fact that the file is shredded may in itself be considered evidence of malicious activity. We can eliminate even that by combining the `shred` command with the `-zu` flags
+
+- `-u` deallocate and remove file after overwriting
+- `-z` a final overwrite with zeros to hide shredding
+
+
+```powershell
+❯ cat $HISTFILE
+ls
+history -w❯ docker exec -ti 6e0aec73e61c bash
+
+❯ shred -zu $HISTFILE
+❯ cat $HISTFILE
+cat: /root/.bash_history: No such file or directory
+```
+
+
+
+## ❯ Killing Bash Process
+
+Using the `kill` command we can exit the session without saving commands in memory to disk using;
+
+```powershell
+❯ kill -9 $$
+```
+thanks to [@ReigningShells](https://twitter.com/ReigningShells)
+
+
+## ❯ Using More
+
+We can hide a command from being saved in memory using `more` ability to excute commands by prepending them with `!` 
+
+- `!<cmd>` or `:!<cmd>` Execute `<cmd>` in a subshell
+
+```powershell
+❯ ps -aef | more                        
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 Jan20 ?        00:00:03 /sbin/init
+root           2       0  0 Jan20 ?        00:00:00 [kthreadd]
+root           3       2  0 Jan20 ?        00:00:00 [rcu_gp]
+...
+!echo "thanks @13_0_0_0_0"
+thanks @13_0_0_0_0
+------------------------
+```
+At the more prompt type `!` or `:!` followed by your command.
+
+This same technique can be used with other [GTFOBIN](https://gtfobins.github.io/) like `vim` 
