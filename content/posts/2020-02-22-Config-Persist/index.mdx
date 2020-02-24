@@ -62,7 +62,7 @@ There are three configuration files.
 We already covered the application configuration file.
 But what about the other two?
 
-* The publisher policy file
+The publisher policy file
 * Distributed by a component publisher as a fix or update to a shared component.
 * Affects all applications that use a shared component.
 
@@ -93,11 +93,10 @@ C:\Windows\Microsoft.NET\Framework64\v2.0.50727\config\machine.config
 
 **There are also config files in the 32-bit version of the .NET Framework.**
 
-According to Microsoft:
+According to [Microsoft](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/):
 
-When locating assemblies within machine.config the configuration system
-will first examine the appSettings element and other 
-sections that a developer has defined.
+"The configuration system first looks in the machine configuration file for the 
+appSettings element and other configuration sections that a developer might define."
 
 It's those other sections that allow us to get persistence. 
 One section in particular stands out, the runtime section!
@@ -158,7 +157,7 @@ To get the appDomainManagerAssembly you can
 </runtime> 
 ```
 
-Luckily machine.config is simply an xml file so we can use so it was easy to modify.
+Luckily machine.config is simply an XML file so we can use so it was easy to modify.
 There also exists the [System.Configuration](https://docs.microsoft.com/en-us/dotnet/api/system.configuration) 
 namespace, which also could have been utilized. 
 However, the xml method was personally much easier to use.
@@ -172,11 +171,12 @@ correct spot. This automates the process :)
 Assemblies installed onto the GAC are located here:
 
 C:\Windows\Microsoft.NET\assembly
+
 You will most likely see three folders:
 
-**GAC_32** : For assemblies targeting 32-bit platforms
-**GAC_64** : For assemblies targeting 64-bit platforms
-**GAC_MSIL** : For assemblies targeting both 32-bit and 64-bit platforms
+- GAC_32 : For assemblies targeting 32-bit platforms
+- GAC_64 : For assemblies targeting 64-bit platforms
+- GAC_MSIL : For assemblies targeting both 32-bit and 64-bit platforms
 
 You will notice our strong-named assembly called test is installed in GAC_MSIL
 
@@ -198,12 +198,16 @@ using System;
 
 ![Demo](./images/works.gif)
 
+This is running our code that modifies machine.config, which means
+that any .NET assembly that is ran will run our code as well.
+
+
 The full code can be found here:
 [ConfigPersist](https://github.com/NotoriousRebel/ConfigPersist/)
 
 ### Creating Configs for Arbitrary .NET Assemblies
 
-Thank you to subtee for the amazing research on this technique.
+Thank you to [@subTee](https://twitter.com/subtee) for the amazing research on this technique.
 Remember what was said earlier about how the runtime locates assemblies.
 Specifically number 4:
 
@@ -238,10 +242,11 @@ to where you placed your assembly.
 4. Place the config file in the same directory or a subdirectory
 as the .NET assembly you want to affect.
 
-Second Demo:
 
 ![second_demo](./images/second_demo.gif)
 
+This creates an arbitrary config for FileHistory which
+means when FileHistory is it runs our code in ArbConfig.dll first.
 
 The code for ArbConfig.dll:
 
@@ -261,6 +266,26 @@ public sealed class MyAppDomainManager : AppDomainManager
 }
 ```
 
+### Taking it one Step Further
+
+That technique is pretty cool on it's own; however,
+having to create a .config file for every .NET assembly could be 
+tedious. What if we don't have to create any .config files at all?
+Instead we can modify machine.config and for it's runtime element
+put this in here:
+
+```xml
+<runtime>
+   <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <probing privatePath="C:\Windows\System32\WindowsPowerShell\v1.0\en;" />
+   </assemblyBinding>
+   <appDomainManagerAssembly value="ArbConfig, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+   <appDomainManagerType value="MyAppDomainManager" />
+</runtime>
+```
+
+You can also play around with this technique with
+machine.config, I will leave that technique to the reader.
 
 ### Mitigation
 
