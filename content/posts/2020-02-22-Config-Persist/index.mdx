@@ -265,25 +265,8 @@ public sealed class MyAppDomainManager : AppDomainManager
 }
 ```
 
-### Taking it one Step Further
-
-That technique is pretty cool on it's own; however,
-having to create a .config file for every .NET assembly could be 
-tedious. What if we don't have to create any .config files at all?
-Instead we can modify machine.config and for it's runtime element
-put this in here:
-
-```xml
-<runtime>
-   <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-      <probing privatePath="C:\Windows\System32\WindowsPowerShell\v1.0\en;" />
-   </assemblyBinding>
-   <appDomainManagerAssembly value="ArbConfig, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
-   <appDomainManagerType value="MyAppDomainManager" />
-</runtime>
-```
-
-You can also utilize this technique with machine.config as well.
+For more information read about this technique
+read about the probing [element](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/probing-element).
 
 ### Mitigation
 
