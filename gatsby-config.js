@@ -47,6 +47,12 @@ const siteMetadata = {
         icon: `src/assets/tux.jpg`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-140432254-1",
+      },
+    },
   ];
   
   module.exports = {
