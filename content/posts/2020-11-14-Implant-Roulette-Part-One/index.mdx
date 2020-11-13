@@ -2,9 +2,9 @@
 title: "Implant Roulette Part 1: Nimplant"
 author: NotoriousRebel
 date: 2020-11-13
-hero: ./images/nim_wheel.png
+hero: ./images/test.jpg
 excerpt: The first in a new series looking at what Nim brings to the table for red team tool development.
-secret: false
+secret: true
 ---
 
 ### Introduction
@@ -170,14 +170,13 @@ import nimscripted
 import winim/lean
 import dynlib
 
-
-proc callMessage(message: string): int {.exportToScript.} =
+proc callMessage(libPath: string, libFunc: string, message: string): int {.exportToScript.} =
     type OP = proc(hWnd: HWND, lpText: LPCSTR, lpCaption: LPCSTR, uType: UINT): int32 {.gcsafe, stdcall.}
 
-    let lib = loadLib(r"C:\Win" & r"dows\Sys" & r"tem32\" & "user3" & "2." & "dl" & "l")
+    let lib = loadLib(libPath)
 
     if lib != nil:
-        let op = cast[OP](lib.symAddr("MessageBoxA"))
+        let op = cast[OP](lib.symAddr(libFunc))
         var hWnd: HWND
         let options = 0
         discard op(hWnd, cast[LPCSTR](cstring(message)), cast[LPCSTR](cstring(message)), UINT(options))
@@ -185,7 +184,7 @@ proc callMessage(message: string): int {.exportToScript.} =
     return 0
 
 import nimscripter
-let code = """discard callMessage("NimScript is really cool")"""
+let code = """discard callMessage(r"C:\Win" & r"dows\Sys" & r"tem32\" & "user3" & "2." & "dl" & "l", "MessageBoxA", "NimScript is really cool")"""
 discard loadScript(code, false) # pass in false to indicate a string of NimScript is being passed instead of a path to a file
 ```
 
@@ -230,12 +229,12 @@ Three key areas that I will highlight are:
 
    After:
 
-```nim
-import strenc
-let x = "Hello World!"
-echo "x: "
-echo x
-```
+   ```nim
+   import strenc
+   let x = "Hello World!"
+   echo "x: "
+   echo x
+   ```
 
 To compile the creator of strenc recommends turning hints off and stripping the binary so we shall do that.
 `nim c --run --hints:off --d:release --passL:-s`
@@ -302,17 +301,16 @@ over the next few years, some [APTs are already using it](https://securelist.com
 
 ### Special Thanks
 
-This blog post wouldn't be possible without the help of a few amazing people.
-
-- [@theWover](https://twitter.com/TheRealWover)
-  Thank you for inspiring Nimplant and for some amazing talks
-  bouncing some really fun ideas to advance Nim tradecraft.
+This post wouldn't be possible without the help of a few amazing people.
 
 - [@bohops](https://twitter.https://twitter.com/bohops).
   Thank you for the motivation and for providing interesting insights
   to fuel implant development as well as Nim tradecraft.
+- [@theWover](https://twitter.com/TheRealWover)
+  Thank you for inspiring Nimplant and for some amazing talks
+  bouncing some really fun ideas to advance Nim tradecraft.
 
-- [@its*a_feature*](https://twitter.com/its_a_feature_)
+- [@its_a_feature\_](https://twitter.com/its_a_feature_)
   Thank you for all the help with Nimplant's development, answering
   any question along the way and helping with late night debugging sessions.
 
