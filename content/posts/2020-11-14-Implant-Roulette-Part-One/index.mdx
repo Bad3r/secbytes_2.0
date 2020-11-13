@@ -3,8 +3,8 @@ title: "Implant Roulette Part 1: Nimplant"
 author: NotoriousRebel
 date: 2020-11-13
 hero: ./images/nim_wheel.png
-excerpt: The first in a series discussing what Nim brings to the table for red team tool development.
-secret: true
+excerpt: The first in a new series looking at what Nim brings to the table for red team tool development.
+secret: false
 ---
 
 ### Introduction
@@ -186,7 +186,7 @@ proc callMessage(message: string): int {.exportToScript.} =
 
 import nimscripter
 let code = """discard callMessage("NimScript is really cool")"""
-discard loadScript(code, false)
+discard loadScript(code, false) # pass in false to indicate a string of NimScript is being passed instead of a path to a file
 ```
 
 If you would like to read more about embedding NimScript as well as just learn more about NimScript I encourage you to check out this wonderful series:
