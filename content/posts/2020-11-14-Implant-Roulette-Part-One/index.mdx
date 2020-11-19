@@ -134,9 +134,9 @@ Luckily, a new repository known as [Nimscripter](https://github.com/beef331/nims
 Below is an example in which the FFI specific code to call `MessageBoxA` is exposed to NimScript allowing
 us to pass in a string of NimScript to invoke the Nim proc.
 
-![nimscript_embeddedmessage](nimscript_embeddedmessage.png)
+![nimscript_embeddedmessage](./images/nimscript_embeddedmessage.png)
 
-In a nutshell what is happening under the hood is the
+In a nutshell, what is happening under the hood is the
 [script is loaded](https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140) and the main body is evaluated which allows us to access symbols it exposes.
 If you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:
 [https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html](https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html).
@@ -166,9 +166,13 @@ Three key areas that I will highlight are:
 
 1. Code Obfuscation
 
-With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages you can utilize are:
-[nim-strenc](https://github.com/Yardanico/nim-strenc) and [nuglifier](https://github.com/Yardanico/nuglifier).
-Let's just apply nim-strenc to the string literal and view the resulting C file in our Nimcache.
+<div>
+  <h4>Code Obfuscation</h4>
+</div>
+With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages
+you can utilize are: [nim-strenc](https://github.com/Yardanico/nim-strenc) and [nuglifier](https://github.com/Yardanico/nuglifier).
+Let's just apply nim-strenc to the string literal and view the resulting C file in
+our Nimcache.
 
 Before:
 
@@ -194,34 +198,38 @@ It's applying a compile-time macro that xor encrypts
 every string literal. For more information about compile-time macros
 and how they can be leveraged for obfuscation read this [forum post](https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706) (you will most likely need Google Translate for it.)
 
-2. LLVM Obfuscation
+<div>
+  <h4>2. LLVM Obfuscation</h4>
+</div>
 
-   For more in-depth obfuscation LLVM obfuscation can be utilized.
-   There are two routes you can down as
+For more in-depth obfuscation LLVM obfuscation can be utilized.
+There are two routes you can down as
 
-   The easier of the two routes is to use [nlvm](https://github.com/arnetheduck/nlvm)
-   to generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind
-   when trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation
-   with tools such as [YANSOllvm](https://github.com/emc2314/YANSOllvm) and [dumb-obfuscator](https://github.com/thebabush/dumb-obfuscator).
-   A note with YANSOllvm is that since it is in-tree obfuscation passes
-   and does deeper changes you will need to build the entire [LLVM framework](https://llvm.org/) which
-   may take upwards of an hour.
+The easier of the two routes is to use [nlvm](https://github.com/arnetheduck/nlvm)
+to generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind
+when trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation
+with tools such as [YANSOllvm](https://github.com/emc2314/YANSOllvm) and [dumb-obfuscator](https://github.com/thebabush/dumb-obfuscator).
+A note with YANSOllvm is that since it is in-tree obfuscation passes
+and does deeper changes you will need to build the entire [LLVM framework](https://llvm.org/) which
+may take upwards of an hour.
 
-   The other route is to take the generated C/C++ code transform to IR such as with clang
-   and perform the in-tree or out-of-tree obfuscation and then link it all back together.
-   Depending on the complexity of your program you may end up working with multiple files
-   and have to make sure it's properly linked.
+The other route is to take the generated C/C++ code transform to IR such as with clang
+and perform the in-tree or out-of-tree obfuscation and then link it all back together.
+Depending on the complexity of your program you may end up working with multiple files
+and have to make sure it's properly linked.
 
-   **I will leave this to the reader to experiment with**
+**I will leave this to the reader to experiment with**
 
-3. IAT Manipulation
+<div>
+  <h4>3. IAT Manipulation</h4>
+</div>
 
-   If we throw the executable into a PE analyzer such as pe-studio or pebear we can see some imports
-   that could raise some flags for static analysis. Especially the following imports:
-   "LoadLibraryA and GetProcAddress", to help bypass static analysis we can use tools
-   such as [CallObfuscator](https://github.com/d35ha/CallObfuscator). For example,
-   you can manipulate the IAT so the thunk that points to LoadLibraryA will point to
-   NotLoadLibrarayA and the thunk for GetProcAddress to NotGetProcAddress.
+If we throw the executable into a PE analyzer such as pe-studio or pebear we can see some imports
+that could raise some flags for static analysis. Especially the following imports:
+"LoadLibraryA and GetProcAddress", to help bypass static analysis we can use tools
+such as [CallObfuscator](https://github.com/d35ha/CallObfuscator). For example,
+you can manipulate the IAT so the thunk that points to LoadLibraryA will point to
+NotLoadLibrarayA and the thunk for GetProcAddress to NotGetProcAddress.
 
 ### Looking Towards the Future
 
@@ -240,7 +248,7 @@ of having to be bogged down by the intricacies of languages such as Rust and C++
 Nim is a jumper cable that allows you to be versatile with the benefit of being cross-platform with a minimal
 final binary size. Where obfuscation is ripe as well, Nim may slowly rise in popularity
 over the next few years; although, [APTs are already using it](https://securelist.com/zebrocys-multilanguage-malware-salad).
-All code snippets can be found [here](https://github.com/NotoriousRebel/NimbleMusings).
+All code snippets except for the strenc and auto generated C code can be found [here](https://github.com/NotoriousRebel/NimbleMusings).
 
 ### Special Thanks
 
