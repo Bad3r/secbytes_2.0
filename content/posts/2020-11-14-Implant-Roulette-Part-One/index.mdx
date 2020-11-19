@@ -167,6 +167,7 @@ Three key areas that I will highlight are:
 <div>
   <h4>1. Code Obfuscation</h4>
 </div>
+
 With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages
 you can utilize are: [nim-strenc](https://github.com/Yardanico/nim-strenc) and [nuglifier](https://github.com/Yardanico/nuglifier).
 Let's just apply nim-strenc to the string literal and view the resulting C file in
@@ -222,7 +223,7 @@ and have to make sure it's properly linked.
   <h4>3. IAT Manipulation</h4>
 </div>
 
-If we throw the executable into a PE analyzer such as pe-studio or pebear we can see some imports
+If we throw the executable into a PE analyzer such as pe-studio or PE-bear we can see some imports
 that could raise some flags for static analysis. Especially the following imports:
 "LoadLibraryA and GetProcAddress", to help bypass static analysis we can use tools
 such as [CallObfuscator](https://github.com/d35ha/CallObfuscator). For example,
@@ -231,8 +232,8 @@ NotLoadLibrarayA and the thunk for GetProcAddress to NotGetProcAddress.
 
 ### Looking Towards the Future
 
-While I covered a fair amount of things you can do with Nim, this is not everything.
-Some things down the road that I plan to investigate are:
+While I covered a fair amount of things you can do with Nim, this is far from everything.
+Some things down the road that I plan to research are:
 
 - Nim's interoperability with Go such as with [golib-nim](https://github.com/stefantalpalaru/golib-nim)
 - Adding more features to Nimplant and making it fully cross-platform with an option to
@@ -241,12 +242,12 @@ Some things down the road that I plan to investigate are:
 
 ### Conclusion
 
-Overall, Nim is an interesting language that can jumpstart development instead
-of having to be bogged down by the intricacies of languages such as Rust and C++.
+Overall, Nim is an interesting language that can jumpstart development without
+having to be bogged down by the interwoven intricacies of languages such as C++ and Rust.
 Nim is a jumper cable that allows you to be versatile with the benefit of being cross-platform with a minimal
 final binary size. Where obfuscation is ripe as well, Nim may slowly rise in popularity
 over the next few years; although, [APTs are already using it](https://securelist.com/zebrocys-multilanguage-malware-salad).
-All code snippets except for the strenc and auto generated C code can be found [here](https://github.com/NotoriousRebel/NimbleMusings).
+All code snippets except for the strenc and auto-generated C code can be found [here](https://github.com/NotoriousRebel/NimbleMusings).
 
 ### Special Thanks
 
