@@ -40,7 +40,7 @@ Instead of having to manually interop with the Windows API via the FFI there
 are [Nimble](https://github.com/nim-lang/nimble) packages that contain some Windows API
 definitions. The one I tend to use is [Winim](https://github.com/khchen/winim).
 
-![crt_injector](crt_injector.png)
+![crt_injector](./images/crt_injector.png)
 
 Let's compile and run the program `nim c --run crtinjection.nim`
 and make sure everything works. By default when you compile Nim code it generates C code.
@@ -90,11 +90,11 @@ The resulting inject proc is as follows:
 `proc inject(pid: int): bool {.stdcall, exportc, dynlib.} = `
 Let's compile the DLL as follows, `nim c --d:release --app:lib --opt:size --inject.nim`
 
-With the DLL let's manually map it SharpSploit's D/Invoke tooling.
-If you just specifically want the D/Invoke part you can also use the [repository](https://github.com/TheWover/DInvoke)
-or [nuget package](https://www.nuget.org/packages/DInvoke/).
+With the DLL let's manually map it using SharpSploit's D/Invoke tooling.
+If you specifically just want the D/Invoke part you can also use the [repository](https://github.com/TheWover/DInvoke)
+or [nuget package](https://www.nuget.org/packages/DInvoke/) for D/Invoke.
 
-SharpSploit D/Invoke Tooling:
+Manual Map Code:
 
 ![dinvokemanmapcode](./images/dinvoke_nimmanualmapcode.png)
 
@@ -190,8 +190,8 @@ STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_4, "\360\275\246", 3);
 ```
 
 With nim-strenc if you look at the codebase it's less than 30 lines.
-It's applying a compile-time macro that affects every string and xor encrypts
-every string. For more information about compile-time macros
+It's applying a compile-time macro that xor encrypts
+every string literal. For more information about compile-time macros
 and how they can be leveraged for obfuscation read this [forum post](https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706) (you will most likely need Google Translate for it.)
 
 2. LLVM Obfuscation
@@ -210,7 +210,7 @@ and how they can be leveraged for obfuscation read this [forum post](https://was
    The other route is to take the generated C/C++ code transform to IR such as with clang
    and perform the in-tree or out-of-tree obfuscation and then link it all back together.
    Depending on the complexity of your program you may end up working with multiple files
-   and make sure it's linked properly.
+   and have to make sure it's properly linked.
 
    **I will leave this to the reader to experiment with**
 
@@ -239,7 +239,7 @@ Overall, Nim is an interesting language that can jumpstart development instead
 of having to be bogged down by the intricacies of languages such as Rust and C++.
 Nim is a jumper cable that allows you to be versatile with the benefit of being cross-platform with a minimal
 final binary size. Where obfuscation is ripe as well, Nim may slowly rise in popularity
-over the next few years, some [APTs are already using it](https://securelist.com/zebrocys-multilanguage-malware-salad).
+over the next few years; although, [APTs are already using it](https://securelist.com/zebrocys-multilanguage-malware-salad).
 All code snippets can be found [here](https://github.com/NotoriousRebel/NimbleMusings).
 
 ### Special Thanks
