@@ -42,9 +42,15 @@ definitions. The one I tend to use is [Winim](https://github.com/khchen/winim).
 
 ![crt_injector](./images/crt_injector.png)
 
-Let's compile and run the program `nim c --run crtinjection.nim`
-and make sure everything works. By default when you compile Nim code it generates C code.
-In the latter section "Integrating into Existing Tooling" verification shall ensue.
+Let's compile and run the program
+
+```
+nim c --run crtinjection.nim
+```
+
+and make sure everything works. By default when you compile Nim code it generates
+C code. In the latter section "Integrating into Existing Tooling" verification shall
+ensue.
 
 ### Peaking under the Hood
 
@@ -57,7 +63,11 @@ called nimcache. You can also specify the nimcache path for generated files with
 
 Below is a snippet of generated code for inject.nim
 To make this easier to read I have compiled the program with an additional flag `--embedsrc:on` this flag tells the Nim compiler
-to embed the source code as comments in the generated output. For compilation: `nim c --run --hints:on --d:release --embedsrc:on inject.nim`
+to embed the source code as comments in the generated output. For compilation:
+
+```
+nim c --run --hints:on --d:release --embedsrc:on inject.nim
+```
 
 ![Inject_Snippet](./images/snippet_inject.png)
 
@@ -71,8 +81,8 @@ the LoadLibraryA and GetProcAddress combination.
 ### Nim and Donut
 
 Coming from C# one of my favorite tools for crafting payloads is [Donut](https://github.com/theWover/Donut).
-One of the great features with Donut is that it not work works with .NET assemblies but also with native DLLs
-and executables. Since Nim can generate both C and C++ code and link it to a native executable or DLL
+One of the great features with Donut is that it not only works with .NET assemblies but also with native DLLs
+and executables. Since Nim can generate both C and C++ source code and link it to a native executable or DLL
 Donut is an amazing utility that can transform our output to shellcode.
 Since shellcode is language-agnostic we can easily integrate it into other tooling.
 
@@ -81,18 +91,22 @@ Since shellcode is language-agnostic we can easily integrate it into other tooli
 With shellcode you can easily integrate it into your own custom injectors in the language of your choice.
 Of course since these are native executables and DLL's we can also perform manually mapping and load them into memory.
 Coming from C# my goto tools to perform the manual mapping are [Lunar](https://github.com/Dewera/Lunar)
-and the [D/Invoke tooling in SharpSploit](https://thewover.github.io/Dynamic-Invoke/).
+and the [D/Invoke tooling in SharpSploit](https://github.com/cobbr/SharpSploit/tree/master/SharpSploit/Execution/DynamicInvoke).
 
 Let's compile the injector code as a DLL and export an inject function.
 To export the function we need to tell Nim to export it by adding the
 following pragmas: `exportc, dynlib, and cdecl. or stdcall.`
 The resulting inject proc is as follows:
-`proc inject(pid: int): bool {.stdcall, exportc, dynlib.} = `
-Let's compile the DLL as follows, `nim c --d:release --app:lib --opt:size --inject.nim`
+`proc inject(pid: int): bool {.stdcall, exportc, dynlib.} = ` <br/>
+Let's compile the DLL as follows:
+
+```
+nim c --d:release --app:lib --opt:size --inject.nim
+```
 
 With the DLL let's manually map it using SharpSploit's D/Invoke tooling.
 If you specifically just want the D/Invoke part you can also use the [repository](https://github.com/TheWover/DInvoke)
-or [nuget package](https://www.nuget.org/packages/DInvoke/) for D/Invoke.
+or [nuget package](https://www.nuget.org/packages/DInvoke/) for solely D/Invoke.
 
 Manual Map Code:
 
@@ -102,18 +116,16 @@ Let's run it and make sure our crt injector proc is executed properly.
 
 ![manmepdemo](./images/manmapdemo.png)
 
-Excellent!
-
 ### Embedding NimScript with Nimscripter
 
 Within Nim there is an evolving scripting language known as NimScript.
 In the NimScript [documentation](https://nim-lang.org/docs/nims.html) it is defined as,
-"the subset of Nim that can be evaluated by Nim's builtin virtual machine (VM)."
+"the subset of Nim that can be evaluated by Nim's built-in virtual machine (VM)."
 NimScript is typically used as a configuration language in a devops role for example to run tests and build projects.
 However, one of the biggest caveats with NimScript as stated within the documentation,
 Nim's [FFI (foreign function interface)](https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend) is not available in NimScript.
 This means that any stdlib module which relies on importc cannot be used in the VM."
-Nim's FFI is how Nim can call other functions written in other programming languages, basically
+Nim's FFI is how Nim can call other functions written in other programming languages, which is basically
 Nim's cross-platform version [P/Invoke](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke).
 A possible solution is to write the FFI functionality in Nim and expose to NimScript.
 
@@ -182,7 +194,11 @@ After:
 ![afternimhellostrenc](./images/strenc_hello_world.png)
 
 When compiling the creator of strenc recommends turning hints off and stripping the binary so we shall do that.
-`nim c --run --hints:off --d:release --passL:-s`
+
+```
+nim c --run --hints:off --d:release --passL:-s
+```
+
 `--passL` will pass an option to the linker and we are passing `-s` to the GCC linker to perform stripping.
 Within the Nimcache folder, go to hello_r and view the file `@mhello.nim.c`.
 Inside that file we can see both string literals after they have been xor encrypted:
@@ -253,7 +269,7 @@ All code snippets except for the strenc and auto-generated C code can be found [
 
 This post wouldn't be possible without the help of a few amazing people.
 
-- [@bohops](https://twitter.https://twitter.com/bohops).
+- [@bohops](https://twitter.https://twitter.com/bohops)
   Thank you for the motivation and for providing interesting insights
   to fuel implant development as well as Nim tradecraft.
 - [@theWover](https://twitter.com/TheRealWover)
