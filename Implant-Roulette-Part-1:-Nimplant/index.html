@@ -178,7 +178,7 @@ Inside that file we can see both string literals after they have been xor encryp
 It’s applying a compile-time macro that xor encrypts
 every string literal. For more information about compile-time macros
 and how they can be leveraged for obfuscation read this <a href="https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">forum post</a> (you will most likely need Google Translate for it.)</p><div class="css-0"><h4 class="css-qybmnr e18lclmb3">2. LLVM Obfuscation</h4></div><p class="css-8qp1bw ezkq0ko0">For more in-depth obfuscation LLVM obfuscation can be utilized.
-There are two routes you can down as</p><p class="css-8qp1bw ezkq0ko0">The easier of the two routes is to use <a href="https://github.com/arnetheduck/nlvm" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">nlvm</a>
+There are two routes you can down:</p><p class="css-8qp1bw ezkq0ko0">The easier of the two routes is to use <a href="https://github.com/arnetheduck/nlvm" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">nlvm</a>
 to generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind
 when trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation
 with tools such as <a href="https://github.com/emc2314/YANSOllvm" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">YANSOllvm</a> and <a href="https://github.com/thebabush/dumb-obfuscator" target="_blank" rel="noreferrer" class="css-mckguv e116srhk0">dumb-obfuscator</a>.
