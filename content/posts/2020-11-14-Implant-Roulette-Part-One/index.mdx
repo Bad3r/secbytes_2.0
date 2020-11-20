@@ -63,7 +63,7 @@ CreateRemoteThread proc:
 
 `proc CreateRemoteThread*(hProcess: HANDLE, lpThreadAttributes: LPSECURITY_ATTRIBUTES, dwStackSize: SIZE_T, lpStartAddress: LPTHREAD_START_ROUTINE, lpParameter: LPVOID, dwCreationFlags: DWORD, lpThreadId: LPDWORD): HANDLE {.winapi, stdcall, dynlib: "kernel32", importc.}`
 
-### Peeking under the Hood
+### Peeking Under the Hood
 
 What is going on under the hood is quite interesting. If we inspect the executable's IAT we see
 there are no static imports for OpenProcess, VirualAllocEx, WriteProcessMemory, and CreateRemoteThread.
