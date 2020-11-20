@@ -80,6 +80,8 @@ to embed the source code as comments in the generated output. For compilation:
 nim c --run --hints:on --d:release --embedsrc:on inject.nim
 ```
 
+Snippet of generated C source code that performs injection:
+
 ![Inject_Snippet](./images/snippet_inject.png)
 
 Here we can inspect what our function calls are doing under the hood, the
@@ -185,7 +187,7 @@ feel free to read the [project's documentation](https://github.com/MythicAgents/
 
 ### Obfuscation
 
-With Nim there are ample opportunities throughout the development cycle to introduce obfuscation.
+With Nim, there are ample opportunities throughout the development cycle to introduce obfuscation.
 Three key areas that I will highlight are:
 
 **Note: Of course these aren't the only forms of obfuscation you can do just a small subset.**
