@@ -9,10 +9,10 @@ secret: false
 
 ### Introduction
 
-When creating an implant what language first comes to mind? Of course the answer is it depends;
+When creating an implant what language first comes to mind? Of course, the answer is it depends;
 however, typically it is one of the following languages: C, C++, C#, Rust, Go, maybe even Python.
 While those languages are all dandy, they are not the only programming languages that exist.
-Throughout this series I will be exploring different languages and seeing what
+Throughout this series, I will be exploring different languages and seeing what
 they bring to the table for implant & offensive tool development.
 The first language that will be examined is [Nim](https://nim-lang.org/).
 
@@ -131,7 +131,7 @@ Let's run it and make sure our crt injector proc is executed properly.
 
 ### Embedding NimScript with Nimscripter
 
-Within Nim there is an evolving scripting language known as NimScript.
+Within Nim, there is an evolving scripting language known as NimScript.
 In the NimScript [documentation](https://nim-lang.org/docs/nims.html) it is defined as,
 "the subset of Nim that can be evaluated by Nim's built-in virtual machine (VM)."
 NimScript is typically used as a configuration language in a devops role for example to run tests and build projects.
@@ -148,7 +148,7 @@ it's not always ideal to statically embed everything. Instead leaning towards a 
 implant that can dynamically resolve commands within memory so even if an analyst
 obtains the binary, not everything is revealed.
 
-There are a couple open source projects: ([https://github.com/komerdoor/nim-embedded-nimscript](https://github.com/komerdoor/nim-embedded-nimscript)
+There are already a couple open source projects: ([https://github.com/komerdoor/nim-embedded-nimscript](https://github.com/komerdoor/nim-embedded-nimscript)
 and [https://github.com/Serenitor/embeddedNimscript](https://github.com/Serenitor/embeddedNimscript)) that show how to use
 NimScript as an embedded scripting language.
 
@@ -181,8 +181,8 @@ Sprouting a few weeks later [Nimplant](https://github.com/MythicAgents/Nimplant)
 ![nimplant_logo](./images/nimplant_logo.png)
 
 Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous
-with the agent able to generate both C and C++. Currently it just has basic functionality; however, it will be updated
-over time and become much more sophisticated. If you would like to read more about Nimplant
+with the agent able to generate both C and C++ source code. Currently it just has basic functionality; however, it will be updated
+overtime and become much more sophisticated. If you would like to read more about Nimplant
 feel free to read the [project's documentation](https://github.com/MythicAgents/Nimplant/tree/master/documentation-payload/).
 
 Example Nimplant checkin:
