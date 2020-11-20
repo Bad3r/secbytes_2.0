@@ -1,4 +1,941 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Fri, 20 Nov 2020 09:35:36 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Configuring our Machine for Persistence]]></title><description><![CDATA[CLR Hooking for Persistence via Config Files]]></description><link>https://secbytes.net/Configuring-our-Machine-for-Persistence</link><guid isPermaLink="false">https://secbytes.net/Configuring-our-Machine-for-Persistence</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Mon, 24 Feb 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Fri, 20 Nov 2020 12:21:54 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Implant Roulette Part 1: Nimplant]]></title><description><![CDATA[The first in a new series looking at what Nim brings to the table for red team tool development.]]></description><link>https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</link><guid isPermaLink="false">https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i &lt; sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; target[key] = source[key]; } return target; }
+
+/* @jsx mdx */
+var _frontmatter = {
+  &quot;title&quot;: &quot;Implant Roulette Part 1: Nimplant&quot;,
+  &quot;author&quot;: &quot;NotoriousRebel&quot;,
+  &quot;date&quot;: &quot;2020-11-20T00:00:00.000Z&quot;,
+  &quot;hero&quot;: &quot;./images/test.jpg&quot;,
+  &quot;excerpt&quot;: &quot;The first in a new series looking at what Nim brings to the table for red team tool development.&quot;,
+  &quot;secret&quot;: false
+};
+
+var makeShortcode = function makeShortcode(name) {
+  return function MDXDefaultShortcode(props) {
+    console.warn(&quot;Component &quot; + name + &quot; was not imported, exported, or provided by MDXProvider as global scope&quot;);
+    return mdx(&quot;div&quot;, props);
+  };
+};
+
+var layoutProps = {
+  _frontmatter: _frontmatter
+};
+var MDXLayout = &quot;wrapper&quot;;
+return function MDXContent(_ref) {
+  var components = _ref.components,
+      props = _objectWithoutProperties(_ref, [&quot;components&quot;]);
+
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: &quot;MDXLayout&quot;
+  }), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;introduction&quot;
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;When creating an implant what language first comes to mind? Of course the answer is it depends;\nhowever, typically it is one of the following languages: C, C++, C#, Rust, Go, maybe even Python.\nWhile those languages are all dandy, they are not the only programming languages that exist.\nThroughout this series I will be exploring different languages and seeing what\nthey bring to the table for implant &amp; offensive tool development.\nThe first language that will be examined is &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nim&quot;), &quot;.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;what-is-nim&quot;
+  }, &quot;What is Nim&quot;), mdx(&quot;p&quot;, null, &quot;If we visit &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/nim-lang/Nim&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nim\u2019s Github page&quot;), &quot; there is a concise definition of what Nim is,\n\u201CNim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula.\u201D\nSome of the \u201Cbig\u201D benefits of Nim are:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;* Cross-Platform: Generated executables support Windows, Linux, BSD, and macOS.\n* Nim can compile to C, C++, Objective-C, and JavaScript.\n* Nim binaries are small and the compiler toolchain allows for a lot of optimizations\n* Nim can interface with other languages through Nim&apos;s foreign function interface (FFI) [1]\n* Nim syntax is very quick to pick up and is reminiscent of Python.\n&quot;)), mdx(&quot;p&quot;, null, &quot;[1]&quot;, &quot;: &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;)), mdx(&quot;p&quot;, null, &quot;Of course, these aren\u2019t the only benefits of the language, more will reveal themself as time goes on.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;a-simple-injector&quot;
+  }, &quot;A Simple Injector&quot;), mdx(&quot;p&quot;, null, &quot;Let\u2019s get hands-on with Nim and see how to develop a simple injector.\nBelow is an implementation of a typical CreateRemoteThread injector:\nInstead of having to manually interop with the Windows API via the FFI there\nare &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/nim-lang/nimble&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nimble&quot;), &quot; packages that contain some Windows API\ndefinitions. The one I tend to use is &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/khchen/winim&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Winim&quot;), &quot;.\nWinim can also &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://khchen.github.io/winim/com.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;interop with COM&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;2216px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;31.768953068592054%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAABWklEQVQY042R20oCURiFN2VRaDZOIal4KCoRM61ILU3TCc8QYilYL5F1XUpXKdFlvVCBKB0IghhzRpoXKB9g9YtCh6suPta//s1erM1mn90uFEWBKMsQ3yS02jJaUoeQ/w/dkd8VfFAWE8U2XEIO3GoMOk8GWncaamccmqUEJlzJH/z1fbTLKYw7YrAG83h+eQVrPjyB98Rg9CVgiBxi0pOCalHA0FwUzBwkAmAWUmuIdOvb92YrYaO9KUAF4rirN8Ea948UmIA5nIU5VIRpu0jBRVi8+5jx7UG/lqRdAYZQAdPUnnNmoHbEobLvYHg+CtWCADYbBr+Sxm29QQ0pcMQehWZ9FzwF6ShQG8hT0zg4fw48eT5ygKmNLDh3EmOuNL2A2tvCYAY/mHETTO/FqF3oB0qdDiqX1yiVazip1HBc7lHt61n1tx/sSj1OLwbnVRzRfH51Q58j4Qt2SATIZ8GE0gAAAABJRU5ErkJggg==&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/c9d6d68b96f6495705555553bc886dba/59273/crt_injector.webp 2216w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 2216px) 100vw, 2216px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/c9d6d68b96f6495705555553bc886dba/fa827/crt_injector.png 2216w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 2216px) 100vw, 2216px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/c9d6d68b96f6495705555553bc886dba/fa827/crt_injector.png&quot;,
+    &quot;alt&quot;: &quot;crt_injector&quot;,
+    &quot;title&quot;: &quot;crt_injector&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Let\u2019s compile, run the program,&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;nim c --run crtinjection.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;and make sure everything works. By default when you compile Nim code it generates\nC code. In the latter section \u201CIntegrating into Existing Tooling\u201D verification shall\nensue.&quot;), mdx(&quot;p&quot;, null, &quot;As an aside, if you do not want to use 3rd party packages that is fine if you examine\nwhat Winim does under the hood for example when &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;calling CreateRemoteThread&quot;), &quot;.\nIt is simply importing the function for us as denoted by the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/manual.html#foreign-function-interface-importc-pragma&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;importc pragma&quot;), &quot;\nas that allows us to import a proc or a variable from C. Also, available for importing\nfrom foreign languages are: &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;.importc&quot;), &quot;, &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;.importobjc&quot;), &quot;, and &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;importjs&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;CreateRemoteThread proc:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;proc CreateRemoteThread*(hProcess: HANDLE, lpThreadAttributes: LPSECURITY_ATTRIBUTES, dwStackSize: SIZE_T, lpStartAddress: LPTHREAD_START_ROUTINE, lpParameter: LPVOID, dwCreationFlags: DWORD, lpThreadId: LPDWORD): HANDLE {.winapi, stdcall, dynlib: \&quot;kernel32\&quot;, importc.}&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;peaking-under-the-hood&quot;
+  }, &quot;Peaking under the Hood&quot;), mdx(&quot;p&quot;, null, &quot;What is going on under the hood is quite interesting. If we inspect the executable\u2019s IAT we see\nthere are no static imports for OpenProcess, VirualAllocEx, WriteProcessMemory, and CreateRemoteThread.\nThat is because Nim is dynamically loading the required libraries with LoadLibraryA and GetProcAddress.\nFurthermore, when compiled Nim will place the source code of the language you are targeting in a folder\ncalled nimcache. You can also specify the nimcache path for generated files with the compiler flag\n&quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;--nimcache:PATH&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Below is a snippet of generated code for inject.nim\nTo make this easier to read I have compiled the program with an additional flag &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;--embedsrc:on&quot;), &quot; this flag tells the Nim compiler\nto embed the source code as comments in the generated output. For compilation:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;nim c --run --hints:on --d:release --embedsrc:on inject.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;Snippet of generated C source code that performs injection:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1081px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;76.87326549491212%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABJ0AAASdAHeZh94AAACBElEQVQ4y5VT6Y6bMBjMeyRggy98cqNWff/nmg5ONkpX2W37Y2Rjwfibg4uwA1JKOI4dx76g5IwYAiLP3ODQNA3atv1nXIRx6KxB3GZo7yCNrs9d1/8X0QvhAOUs7Dyh9wNaZyDdSShxvV5xu97qeqK5NU/cKm4V9ay549KS0JFw2RYkkua5wAYPR9lDGBBSQMoRMQf0pofUHVfC9lAPSC0helFxOT3URiFvCbZ4hNUj7vTwiHymv3vE+KsgTZHvcXLCcoDTX8+LT3SqQyvotWgfhLzVjfx4SfDFIcx8ceQH6dyTfA1QnO6U3zxkvuJDbpUsrIfhy4kkhVOWLWNYmTT3PnHipaCshdPpb8No2nsbqoeGqc77iOXYEOmjnjJUorcxwrE+Q6Qdxj7N/yB4V6mLcJzQahJlZEoOExOPPasjWSGBzknuudoOKvTVp1eiz6R3ySRMS8DEAJYfnPTnhHmbMNBDFQyMN1DDCV0JvyJ7ELKHDMWMGm5hejNTXAx01lBRQRdWIxOcWqWe5/dVdOI9Ycs/RWvWZh0xMYyBU9jBMlVC8xLutVU8M1VJnVD8ZULNlDOrcdYl7fTyKIhLZsEthBR/pvmsyFe/HkPRbL4plDhzqvUByrejq0F0XkAymM+dewcShio5MeXCEjuv+cvZKlG7nnvHUHiBo3xrIaX8to+/Ad0QqMNpxI88AAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f871bb711a469344dbd19d321401823a/9de0b/snippet_inject.webp 1081w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1081px) 100vw, 1081px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f871bb711a469344dbd19d321401823a/9a8de/snippet_inject.png 1081w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1081px) 100vw, 1081px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/f871bb711a469344dbd19d321401823a/9a8de/snippet_inject.png&quot;,
+    &quot;alt&quot;: &quot;Inject_Snippet&quot;,
+    &quot;title&quot;: &quot;Inject_Snippet&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Here we can inspect what our function calls are doing under the hood, the\nWindows API calls done by winim rely on the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/dynlib.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;dynlib module&quot;), &quot; to dynamically\ninvoke calls. If we inspect that source code we can see\nthe LoadLibraryA and GetProcAddress combination.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;863px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;38.006952491309384%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABJ0AAASdAHeZh94AAABKUlEQVQoz32SWXKDMBBEuYcRaEdCImKJHTv3v1dnRgaX7VTy8T6okXq6WzQxBHxsZ8yfF5Q5w3oPZTxiDETEOI6YpgmlFAxjhEoBMg4YhqHOEpFzRqYzzjk0Skq4dUO6fiEuC4xRkLInZEUIgdPpVGnbFmKn3Tlmx7xRSiHkGWVbUS5nlGVGoo3sgB1qre9CJPwXXdc9aLyzSDEjjhMGiilpQS8VCSnwMo7BWGuhSFwqXZfwtzHmkUKIXXDwDvl6Q7l+Uw8Zmi8qg0AOnffV5YFz3O9d3NMsUP8s/uyyRrZjRlhn5PNGlww6ctfRZrX3eHTVvvV3VMFCR/yGN8RUqLuFXnutLm1OUOSCo7KTvu9fenrn1SE5sNpC06/SS34A8esln138J8z8AFNT4Pt+ovvZAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/8c2d1836e5e394c3d66dd878af26a70f/754d3/dynlib_code.webp 863w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 863px) 100vw, 863px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/8c2d1836e5e394c3d66dd878af26a70f/e3d9b/dynlib_code.png 863w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 863px) 100vw, 863px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/8c2d1836e5e394c3d66dd878af26a70f/e3d9b/dynlib_code.png&quot;,
+    &quot;alt&quot;: &quot;dynlib_code&quot;,
+    &quot;title&quot;: &quot;dynlib_code&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;nim-and-donut&quot;
+  }, &quot;Nim and Donut&quot;), mdx(&quot;p&quot;, null, &quot;Coming from C# one of my favorite tools for crafting payloads is &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/theWover/Donut&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Donut&quot;), &quot;.\nOne of the great features with Donut is that it not only works with .NET assemblies but also with native DLLs\nand executables. Since Nim can generate both C and C++ source code and link it to a native executable or DLL\nDonut is an amazing utility that can transform our output to shellcode.\nSince shellcode is language-agnostic we can easily integrate it into other tooling.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;integrating-into-existing-tooling&quot;
+  }, &quot;Integrating into Existing Tooling&quot;), mdx(&quot;p&quot;, null, &quot;With shellcode you can easily integrate it into your own custom injectors in the language of your choice.\nOf course since these are native executables and DLL\u2019s we can also perform manually mapping and load them into memory.\nComing from C# my goto tools to perform the manual mapping are &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/Dewera/Lunar&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Lunar&quot;), &quot;\nand the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/cobbr/SharpSploit/tree/master/SharpSploit/Execution/DynamicInvoke&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;D/Invoke tooling in SharpSploit&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Let\u2019s compile the injector code as a DLL and export an inject function.\nTo export the function we need to tell Nim to export it by adding the\nfollowing pragmas: &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;exportc, dynlib, and cdecl. or stdcall.&quot;), &quot;\nThe resulting inject proc is as follows:\n&quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;proc inject(pid: int): bool {.stdcall, exportc, dynlib.} = &quot;), &quot; &quot;, mdx(&quot;br&quot;, null), &quot;\nLet\u2019s compile the DLL as follows:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;nim c --d:release --app:lib --opt:size --inject.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;With the DLL let\u2019s manually map it using SharpSploit\u2019s D/Invoke tooling.\nIf you specifically just want the D/Invoke part you can also use the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/TheWover/DInvoke&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;repository&quot;), &quot;\nor &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://www.nuget.org/packages/DInvoke/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;nuget package&quot;), &quot; for solely D/Invoke.&quot;), mdx(&quot;p&quot;, null, &quot;Manual Map Code:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1340px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;41.940298507462686%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABJ0AAASdAHeZh94AAABLklEQVQoz42RSZLCMAxFcxJI6AyGxBk8JDZ2RmDL/W/zW+kUdDcLisUv2WXrSV8KilMNbz2Yu4PpK5LK48A0okw+Fabi3/2dguSoICuJWF5waGZEucU+rrFPGpJ4wj6FBiFTYLmCEQod56iqFrWecao9jtUZX1TwFfYOHkQEjClJ8Aay0RDSIm8c0kKT9Q0WpvQ5/dDymhRRUtc6tP0N53lCNzq43kDZCXHeIswIyjb7OxrFLt70GMlfBVsXEs6OuA0O1lu42cFPHvpyQ0sFpBthhhndsECbAcbQm+lRNgYJFTywlw5XsqVuxukK5Rd0/UKQCVxb1KJFwSV4bVHKAVx4VGpAQTErNXghccwlWHkG43YDrkoKg7ykeJLYZ9vQH5Vfba2OHufoZ0G/S/oG1YL1KGbJiuQAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f19f9f651aaf612e5aedd6cb03cebbdd/b1ef5/dinvoke_nimmanualmapcode.webp 1340w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1340px) 100vw, 1340px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/f19f9f651aaf612e5aedd6cb03cebbdd/77a0f/dinvoke_nimmanualmapcode.png 1340w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1340px) 100vw, 1340px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/f19f9f651aaf612e5aedd6cb03cebbdd/77a0f/dinvoke_nimmanualmapcode.png&quot;,
+    &quot;alt&quot;: &quot;dinvokemanmapcode&quot;,
+    &quot;title&quot;: &quot;dinvokemanmapcode&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Let\u2019s run it and make sure our crt injector proc is executed properly.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1912px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;43.51464435146444%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABJ0AAASdAHeZh94AAABcElEQVQoz52Qy2rCQBSGx268YRKFEkEXMRV1YZoYg7aUIoIX2oUUurGokBcQL7hLfCy7ERR14buIbosl6l8zWhG6qHjg4zCcj3/ODHl6ziOtZZBMypAkBbKsIqWkkck8IJt9hKZloezPqVSadnuu7X1FUal/f39AkmSoqgZyF40ikYhDEATwPA+GYeD1euFyueB2u2l3Op0Uj8cDjuPAsiz1zvH5fIdAPhikQbYoKwp6vR6azSZardaJdrtNe6fTgWEYFNM0KYZhot/vo9vtIpfLgwiRCERRpLc3Gg1cW+v1GpXKG0ggEIDf7wchBPV6nQ4ty6JsNpt/sT27FosFisUyCMux9P3ngdvtFrvd7iJs167VaoVCoQTCMPsPPgbWarXThrZ4Cb8bLpdLFEsvILdhEX6WgcNxA13Xr/7Dr28LhXcdJBqNIRaLIxQKo1r9wHw+x3Q6PTL7w2w2w3g8xmQywWg0wnA4pO5g8IlS+RU/m7npTh8aQKEAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/66af0e3621b0f60c4d539a0403723250/713f7/manmapdemo.webp 1912w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1912px) 100vw, 1912px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/66af0e3621b0f60c4d539a0403723250/ff8d2/manmapdemo.png 1912w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1912px) 100vw, 1912px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/66af0e3621b0f60c4d539a0403723250/ff8d2/manmapdemo.png&quot;,
+    &quot;alt&quot;: &quot;manmepdemo&quot;,
+    &quot;title&quot;: &quot;manmepdemo&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;embedding-nimscript-with-nimscripter&quot;
+  }, &quot;Embedding NimScript with Nimscripter&quot;), mdx(&quot;p&quot;, null, &quot;Within Nim there is an evolving scripting language known as NimScript.\nIn the NimScript &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/nims.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;documentation&quot;), &quot; it is defined as,\n\u201Cthe subset of Nim that can be evaluated by Nim\u2019s built-in virtual machine (VM).\u201D\nNimScript is typically used as a configuration language in a devops role for example to run tests and build projects.\nHowever, one of the biggest caveats with NimScript as stated within the documentation,\nNim\u2019s &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;FFI (foreign function interface)&quot;), &quot; is not available in NimScript.\nThis means that any stdlib module which relies on importc cannot be used in the VM.\u201D\nNim\u2019s FFI is how Nim can call other functions written in other programming languages, which is basically\nNim\u2019s cross-platform version &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;P/Invoke&quot;), &quot;.\nA possible solution is to write the FFI functionality in Nim and expose to NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Does that mean NimScript is not viable? Absolutely not,\nespecially with the slow shift in which especially for implant development\nit\u2019s not always ideal to statically embed everything. Instead leaning towards a lightweight\nimplant that can dynamically resolve commands within memory so even if an analyst\nobtains the binary, not everything is revealed.&quot;), mdx(&quot;p&quot;, null, &quot;There are a couple open source projects: (&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/komerdoor/nim-embedded-nimscript&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://github.com/komerdoor/nim-embedded-nimscript&quot;), &quot;\nand &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/Serenitor/embeddedNimscript&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://github.com/Serenitor/embeddedNimscript&quot;), &quot;) that show how to use\nNimScript as an embedded scripting language.&quot;), mdx(&quot;p&quot;, null, &quot;However, those repositories while noble do not easily allow the user to expose Nim code to NimScript and\nmuch more simplistic.\nLuckily, a new repository known as &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/beef331/nimscripter&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nimscripter&quot;), &quot; allows for easy interoperability between Nim and NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Below is an example in which the FFI specific code to call &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;MessageBoxA&quot;), &quot; is exposed to NimScript allowing\nus to pass in a string of NimScript to invoke the Nim proc.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;2216px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;55.05415162454873%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAACKklEQVQoz5VRWW8SURidGfYywgCmpk0tdmEZGNayFRgsULZhCVSj8cV/6O6bRqOxKhYFl5hotZBIij5qf8DxY2nksT6cnO+e+91zv4X5c3KC4XCIb/0+Dr/3iQf/j6MBBj+G+E1ezNfDI/hyezBvlSGE6jD5KzjnOztMfgUGsQh7+ho+fv4C5qD7HmupCmzbLZgSV8BcyoC5mAazKs9AsX3GqzPdLs/dE5aT4KUSXrY7ZPiuh6V4FUvJFi6krsOyfRXWQBHWWBPmaBNCkKqItSCEa7CEFOqkASG+NwHvKcBIRpyrAIE6228fTA1tkTps8QZsCaqSTPhABRpqQ+0uQE3JEyaonLtgN7JgNrNgN3Ng1y+Do5ixZ2A+NXxLLWsp0ezPY025icXMDfC+EvhQFXy4DiPNiQ8qMNJ8Dd4SVI4cVBs7xFlwjjx9kgezvgMhoGD/NRl2uj0seIo4H8pjMVKFzqtM4cpD7ylDRw/0FGvF8kQzSLSEMdMbnbcCvVSBWizBGqqR4ZtpyyvJGkxbNegDBXCeFBhnmjgNlZQCK8rgvHR2pyfMiqS5ZQKdxTFoKWuZaYWnMxSiVEFEhjYmQxOWofJQEj1gvWTuos2KMyaNccrT2EFMn3PSWEvCFC7ixSsy7H34hJVEA+ZgCZYobZBmZ5GKMLh3qVXCPM9jpi2IBWhonsvxJtqdLpjRz1949OQZbt198A/3HuL2/bPhzpgp//HT5zgejfAXOSuzh9TdhPsAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a0329212717d301eda283a791eda6fc5/59273/nimscript_embeddedmessage.webp 2216w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 2216px) 100vw, 2216px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/a0329212717d301eda283a791eda6fc5/fa827/nimscript_embeddedmessage.png 2216w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 2216px) 100vw, 2216px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/a0329212717d301eda283a791eda6fc5/fa827/nimscript_embeddedmessage.png&quot;,
+    &quot;alt&quot;: &quot;nimscript_embeddedmessage&quot;,
+    &quot;title&quot;: &quot;nimscript_embeddedmessage&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;In a nutshell, what is happening under the hood is the\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;script is loaded&quot;), &quot; and the main body is evaluated which allows us to access symbols it exposes.\nA small caveat is that you need to include Nim\u2019s stdlib as an external folder; luckily, dependening on what modules\nyou are you using from stdlib you don\u2019t to include it in its entirety.\nIf you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:\n&quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html&quot;), &quot;.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;putting-the-pieces-together&quot;
+  }, &quot;Putting the Pieces Together&quot;), mdx(&quot;p&quot;, null, &quot;While a simple injector is cool let\u2019s see how hard it is to develop an implant\nin Nim. Luckily, just within Nim\u2019s cross-platform &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/lib.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;stdlib&quot;), &quot; is everything needed to create a basic implant\nfrom the FFI for API calls, httpclient for http requests, and stellar json support as a medium for data. The C2 I chose to develop the implant for is &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/its-a-feature/Mythic&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Mythic&quot;), &quot;, Mythic\nis very sophisticated and well structured. Furthermore, implants are essentially plug and play as everything is\ndockerized and your agent just needs to communicate back and forth via certain rest api endpoints.&quot;), mdx(&quot;p&quot;, null, &quot;Sprouting a few weeks later &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/MythicAgents/Nimplant&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;Nimplant&quot;), &quot; is born.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;941px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;71.41339001062698%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAACfElEQVQ4y2NgQAI/fvxgWLVSDcyWLpFheH3MiQkmN2WZHWPQCXcw+8D1JQzfv38HYxCA0RjAdhaEzl0qyBC9ihNs2OFF5oL/7/uLgdhLV3kz5SwxYdxyrYoxY4E/WO3cw/UMeMHMg9IM////B7P/Pw51+P8yoOTSFst64wgpYWR1cy8xMFx6AVF35OoR7IZ5LuBluDPBE8xOXCjZ2T1V6SqQ2appLHp34+Xg550bXHuBfLb///8IwPTc/PAft+uc5rMwgujoAwJS2lUMF2ObfDY394f8n7HO939GifP/tmVO/xed9T1ds8bmY8lq40KQ2qp1xkzR/dHYDZQt5QLTcYtNeBi4GGRvfpgw68f/7v97nnv/bF5n9nv5A8ufdauN/nMCQ6VgsdQBkFrfEgbm5CnJuF0pW80IDMMmsEu791gkbXnk8n/tPYc/8+4Y/J9xw+B/xnylfwHlov+bdximgdQUL1FhhoU5BlCqZQHTVp2SDG5dDOBYDp8qvbhkq/z/+r3qjwrWa7WU7DCwn3LN0R+mp/pAHG7XGZYbwdmpi5TBpucu0w8Lm6Daja4W5KjIGZB01rKqBbuBX758AZKiDCHTeMBelglh8E2fqb29YYPZUukgBh+YuqJNmiziDBBvpi+yZPj27RtuV4Ysg6cIxsxtolez90v+j1gq8T9xu8D/0hNSOwMWiYqDJGM3iYAtxWsYyIUhmzjACq0nc/OlHGU/nHiI/aH1TL60+AMcm+J2cR8JWyojCw7bNcKMMMNwGgrxMjCBLxSECCjwcTJ4Swqhq8vdoYfiOryuzDoDoa1nMcLF3JawMudcZWBKP83AFL8R7ECGoE0MWA0DABlO+pUZ8BlOAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3125a933e063ab22da800b151f09b486/93ed2/nimplant_logo.webp 941w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 941px) 100vw, 941px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/3125a933e063ab22da800b151f09b486/a048d/nimplant_logo.png 941w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 941px) 100vw, 941px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/3125a933e063ab22da800b151f09b486/a048d/nimplant_logo.png&quot;,
+    &quot;alt&quot;: &quot;nimplant_logo&quot;,
+    &quot;title&quot;: &quot;nimplant_logo&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous\nwith the agent able to generate both C and C++. Currently it just has basic functionality; however, it will be updated\nover time and become much more sophisticated. If you would like to read more about Nimplant\nfeel free to read the &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/MythicAgents/Nimplant/tree/master/documentation-payload/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;project\u2019s documentation&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Example Nimplant checkin:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;1886px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;27.73064687168611%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABJ0AAASdAHeZh94AAAA1UlEQVQY06XQuY7CMBQFUH8MhMXOBraT2EGELSRsDRKCAjIwQD3/39wxjiJ6KI7etd+TvBAeZWC+QJ8FoCy0tUd9i7ohmDewmvzqvyoXCl7ALdcbgrkD+IEA2Z/+sChvmFtXK80OSCdHzIor8tUv8vXd5nL7MOsbJvkFhcnF9m7mfzDNK7NXodw9QWQ0MqdpyHiMRM9q6i1OpjVVa2ZsVu/5pkeWqzPKTQWtC7TaHbSd3hf65oZJBj9U5g84nA6F06V1/USXgQipMOSxeXYCIfVXZJTiH3lnxG4iaMWNAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/5ae0ab5e6ae6720c5cd26a95d1d8122b/c3fdc/nimplant_demo.webp 1886w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1886px) 100vw, 1886px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/5ae0ab5e6ae6720c5cd26a95d1d8122b/a6ea6/nimplant_demo.png 1886w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 1886px) 100vw, 1886px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/5ae0ab5e6ae6720c5cd26a95d1d8122b/a6ea6/nimplant_demo.png&quot;,
+    &quot;alt&quot;: &quot;nimplant_demo&quot;,
+    &quot;title&quot;: &quot;nimplant_demo&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;obfuscation&quot;
+  }, &quot;Obfuscation&quot;), mdx(&quot;p&quot;, null, &quot;With Nim, there are ample opportunities throughout the development cycle to introduce obfuscation.\nThree key areas that I will highlight are:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;Note: Of course these aren\u2019t the only forms of obfuscation you can do just a small subset.&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;1. Code Obfuscation&quot;)), mdx(&quot;p&quot;, null, &quot;With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages\nyou can utilize are: &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/Yardanico/nim-strenc&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;nim-strenc&quot;), &quot; and &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/Yardanico/nuglifier&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;nuglifier&quot;), &quot;.\nLet\u2019s just apply nim-strenc to the string literal and view the resulting C file in\nour Nimcache.&quot;), mdx(&quot;p&quot;, null, &quot;Before:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;491px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;52.54582484725051%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAACD0lEQVQoz43TT0jTYRzH8SedDgkSitCmRNkMaqFO+7OZc5sF6SVnYQwkxJyBYGQHy5LEe537c65rHTMhu5bd0mTqNt2/It3m9vvtj3V69/w2D4qSHl48Dzyf74fv5RGZbBZFTZNMKVKKdU1ynzbz2rzWk83lEClFIZfLsrGRI6OqkkImndoHhWxG5e+fnJzPkFLUfKlIp1Vev3lH79AY/Y8mcA+P4x56ivveFkPju+q5P8HNwTFevX2PoqTypSKZTNDtGaWqwsQxexPCeB5RfhFxRDq8SbsfvbBT5SVEmYmuu6Mk4mvEE+uIX9Ew3YOPKaqxcvBcO2VnOig1t6BvaEXfaEPfZKO0rpXi2jaKjduVnL6KqGqW80+IhIOsxmKI4HIA18AIFa0uKp230Nc7KGm0oqu7jK5eMjdTbGpB1Nglx5bTQZHRKbe04PKMEPD7+L26hlgJ+GThQ8rtPVRf60V31smBk5q2ghOFs+iUcwdd7ZX8hl2y0O9blIWriHBomfbbw4hDDYjjNoRBbmNozge3MeyiWmbLzXT0PmBl2V/YMBIOMf7sBZbOfmw3BrB29mG93oflP7R3a+edQt7lYeL5S0KhILF4XBZGoywsePk285XP05+Ymprk4+SHPWm5aZmfmfnCgtdLJPoz/zFEPJEgHImwuLTEj/l5Zufm+D47uzeZ0/LanDav9ajpNP8AIEE2a58SK0wAAAAASUVORK5CYII=&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/6b91405cb049764789b3dcaa914603d8/c97db/hello_world_basic.webp 491w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 491px) 100vw, 491px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/6b91405cb049764789b3dcaa914603d8/e4370/hello_world_basic.png 491w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 491px) 100vw, 491px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/6b91405cb049764789b3dcaa914603d8/e4370/hello_world_basic.png&quot;,
+    &quot;alt&quot;: &quot;beforenimhello&quot;,
+    &quot;title&quot;: &quot;beforenimhello&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;After:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
+    &quot;style&quot;: {
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;display&quot;: &quot;block&quot;,
+      &quot;marginLeft&quot;: &quot;auto&quot;,
+      &quot;marginRight&quot;: &quot;auto&quot;,
+      &quot;maxWidth&quot;: &quot;491px&quot;
+    }
+  }), &quot;\n      &quot;, mdx(&quot;span&quot;, _extends({
+    parentName: &quot;span&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-background-image&quot;,
+    &quot;style&quot;: {
+      &quot;paddingBottom&quot;: &quot;56.211812627291245%&quot;,
+      &quot;position&quot;: &quot;relative&quot;,
+      &quot;bottom&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;,
+      &quot;backgroundImage&quot;: &quot;url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAACCklEQVQoz42Sy08TURSHb0VBYyoSo1hMSqBV4gMiaFoobelDQ60GAhETEGOURAQT0MStSxeuXbjQiI9oNEb9F3yuwRkMUza2kthOabEtlu3nvcVHIiosvpyTmXO++5uHKC4t8a1YpLC4SKFQIFfIk8uvnbzcUbvKoVxCNXl542suR3I+Q+qLiZlKYZqrk06bZLMZcnJXyZVLqCYjL167cYu+M6N0XxonODhGqF8yMEaw/0f/F46cvkz7yRGuXr+5LJYukclmic99Jtx7Ebu9ic1eF2KXZNthRLWsO92y/oOaNoS1iUMnhpiTDuUSZjpNLGbgOzVKZUsIW3MEa3MXOwIDbDpwDEtdgDJniHXO4Ao27AnLwz14eodLDuUSKdNE13X8fcPsPRrF5u3G6upkSzjARrePcpebcncrlgY/QspFfccvlFTY2nB1DTE9rZOULpGUH0DXPsiEI1RHzlPV3kPZPi/C4cPi6MCyW+KU1AdWoJKLGk9JqOsaylVK+FHaW3suIPZHqGiMImplArtMVOtfrj/7P6mTc9tdtBw/9zuheu7Z2RjRs1dY7wiwtTFC5RqpOhiloiFM5+B4yWGm5xHZhQXi8Tiv377n6fOX3Hv4mDsT97l99/+omYkHj3jy7AWv3rzjk3Qol1B/ukqZSCQwDANN05iammRyFdSMJt+9YcwQl7vKoVzfAbTHMvkCHoYdAAAAAElFTkSuQmCC&apos;)&quot;,
+      &quot;backgroundSize&quot;: &quot;cover&quot;,
+      &quot;display&quot;: &quot;block&quot;
+    }
+  })), &quot;\n  &quot;, mdx(&quot;picture&quot;, {
+    parentName: &quot;span&quot;
+  }, &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/c282e87fe02cf7ca70c23d2ec7127c68/c97db/strenc_hello_world.webp 491w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 491px) 100vw, 491px&quot;,
+    &quot;type&quot;: &quot;image/webp&quot;
+  })), &quot;\n        &quot;, mdx(&quot;source&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;srcSet&quot;: [&quot;/static/c282e87fe02cf7ca70c23d2ec7127c68/e4370/strenc_hello_world.png 491w&quot;],
+    &quot;sizes&quot;: &quot;(max-width: 491px) 100vw, 491px&quot;,
+    &quot;type&quot;: &quot;image/png&quot;
+  })), &quot;\n        &quot;, mdx(&quot;img&quot;, _extends({
+    parentName: &quot;picture&quot;
+  }, {
+    &quot;className&quot;: &quot;gatsby-resp-image-image&quot;,
+    &quot;src&quot;: &quot;/static/c282e87fe02cf7ca70c23d2ec7127c68/e4370/strenc_hello_world.png&quot;,
+    &quot;alt&quot;: &quot;afternimhellostrenc&quot;,
+    &quot;title&quot;: &quot;afternimhellostrenc&quot;,
+    &quot;loading&quot;: &quot;lazy&quot;,
+    &quot;style&quot;: {
+      &quot;width&quot;: &quot;100%&quot;,
+      &quot;height&quot;: &quot;100%&quot;,
+      &quot;margin&quot;: &quot;0&quot;,
+      &quot;verticalAlign&quot;: &quot;middle&quot;,
+      &quot;position&quot;: &quot;absolute&quot;,
+      &quot;top&quot;: &quot;0&quot;,
+      &quot;left&quot;: &quot;0&quot;
+    }
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;When compiling the creator of strenc recommends turning hints off and stripping the binary so we shall do that.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {}), &quot;nim c --run --hints:off --d:release --passL:-s\n&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;--passL&quot;), &quot; will pass an option to the linker and we are passing &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;-s&quot;), &quot; to the GCC linker to perform stripping.\nWithin the Nimcache folder, go to hello_r and view the file &quot;, mdx(&quot;inlineCode&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;@mhello.nim.c&quot;), &quot;.\nInside that file we can see both string literals after they have been xor encrypted:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+    parentName: &quot;pre&quot;
+  }, {
+    &quot;className&quot;: &quot;language-c&quot;
+  }), &quot;STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_3, \&quot;\\207\\251\\241\\236\\234\\320\\246\\231\\205\\230\\221\\333\&quot;, 12);\nSTRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_4, \&quot;\\360\\275\\246\&quot;, 3);\n&quot;)), mdx(&quot;p&quot;, null, &quot;With nim-strenc if you look at the codebase it\u2019s less than 30 lines.\nIt\u2019s applying a compile-time macro that xor encrypts\nevery string literal. For more information about compile-time macros\nand how they can be leveraged for obfuscation read this &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;forum post&quot;), &quot; (you will most likely need Google Translate for it.)&quot;), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;2. LLVM Obfuscation&quot;)), mdx(&quot;p&quot;, null, &quot;For more in-depth obfuscation LLVM obfuscation can be utilized.\nThere are two routes you can down as&quot;), mdx(&quot;p&quot;, null, &quot;The easier of the two routes is to use &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/arnetheduck/nlvm&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;nlvm&quot;), &quot;\nto generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind\nwhen trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation\nwith tools such as &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/emc2314/YANSOllvm&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;YANSOllvm&quot;), &quot; and &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/thebabush/dumb-obfuscator&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;dumb-obfuscator&quot;), &quot;.\nA note with YANSOllvm is that since it is in-tree obfuscation passes\nand does deeper changes you will need to build the entire &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://llvm.org/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;LLVM framework&quot;), &quot; which\nmay take upwards of an hour.&quot;), mdx(&quot;p&quot;, null, &quot;The other route is to take the generated C/C++ code transform to IR such as with clang\nand perform the in-tree or out-of-tree obfuscation and then link it all back together.\nDepending on the complexity of your program you may end up working with multiple files\nand have to make sure it\u2019s properly linked.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+    parentName: &quot;p&quot;
+  }, &quot;I will leave this to the reader to experiment with&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;3. IAT Manipulation&quot;)), mdx(&quot;p&quot;, null, &quot;If we throw the executable into a PE analyzer such as pe-studio or PE-bear we can see some imports\nthat could raise some flags for static analysis. Especially the following imports:\n\u201CLoadLibraryA and GetProcAddress\u201D, to help bypass static analysis we can use tools\nsuch as &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/d35ha/CallObfuscator&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;CallObfuscator&quot;), &quot;. For example,\nyou can manipulate the IAT so the thunk that points to LoadLibraryA will point to\nNotLoadLibrarayA and the thunk for GetProcAddress to NotGetProcAddress.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;looking-towards-the-future&quot;
+  }, &quot;Looking Towards the Future&quot;), mdx(&quot;p&quot;, null, &quot;While I covered a fair amount of things you can do with Nim, this is far from everything.\nSome things down the road that I plan to research are:&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Nim\u2019s interoperability with Go such as with &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;li&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/stefantalpalaru/golib-nim&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;golib-nim&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Adding more features to Nimplant and making it fully cross-platform with an option to\ncompile to Objective-C for a macOS agent&quot;), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, &quot;Researching &amp; Creating alternative methods for dynamic invocation of Windows APIs without using LoadLibrary and GetProcAddress&quot;)), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;conclusion&quot;
+  }, &quot;Conclusion&quot;), mdx(&quot;p&quot;, null, &quot;Overall, Nim is an interesting language that can jumpstart development without\nhaving to be bogged down by the interwoven intricacies of languages such as C++ and Rust.\nNim is a jumper cable that allows you to be versatile with the benefit of being cross-platform with a minimal\nfinal binary size. Where obfuscation is ripe as well, Nim may slowly rise in popularity\nover the next few years; although, &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://securelist.com/zebrocys-multilanguage-malware-salad&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;APTs are already using it&quot;), &quot;.\nAll code snippets except for the strenc and auto-generated C code can be found &quot;, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://github.com/NotoriousRebel/NimbleMusings&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;here&quot;), &quot;.&quot;), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;special-thanks&quot;
+  }, &quot;Special Thanks&quot;), mdx(&quot;p&quot;, null, &quot;This post wouldn\u2019t be possible without the help of a few amazing people.&quot;), mdx(&quot;ul&quot;, null, mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.https://twitter.com/bohops&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@bohops&quot;), &quot;\nThank you for the motivation and for providing interesting insights\nto fuel implant development as well as Nim tradecraft.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/TheRealWover&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@theWover&quot;), &quot;\nThank you for inspiring Nimplant and for some amazing talks\nbouncing some really fun ideas to advance Nim tradecraft.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/its_a_feature_&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@its_a_feature&quot;, &quot;_&quot;), &quot;\nThank you for all the help with Nimplant\u2019s development, answering\nany question along the way and helping with late-night debugging sessions.&quot;))), mdx(&quot;h3&quot;, {
+    &quot;id&quot;: &quot;references&quot;
+  }, &quot;References&quot;), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/manual.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://nim-lang.org/docs/manual.html&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://nim-lang.org/docs/nims.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://nim-lang.org/docs/nims.html&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://thewover.github.io/Dynamic-Invoke/&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;https://thewover.github.io/Dynamic-Invoke/&quot;)));
+}
+;
+MDXContent.isMDXComponent = true;</content:encoded></item><item><title><![CDATA[Configuring our Machine for Persistence]]></title><description><![CDATA[CLR Hooking for Persistence via Config Files]]></description><link>https://secbytes.net/Configuring-our-Machine-for-Persistence</link><guid isPermaLink="false">https://secbytes.net/Configuring-our-Machine-for-Persistence</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Mon, 24 Feb 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
