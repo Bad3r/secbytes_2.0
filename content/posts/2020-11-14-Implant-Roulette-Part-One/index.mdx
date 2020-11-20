@@ -39,10 +39,11 @@ Below is an implementation of a typical CreateRemoteThread injector:
 Instead of having to manually interop with the Windows API via the FFI there
 are [Nimble](https://github.com/nim-lang/nimble) packages that contain some Windows API
 definitions. The one I tend to use is [Winim](https://github.com/khchen/winim).
+Winim can also [interop with COM](https://khchen.github.io/winim/com.html).
 
 ![crt_injector](./images/crt_injector.png)
 
-Let's compile and run the program
+Let's compile, run the program,
 
 ```
 nim c --run crtinjection.nim
@@ -51,6 +52,16 @@ nim c --run crtinjection.nim
 and make sure everything works. By default when you compile Nim code it generates
 C code. In the latter section "Integrating into Existing Tooling" verification shall
 ensue.
+
+As an aside, if you do not want to use 3rd party packages that is fine if you examine
+what Winim does under the hood for example when [calling CreateRemoteThread](https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942).
+It is simply importing the function for us as denoted by the [importc pragma](https://nim-lang.org/docs/manual.html#foreign-function-interface-importc-pragma)
+as that allows us to import a proc or a variable from C. Also, available for importing
+from foreign languages are: `.importc`, `.importobjc`, and `importjs`.
+
+CreateRemoteThread proc:
+
+`proc CreateRemoteThread*(hProcess: HANDLE, lpThreadAttributes: LPSECURITY_ATTRIBUTES, dwStackSize: SIZE_T, lpStartAddress: LPTHREAD_START_ROUTINE, lpParameter: LPVOID, dwCreationFlags: DWORD, lpThreadId: LPDWORD): HANDLE {.winapi, stdcall, dynlib: "kernel32", importc.}`
 
 ### Peaking under the Hood
 
@@ -150,13 +161,16 @@ us to pass in a string of NimScript to invoke the Nim proc.
 
 In a nutshell, what is happening under the hood is the
 [script is loaded](https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140) and the main body is evaluated which allows us to access symbols it exposes.
+A small caveat is that you need to include Nim's stdlib as an external folder; luckily, dependening on what modules
+you are you using from stdlib you don't to include it in its entirety.
 If you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:
 [https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html](https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html).
 
 ### Putting the Pieces Together
 
 While a simple injector is cool let's see how hard it is to develop an implant
-in Nim. The C2 I chose to develop the implant for is [Mythic](https://github.com/its-a-feature/Mythic), Mythic
+in Nim. Luckily, just within Nim's cross-platform [stdlib](https://nim-lang.org/docs/lib.html) is everything needed to create a basic implant
+from the FFI for API calls, httpclient for http requests, and stellar json support as a medium for data. The C2 I chose to develop the implant for is [Mythic](https://github.com/its-a-feature/Mythic), Mythic
 is very sophisticated and well structured. Furthermore, implants are essentially plug and play as everything is
 dockerized and your agent just needs to communicate back and forth via certain rest api endpoints.
 
