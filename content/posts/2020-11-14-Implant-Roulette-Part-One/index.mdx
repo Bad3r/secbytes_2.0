@@ -163,8 +163,8 @@ us to pass in a string of NimScript to invoke the Nim proc.
 
 In a nutshell, what is happening under the hood is the
 [script is loaded](https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140) and the main body is evaluated which allows us to access symbols it exposes.
-A small caveat is that you need to include Nim's stdlib as an external folder; luckily, dependening on what modules
-you are you using from stdlib you don't to include it in its entirety.
+A small caveat is that you need to include Nim's stdlib as an external folder; luckily, depending on what modules
+you are you using from stdlib you may be able to remove some if unused.
 If you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:
 [https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html](https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html).
 
