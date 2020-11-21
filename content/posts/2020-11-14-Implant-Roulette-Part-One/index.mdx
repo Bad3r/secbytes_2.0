@@ -58,7 +58,7 @@ As an aside, if you do not want to use 3rd party packages that is fine if you ex
 what Winim does under the hood for example when [calling CreateRemoteThread](https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942).
 It is simply importing the function for us as denoted by the [importc pragma](https://nim-lang.org/docs/manual.html#foreign-function-interface-importc-pragma)
 as that allows us to import a proc or a variable from C. Also, available for importing
-from foreign languages are: `.importc`, `.importobjc`, and `importjs`.
+from foreign languages are: `.importcpp`, `.importobjc`, and `importjs`.
 
 CreateRemoteThread proc:
 
