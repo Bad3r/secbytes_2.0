@@ -49,7 +49,6 @@ Let's compile, run the program,
 nim c --run crtinjection.nim
 ```
 
-<br />
 and make sure everything works. By default when you compile Nim code it generates
 C code. In the latter section "Integrating into Existing Tooling" verification shall
 ensue.
@@ -81,7 +80,7 @@ to embed the source code as comments in the generated output. For compilation:
 nim c --run --hints:on --d:release --embedsrc:on inject.nim
 ```
 
-Snippet of generated C source code that performs injection:
+A snippet of generated C source code that performs injection:
 
 ![Inject_Snippet](./images/snippet_inject.png)
 
@@ -249,7 +248,7 @@ A note with YANSOllvm is that since it is in-tree obfuscation passes
 and does deeper changes you will need to build the entire [LLVM framework](https://llvm.org/) which
 may take upwards of an hour.
 
-The other route is to take the generated C/C++ code transform to IR such as with clang
+The other route is to take the generated C/C++ code transform it to IR such as with clang
 and perform the in-tree or out-of-tree obfuscation and then link it all back together.
 Depending on the complexity of your program you may end up working with multiple files
 and have to make sure it's properly linked.
