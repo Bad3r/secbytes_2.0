@@ -10,7 +10,7 @@ secret: false
 ### Introduction
 
 When creating an implant what language first comes to mind? Of course, the answer is it depends;
-however, typically it is one of the following languages: C, C++, C#, Rust, Go, maybe even Python.
+however, typically it is one of the following languages: C, C++, C#, Rust, Go, or maybe even Python.
 While those languages are all dandy, they are not the only programming languages that exist.
 Throughout this series, I will be exploring different languages and seeing what
 they bring to the table for implant & offensive tool development.
@@ -18,7 +18,7 @@ The first language that will be examined is [Nim](https://nim-lang.org/).
 
 ### What is Nim
 
-If we visit [Nim's Github page](https://github.com/nim-lang/Nim) there is a concise definition of what Nim is,
+If we visit [Nim's Github page](https://github.com/nim-lang/Nim) there is a concise definition of what Nim is.
 "Nim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula."
 Some of the "big" benefits of Nim are:
 
@@ -30,7 +30,7 @@ Some of the "big" benefits of Nim are:
 
 [1]: [https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend](https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend)
 
-Of course, these aren't the only benefits of the language, more will reveal themself as time goes on.
+Of course, these are not the only benefits of the language. More will reveal themself as time goes on.
 
 ### A Simple Injector
 
@@ -53,7 +53,7 @@ and make sure everything works. By default when you compile Nim code it generate
 C code. In the latter section "Integrating into Existing Tooling" verification shall
 ensue.
 
-As an aside, if you do not want to use 3rd party packages that is fine if you examine
+If you do not want to use third party packages that is fine if you examine
 what Winim does under the hood for example when [calling CreateRemoteThread](https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942).
 It is simply importing the function for us as denoted by the [importc pragma](https://nim-lang.org/docs/manual.html#foreign-function-interface-importc-pragma)
 as that allows us to import a proc or a variable from C. Also, available for importing
@@ -69,12 +69,12 @@ What is going on under the hood is quite interesting. If we inspect the executab
 there are no static imports for OpenProcess, VirualAllocEx, WriteProcessMemory, and CreateRemoteThread.
 That is because Nim is dynamically loading the required libraries with LoadLibraryA and GetProcAddress.
 Furthermore, when compiled Nim will place the source code of the language you are targeting in a folder
-called nimcache. You can also specify the nimcache path for generated files with the compiler flag
+named nimcache. You can also specify the nimcache path for generated files with the compiler flag
 `--nimcache:PATH`.
 
 Below is a snippet of generated code for inject.nim
-To make this easier to read I have compiled the program with an additional flag `--embedsrc:on` this flag tells the Nim compiler
-to embed the source code as comments in the generated output. For compilation:
+To make this easier to read I have compiled the program with an additional flag `--embedsrc:on`.
+This flag tells the Nim compiler to embed the source code as comments in the generated output. For compilation:
 
 ```
 nim c --run --hints:on --d:release --embedsrc:on inject.nim
@@ -84,7 +84,7 @@ A snippet of generated C source code that performs injection:
 
 ![Inject_Snippet](./images/snippet_inject.png)
 
-Here we can inspect what our function calls are doing under the hood, the
+Here we can inspect what our function calls are doing under the hood. The
 Windows API calls done by winim rely on the [dynlib module](https://nim-lang.org/docs/dynlib.html) to dynamically
 invoke calls. If we inspect that source code we can see
 the LoadLibraryA and GetProcAddress combination.
@@ -94,16 +94,16 @@ the LoadLibraryA and GetProcAddress combination.
 ### Nim and Donut
 
 Coming from C# one of my favorite tools for crafting payloads is [Donut](https://github.com/theWover/Donut).
-One of the great features with Donut is that it not only works with .NET assemblies but also with native DLLs
+One of the great features with Donut is that it not only works with .NET assemblies but also works with native DLLs
 and executables. Since Nim can generate both C and C++ source code and link it to a native executable or DLL
-Donut is an amazing utility that can transform our output to shellcode.
+Donut is an amazing utility that can transform our output into shellcode.
 Since shellcode is language-agnostic we can easily integrate it into other tooling.
 
 ### Integrating into Existing Tooling
 
 With shellcode you can easily integrate it into your own custom injectors in the language of your choice.
-Of course since these are native executables and DLL's we can also perform manually mapping and load them into memory.
-Coming from C# my goto tools to perform the manual mapping are [Lunar](https://github.com/Dewera/Lunar)
+Of course, since these are native executables and DLL's we can also perform manual mapping and load them into memory.
+Coming from C# my preferred tools to perform the manual mapping are [Lunar](https://github.com/Dewera/Lunar)
 and the [D/Invoke tooling in SharpSploit](https://github.com/cobbr/SharpSploit/tree/master/SharpSploit/Execution/DynamicInvoke).
 
 Let's compile the injector code as a DLL and export an inject function.
@@ -134,13 +134,13 @@ Let's run it and make sure our crt injector proc is executed properly.
 Within Nim, there is an evolving scripting language known as NimScript.
 In the NimScript [documentation](https://nim-lang.org/docs/nims.html) it is defined as,
 "the subset of Nim that can be evaluated by Nim's built-in virtual machine (VM)."
-NimScript is typically used as a configuration language in a devops role for example to run tests and build projects.
+NimScript is typically used as a configuration language in a devops role. An example would be to run tests and build projects.
 However, one of the biggest caveats with NimScript as stated within the documentation,
-Nim's [FFI (foreign function interface)](https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend) is not available in NimScript.
+Nim's FFI is not available in NimScript.
 This means that any stdlib module which relies on importc cannot be used in the VM."
 Nim's FFI is how Nim can call other functions written in other programming languages, which is basically
 Nim's cross-platform version [P/Invoke](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke).
-A possible solution is to write the FFI functionality in Nim and expose to NimScript.
+A possible solution is to write the FFI functionality in Nim and expose it to NimScript.
 
 Does that mean NimScript is not viable? Absolutely not,
 especially with the slow shift in which especially for implant development
@@ -148,24 +148,25 @@ it's not always ideal to statically embed everything. Instead leaning towards a 
 implant that can dynamically resolve commands within memory so even if an analyst
 obtains the binary, not everything is revealed.
 
-There are already a couple open source projects: ([https://github.com/komerdoor/nim-embedded-nimscript](https://github.com/komerdoor/nim-embedded-nimscript)
-and [https://github.com/Serenitor/embeddedNimscript](https://github.com/Serenitor/embeddedNimscript)) that show how to use
+There are already a couple open source projects that show how to use
 NimScript as an embedded scripting language.
+[https://github.com/komerdoor/nim-embedded-nimscript](https://github.com/komerdoor/nim-embedded-nimscript)
+[https://github.com/Serenitor/embeddedNimscript](https://github.com/Serenitor/embeddedNimscript)
 
 However, those repositories while noble do not easily allow the user to expose Nim code to NimScript and
-is are simplistic.
-Luckily, a new repository known as [Nimscripter](https://github.com/beef331/nimscripter) allows for easy interoperability between Nim and NimScript.
+are simplistic.
+Luckily, a new repository called [Nimscripter](https://github.com/beef331/nimscripter) allows for easy interoperability between Nim and NimScript.
 
-Below is an example in which the FFI specific code to call `MessageBoxA` is exposed to NimScript allowing
-us to pass in a string of NimScript to invoke the Nim proc.
+Below is an example in which the FFI specific code that calls `MessageBoxA` is exposed to NimScript.
+This allows us to pass in a string of NimScript to invoke the Nim proc.
 
 ![nimscript_embeddedmessage](./images/nimscript_embeddedmessage.png)
 
 In a nutshell, what is happening under the hood is the
-[script is loaded](https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140) and the main body is evaluated which allows us to access symbols it exposes.
-A small caveat is that you need to include Nim's stdlib as an external folder; luckily, depending on what modules
-you are you using from stdlib you may be able to remove some if unused.
-If you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:
+[script is loaded](https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140) and the main body is evaluated which allows us to access the symbols it exposes.
+A small caveat is that you need to include Nim's stdlib as an external folder. Luckily, depending on what modules
+you are you using from stdlib you may be able to remove those unused modules.
+If you would like to read more about embedding NimScript as well as learn more about NimScript, I encourage you to check out this wonderful series:
 [https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html](https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html).
 
 ### Putting the Pieces Together
@@ -173,19 +174,19 @@ If you would like to read more about embedding NimScript as well as just learn m
 While a simple injector is cool let's see how hard it is to develop an implant
 in Nim. Luckily, just within Nim's cross-platform [stdlib](https://nim-lang.org/docs/lib.html) is everything needed to create a basic implant
 from the FFI for API calls, httpclient for http requests, and stellar json support as a medium for data. The C2 I chose to develop the implant for is [Mythic](https://github.com/its-a-feature/Mythic), Mythic
-is very sophisticated and well structured. Furthermore, implants are essentially plug and play as everything is
-dockerized and your agent just needs to communicate back and forth via certain rest api endpoints.
+is very sophisticated and well structured. Furthermore, implants are essentially plug and play. Everything is
+dockerized and your agent just needs to communicate back and forth via certain rest API endpoints.
 
-Sprouting a few weeks later [Nimplant](https://github.com/MythicAgents/Nimplant) is born.
+Sprouting a few weeks later, [Nimplant](https://github.com/MythicAgents/Nimplant) is born.
 
 ![nimplant_logo](./images/nimplant_logo.png)
 
-Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous
-with the agent able to generate both C and C++ source code. Currently it just has basic functionality; however, it will be updated
-overtime and become much more sophisticated. If you would like to read more about Nimplant
+Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous.
+The agent is able to generate both C and C++ source code. Currently, it just has basic functionality.
+However, it will be updated over time and become much more sophisticated. If you would like to learn more about Nimplant
 feel free to read the [project's documentation](https://github.com/MythicAgents/Nimplant/tree/master/documentation-payload/).
 
-Example Nimplant checkin:
+Example Nimplant check in:
 
 ![nimplant_demo](./images/nimplant_demo.png)
 
@@ -194,15 +195,15 @@ Example Nimplant checkin:
 With Nim, there are ample opportunities throughout the development cycle to introduce obfuscation.
 Three key areas that I will highlight are:
 
-**Note: Of course these aren't the only forms of obfuscation you can do just a small subset.**
+**Note: These aren not the only forms of obfuscation you can do. They are just a small subset.**
 
 <div>
   <h4>1. Code Obfuscation</h4>
 </div>
 
-With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages
-you can utilize are: [nim-strenc](https://github.com/Yardanico/nim-strenc) and [nuglifier](https://github.com/Yardanico/nuglifier).
-Let's just apply nim-strenc to the string literal and view the resulting C file in
+With Nim opportunities for code obfuscation are ripe. Two quick and easy nimble packages
+you can utilize are [nim-strenc](https://github.com/Yardanico/nim-strenc) and [nuglifier](https://github.com/Yardanico/nuglifier).
+Let's apply nim-strenc to the string literal and view the resulting C file in
 our Nimcache.
 
 Before:
@@ -213,7 +214,7 @@ After:
 
 ![afternimhellostrenc](./images/strenc_hello_world.png)
 
-When compiling the creator of strenc recommends turning hints off and stripping the binary so we shall do that.
+When compiling the creator of nim-strenc recommends turning hints off and stripping the binary so we shall do that.
 
 ```
 nim c --run --hints:off --d:release --passL:-s
@@ -228,7 +229,7 @@ STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_3, "\207\251\241\236\234\320\246\231\2
 STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_4, "\360\275\246", 3);
 ```
 
-With nim-strenc if you look at the codebase it's less than 30 lines.
+With nim-strenc if you look at the codebase it is less than 30 lines.
 It's applying a compile-time macro that xor encrypts
 every string literal. For more information about compile-time macros
 and how they can be leveraged for obfuscation read this [forum post](https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706) (you will most likely need Google Translate for it.)
@@ -241,17 +242,17 @@ For more in-depth obfuscation LLVM obfuscation can be utilized.
 There are two routes you can take:
 
 The easier of the two routes is to use [nlvm](https://github.com/arnetheduck/nlvm)
-to generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind
+to generate the intermediate representation (IR). Although, currently nlvm has some limitations. Keep that in mind
 when trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation
 with tools such as [YANSOllvm](https://github.com/emc2314/YANSOllvm) and [dumb-obfuscator](https://github.com/thebabush/dumb-obfuscator).
-A note with YANSOllvm is that since it is in-tree obfuscation passes
+A note with YANSOllvm, since it uses in-tree obfuscation passes
 and does deeper changes you will need to build the entire [LLVM framework](https://llvm.org/) which
 may take upwards of an hour.
 
-The other route is to take the generated C/C++ code transform it to IR such as with clang
+The other route is to take the generated C/C++ code transform it to IR with clang
 and perform the in-tree or out-of-tree obfuscation and then link it all back together.
 Depending on the complexity of your program you may end up working with multiple files
-and have to make sure it's properly linked.
+and have to make sure they are properly linked.
 
 **I will leave this to the reader to experiment with**
 
@@ -260,7 +261,7 @@ and have to make sure it's properly linked.
 </div>
 
 If we throw the executable into a PE analyzer such as pe-studio or PE-bear we can see some imports
-that could raise some flags for static analysis. Especially the following imports:
+that could raise some flags for static analysis. Especially the imports
 "LoadLibraryA and GetProcAddress", to help bypass static analysis we can use tools
 such as [CallObfuscator](https://github.com/d35ha/CallObfuscator). For example,
 you can manipulate the IAT so the thunk that points to LoadLibraryA will point to
@@ -299,6 +300,9 @@ This post wouldn't be possible without the help of a few amazing people.
 - [@its_a_feature\_](https://twitter.com/its_a_feature_)
   Thank you for all the help with Nimplant's development, answering
   any question along the way and helping with late-night debugging sessions.
+
+- [@discoverscript](https://twitter.com/discoverscript)
+  Thanks for providing a technical review of the post.
 
 ### References
 
