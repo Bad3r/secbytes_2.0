@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Sun, 22 Nov 2020 04:26:12 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Implant Roulette Part 1: Nimplant]]></title><description><![CDATA[The first in a new series looking at what Nim brings to the table for red team tool development.]]></description><link>https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</link><guid isPermaLink="false">https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[SecBytes]]></title><description><![CDATA[This is my description that will be used in the meta tags and important for search results]]></description><link>https://secbytes.net</link><image><url>https://secbytes.net/icons/icon-512x512.png</url><title>SecBytes</title><link>https://secbytes.net</link></image><generator>GatsbyJS</generator><lastBuildDate>Tue, 24 Nov 2020 16:49:00 GMT</lastBuildDate><atom:link href="https://secbytes.net/rss.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[Implant Roulette Part 1: Nimplant]]></title><description><![CDATA[The first in a new series looking at what Nim brings to the table for red team tool development.]]></description><link>https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</link><guid isPermaLink="false">https://secbytes.net/Implant-Roulette-Part-1:-Nimplant</guid><dc:creator><![CDATA[NotoriousRebel]]></dc:creator><pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate><content:encoded>function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i &lt; sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) &gt;= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
@@ -34,7 +34,7 @@ return function MDXContent(_ref) {
     mdxType: &quot;MDXLayout&quot;
   }), mdx(&quot;h3&quot;, {
     &quot;id&quot;: &quot;introduction&quot;
-  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;When creating an implant what language first comes to mind? Of course, the answer is it depends;\nhowever, typically it is one of the following languages: C, C++, C#, Rust, Go, maybe even Python.\nWhile those languages are all dandy, they are not the only programming languages that exist.\nThroughout this series, I will be exploring different languages and seeing what\nthey bring to the table for implant &amp; offensive tool development.\nThe first language that will be examined is &quot;, mdx(&quot;a&quot;, _extends({
+  }, &quot;Introduction&quot;), mdx(&quot;p&quot;, null, &quot;When creating an implant what language first comes to mind? Of course, the answer is it depends;\nhowever, typically it is one of the following languages: C, C++, C#, Rust, Go, or maybe even Python.\nWhile those languages are all dandy, they are not the only programming languages that exist.\nThroughout this series, I will be exploring different languages and seeing what\nthey bring to the table for implant &amp; offensive tool development.\nThe first language that will be examined is &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://nim-lang.org/&quot;,
@@ -48,7 +48,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/nim-lang/Nim&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;Nim\u2019s Github page&quot;), &quot; there is a concise definition of what Nim is,\n\u201CNim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula.\u201D\nSome of the \u201Cbig\u201D benefits of Nim are:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+  }), &quot;Nim\u2019s Github page&quot;), &quot; there is a concise definition of what Nim is.\n\u201CNim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula.\u201D\nSome of the \u201Cbig\u201D benefits of Nim are:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
     parentName: &quot;pre&quot;
   }, {}), &quot;* Cross-Platform: Generated executables support Windows, Linux, BSD, and macOS.\n* Nim can compile to C, C++, Objective-C, and JavaScript.\n* Nim binaries are small and the compiler toolchain allows for a lot of optimizations\n* Nim can interface with other languages through Nim&apos;s foreign function interface (FFI) [1]\n* Nim syntax is very quick to pick up and is reminiscent of Python.\n&quot;)), mdx(&quot;p&quot;, null, &quot;[1]&quot;, &quot;: &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
@@ -56,7 +56,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;)), mdx(&quot;p&quot;, null, &quot;Of course, these aren\u2019t the only benefits of the language, more will reveal themself as time goes on.&quot;), mdx(&quot;h3&quot;, {
+  }), &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;)), mdx(&quot;p&quot;, null, &quot;Of course, these are not the only benefits of the language. More will reveal themself as time goes on.&quot;), mdx(&quot;h3&quot;, {
     &quot;id&quot;: &quot;a-simple-injector&quot;
   }, &quot;A Simple Injector&quot;), mdx(&quot;p&quot;, null, &quot;Let\u2019s get hands-on with Nim and see how to develop a simple injector.\nBelow is an implementation of a typical CreateRemoteThread injector:\nInstead of having to manually interop with the Windows API via the FFI there\nare &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
@@ -133,7 +133,7 @@ return function MDXContent(_ref) {
     }
   })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Let\u2019s compile, run the program:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
     parentName: &quot;pre&quot;
-  }, {}), &quot;nim c --run crtinjection.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;and make sure everything works. By default when you compile Nim code it generates\nC code. In the latter section \u201CIntegrating into Existing Tooling\u201D verification shall\nensue.&quot;), mdx(&quot;p&quot;, null, &quot;As an aside, if you do not want to use 3rd party packages that is fine if you examine\nwhat Winim does under the hood for example when &quot;, mdx(&quot;a&quot;, _extends({
+  }, {}), &quot;nim c --run crtinjection.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;and make sure everything works. By default when you compile Nim code it generates\nC code. In the latter section \u201CIntegrating into Existing Tooling\u201D verification shall\nensue.&quot;), mdx(&quot;p&quot;, null, &quot;If you do not want to use third party packages that is fine if you examine\nwhat Winim does under the hood for example when &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942&quot;,
@@ -155,11 +155,11 @@ return function MDXContent(_ref) {
     parentName: &quot;p&quot;
   }, &quot;proc CreateRemoteThread*(hProcess: HANDLE, lpThreadAttributes: LPSECURITY_ATTRIBUTES, dwStackSize: SIZE_T, lpStartAddress: LPTHREAD_START_ROUTINE, lpParameter: LPVOID, dwCreationFlags: DWORD, lpThreadId: LPDWORD): HANDLE {.winapi, stdcall, dynlib: \&quot;kernel32\&quot;, importc.}&quot;)), mdx(&quot;h3&quot;, {
     &quot;id&quot;: &quot;peeking-under-the-hood&quot;
-  }, &quot;Peeking Under the Hood&quot;), mdx(&quot;p&quot;, null, &quot;What is going on under the hood is quite interesting. If we inspect the executable\u2019s IAT we see\nthere are no static imports for OpenProcess, VirualAllocEx, WriteProcessMemory, and CreateRemoteThread.\nThat is because Nim is dynamically loading the required libraries with LoadLibraryA and GetProcAddress.\nFurthermore, when compiled Nim will place the source code of the language you are targeting in a folder\ncalled nimcache. You can also specify the nimcache path for generated files with the compiler flag\n&quot;, mdx(&quot;inlineCode&quot;, {
+  }, &quot;Peeking Under the Hood&quot;), mdx(&quot;p&quot;, null, &quot;What is going on under the hood is quite interesting. If we inspect the executable\u2019s IAT we see\nthere are no static imports for OpenProcess, VirualAllocEx, WriteProcessMemory, and CreateRemoteThread.\nThat is because Nim is dynamically loading the required libraries with LoadLibraryA and GetProcAddress.\nFurthermore, when compiled Nim will place the source code of the language you are targeting in a folder\nnamed nimcache. You can also specify the nimcache path for generated files with the compiler flag\n&quot;, mdx(&quot;inlineCode&quot;, {
     parentName: &quot;p&quot;
   }, &quot;--nimcache:PATH&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Below is a snippet of generated code for inject.nim\nTo make this easier to read I have compiled the program with an additional flag &quot;, mdx(&quot;inlineCode&quot;, {
     parentName: &quot;p&quot;
-  }, &quot;--embedsrc:on&quot;), &quot; this flag tells the Nim compiler\nto embed the source code as comments in the generated output. For compilation:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+  }, &quot;--embedsrc:on&quot;), &quot;.\nThis flag tells the Nim compiler to embed the source code as comments in the generated output. For compilation:&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
     parentName: &quot;pre&quot;
   }, {}), &quot;nim c --run --hints:on --d:release --embedsrc:on inject.nim\n&quot;)), mdx(&quot;p&quot;, null, &quot;A snippet of generated C source code that performs injection:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
     parentName: &quot;p&quot;
@@ -216,7 +216,7 @@ return function MDXContent(_ref) {
       &quot;top&quot;: &quot;0&quot;,
       &quot;left&quot;: &quot;0&quot;
     }
-  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Here we can inspect what our function calls are doing under the hood, the\nWindows API calls done by winim rely on the &quot;, mdx(&quot;a&quot;, _extends({
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Here we can inspect what our function calls are doing under the hood. The\nWindows API calls done by winim rely on the &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://nim-lang.org/docs/dynlib.html&quot;,
@@ -285,9 +285,9 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/theWover/Donut&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;Donut&quot;), &quot;.\nOne of the great features with Donut is that it not only works with .NET assemblies but also with native DLLs\nand executables. Since Nim can generate both C and C++ source code and link it to a native executable or DLL\nDonut is an amazing utility that can transform our output to shellcode.\nSince shellcode is language-agnostic we can easily integrate it into other tooling.&quot;), mdx(&quot;h3&quot;, {
+  }), &quot;Donut&quot;), &quot;.\nOne of the great features with Donut is that it not only works with .NET assemblies but also works with native DLLs\nand executables. Since Nim can generate both C and C++ source code and link it to a native executable or DLL\nDonut is an amazing utility that can transform our output into shellcode.\nSince shellcode is language-agnostic we can easily integrate it into other tooling.&quot;), mdx(&quot;h3&quot;, {
     &quot;id&quot;: &quot;integrating-into-existing-tooling&quot;
-  }, &quot;Integrating into Existing Tooling&quot;), mdx(&quot;p&quot;, null, &quot;With shellcode you can easily integrate it into your own custom injectors in the language of your choice.\nOf course since these are native executables and DLL\u2019s we can also perform manually mapping and load them into memory.\nComing from C# my goto tools to perform the manual mapping are &quot;, mdx(&quot;a&quot;, _extends({
+  }, &quot;Integrating into Existing Tooling&quot;), mdx(&quot;p&quot;, null, &quot;With shellcode you can easily integrate it into your own custom injectors in the language of your choice.\nOf course, since these are native executables and DLL\u2019s we can also perform manual mapping and load them into memory.\nComing from C# my preferred tools to perform the manual mapping are &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/Dewera/Lunar&quot;,
@@ -435,39 +435,33 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://nim-lang.org/docs/nims.html&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;documentation&quot;), &quot; it is defined as,\n\u201Cthe subset of Nim that can be evaluated by Nim\u2019s built-in virtual machine (VM).\u201D\nNimScript is typically used as a configuration language in a devops role for example to run tests and build projects.\nHowever, one of the biggest caveats with NimScript as stated within the documentation,\nNim\u2019s &quot;, mdx(&quot;a&quot;, _extends({
-    parentName: &quot;p&quot;
-  }, {
-    &quot;href&quot;: &quot;https://nim-lang.org/docs/backends.html#interfacing-nim-code-calling-the-backend&quot;,
-    &quot;target&quot;: &quot;_blank&quot;,
-    &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;FFI (foreign function interface)&quot;), &quot; is not available in NimScript.\nThis means that any stdlib module which relies on importc cannot be used in the VM.\u201D\nNim\u2019s FFI is how Nim can call other functions written in other programming languages, which is basically\nNim\u2019s cross-platform version &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;documentation&quot;), &quot; it is defined as,\n\u201Cthe subset of Nim that can be evaluated by Nim\u2019s built-in virtual machine (VM).\u201D\nNimScript is typically used as a configuration language in a devops role. An example would be to run tests and build projects.\nHowever, one of the biggest caveats with NimScript as stated within the documentation,\nNim\u2019s FFI is not available in NimScript.\nThis means that any stdlib module which relies on importc cannot be used in the VM.\u201D\nNim\u2019s FFI is how Nim can call other functions written in other programming languages, which is basically\nNim\u2019s cross-platform version &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;P/Invoke&quot;), &quot;.\nA possible solution is to write the FFI functionality in Nim and expose to NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Does that mean NimScript is not viable? Absolutely not,\nespecially with the slow shift in which especially for implant development\nit\u2019s not always ideal to statically embed everything. Instead leaning towards a lightweight\nimplant that can dynamically resolve commands within memory so even if an analyst\nobtains the binary, not everything is revealed.&quot;), mdx(&quot;p&quot;, null, &quot;There are already a couple open source projects: (&quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;P/Invoke&quot;), &quot;.\nA possible solution is to write the FFI functionality in Nim and expose it to NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Does that mean NimScript is not viable? Absolutely not,\nespecially with the slow shift in which especially for implant development\nit\u2019s not always ideal to statically embed everything. Instead leaning towards a lightweight\nimplant that can dynamically resolve commands within memory so even if an analyst\nobtains the binary, not everything is revealed.&quot;), mdx(&quot;p&quot;, null, &quot;There are already a couple open source projects that show how to use\nNimScript as an embedded scripting language.\n&quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/komerdoor/nim-embedded-nimscript&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;https://github.com/komerdoor/nim-embedded-nimscript&quot;), &quot;\nand &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;https://github.com/komerdoor/nim-embedded-nimscript&quot;), &quot;\n&quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/Serenitor/embeddedNimscript&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;https://github.com/Serenitor/embeddedNimscript&quot;), &quot;) that show how to use\nNimScript as an embedded scripting language.&quot;), mdx(&quot;p&quot;, null, &quot;However, those repositories while noble do not easily allow the user to expose Nim code to NimScript and\nis are simplistic.\nLuckily, a new repository known as &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;https://github.com/Serenitor/embeddedNimscript&quot;)), mdx(&quot;p&quot;, null, &quot;However, those repositories while noble do not easily allow the user to expose Nim code to NimScript and\nare simplistic.\nLuckily, a new repository called &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/beef331/nimscripter&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;Nimscripter&quot;), &quot; allows for easy interoperability between Nim and NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Below is an example in which the FFI specific code to call &quot;, mdx(&quot;inlineCode&quot;, {
+  }), &quot;Nimscripter&quot;), &quot; allows for easy interoperability between Nim and NimScript.&quot;), mdx(&quot;p&quot;, null, &quot;Below is an example in which the FFI specific code that calls &quot;, mdx(&quot;inlineCode&quot;, {
     parentName: &quot;p&quot;
-  }, &quot;MessageBoxA&quot;), &quot; is exposed to NimScript allowing\nus to pass in a string of NimScript to invoke the Nim proc.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+  }, &quot;MessageBoxA&quot;), &quot; is exposed to NimScript.\nThis allows us to pass in a string of NimScript to invoke the Nim proc.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
@@ -528,7 +522,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/beef331/nimscripter/blob/master/src/nimscripter.nim#L140&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;script is loaded&quot;), &quot; and the main body is evaluated which allows us to access symbols it exposes.\nA small caveat is that you need to include Nim\u2019s stdlib as an external folder; luckily, depending on what modules\nyou are you using from stdlib you may be able to remove some if unused.\nIf you would like to read more about embedding NimScript as well as just learn more about NimScript, I encourage you to check out this wonderful series:\n&quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;script is loaded&quot;), &quot; and the main body is evaluated which allows us to access the symbols it exposes.\nA small caveat is that you need to include Nim\u2019s stdlib as an external folder. Luckily, depending on what modules\nyou are you using from stdlib you may be able to remove those unused modules.\nIf you would like to read more about embedding NimScript as well as learn more about NimScript, I encourage you to check out this wonderful series:\n&quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://peterme.net/using-nimscript-as-a-configuration-language-embedding-nimscript-pt-1.html&quot;,
@@ -548,7 +542,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/its-a-feature/Mythic&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;Mythic&quot;), &quot;, Mythic\nis very sophisticated and well structured. Furthermore, implants are essentially plug and play as everything is\ndockerized and your agent just needs to communicate back and forth via certain rest api endpoints.&quot;), mdx(&quot;p&quot;, null, &quot;Sprouting a few weeks later &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;Mythic&quot;), &quot;, Mythic\nis very sophisticated and well structured. Furthermore, implants are essentially plug and play. Everything is\ndockerized and your agent just needs to communicate back and forth via certain rest API endpoints.&quot;), mdx(&quot;p&quot;, null, &quot;Sprouting a few weeks later, &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/MythicAgents/Nimplant&quot;,
@@ -609,13 +603,13 @@ return function MDXContent(_ref) {
       &quot;top&quot;: &quot;0&quot;,
       &quot;left&quot;: &quot;0&quot;
     }
-  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous\nwith the agent able to generate both C and C++ source code. Currently it just has basic functionality; however, it will be updated\novertime and become much more sophisticated. If you would like to read more about Nimplant\nfeel free to read the &quot;, mdx(&quot;a&quot;, _extends({
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;Nimplant is a cross-platform Linux and Windows implant for Mythic C2 that is fully asynchronous.\nThe agent is able to generate both C and C++ source code. Currently, it just has basic functionality.\nHowever, it will be updated over time and become much more sophisticated. If you would like to learn more about Nimplant\nfeel free to read the &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/MythicAgents/Nimplant/tree/master/documentation-payload/&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;project\u2019s documentation&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Example Nimplant checkin:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+  }), &quot;project\u2019s documentation&quot;), &quot;.&quot;), mdx(&quot;p&quot;, null, &quot;Example Nimplant check in:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
@@ -674,7 +668,7 @@ return function MDXContent(_ref) {
     &quot;id&quot;: &quot;obfuscation&quot;
   }, &quot;Obfuscation&quot;), mdx(&quot;p&quot;, null, &quot;With Nim, there are ample opportunities throughout the development cycle to introduce obfuscation.\nThree key areas that I will highlight are:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
     parentName: &quot;p&quot;
-  }, &quot;Note: Of course these aren\u2019t the only forms of obfuscation you can do just a small subset.&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;1. Code Obfuscation&quot;)), mdx(&quot;p&quot;, null, &quot;With Nim opportunities for code obfuscation are ripe, two quick and easy nimble packages\nyou can utilize are: &quot;, mdx(&quot;a&quot;, _extends({
+  }, &quot;Note: These aren not the only forms of obfuscation you can do. They are just a small subset.&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;1. Code Obfuscation&quot;)), mdx(&quot;p&quot;, null, &quot;With Nim opportunities for code obfuscation are ripe. Two quick and easy nimble packages\nyou can utilize are &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/Yardanico/nim-strenc&quot;,
@@ -686,7 +680,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/Yardanico/nuglifier&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;nuglifier&quot;), &quot;.\nLet\u2019s just apply nim-strenc to the string literal and view the resulting C file in\nour Nimcache.&quot;), mdx(&quot;p&quot;, null, &quot;Before:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
+  }), &quot;nuglifier&quot;), &quot;.\nLet\u2019s apply nim-strenc to the string literal and view the resulting C file in\nour Nimcache.&quot;), mdx(&quot;p&quot;, null, &quot;Before:&quot;), mdx(&quot;p&quot;, null, mdx(&quot;span&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;className&quot;: &quot;gatsby-resp-image-wrapper&quot;,
@@ -796,7 +790,7 @@ return function MDXContent(_ref) {
       &quot;top&quot;: &quot;0&quot;,
       &quot;left&quot;: &quot;0&quot;
     }
-  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;When compiling the creator of strenc recommends turning hints off and stripping the binary so we shall do that.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
+  })), &quot;\n      &quot;), &quot;\n    &quot;)), mdx(&quot;p&quot;, null, &quot;When compiling the creator of nim-strenc recommends turning hints off and stripping the binary so we shall do that.&quot;), mdx(&quot;pre&quot;, null, mdx(&quot;code&quot;, _extends({
     parentName: &quot;pre&quot;
   }, {}), &quot;nim c --run --hints:off --d:release --passL:-s\n&quot;)), mdx(&quot;p&quot;, null, mdx(&quot;inlineCode&quot;, {
     parentName: &quot;p&quot;
@@ -808,7 +802,7 @@ return function MDXContent(_ref) {
     parentName: &quot;pre&quot;
   }, {
     &quot;className&quot;: &quot;language-c&quot;
-  }), &quot;STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_3, \&quot;\\207\\251\\241\\236\\234\\320\\246\\231\\205\\230\\221\\333\&quot;, 12);\nSTRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_4, \&quot;\\360\\275\\246\&quot;, 3);\n&quot;)), mdx(&quot;p&quot;, null, &quot;With nim-strenc if you look at the codebase it\u2019s less than 30 lines.\nIt\u2019s applying a compile-time macro that xor encrypts\nevery string literal. For more information about compile-time macros\nand how they can be leveraged for obfuscation read this &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;STRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_3, \&quot;\\207\\251\\241\\236\\234\\320\\246\\231\\205\\230\\221\\333\&quot;, 12);\nSTRING_LITERAL(TM__xLHv575t3PG1lB5wK05Xqg_4, \&quot;\\360\\275\\246\&quot;, 3);\n&quot;)), mdx(&quot;p&quot;, null, &quot;With nim-strenc if you look at the codebase it is less than 30 lines.\nIt\u2019s applying a compile-time macro that xor encrypts\nevery string literal. For more information about compile-time macros\nand how they can be leveraged for obfuscation read this &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://wasm.in/blogs/meta-programmirovanie-nim-i-obfuskacija.706&quot;,
@@ -820,7 +814,7 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/arnetheduck/nlvm&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;nlvm&quot;), &quot;\nto generate the intermediate representation (IR). Although, currently nlvm has some limitations so keep that in mind\nwhen trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation\nwith tools such as &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;nlvm&quot;), &quot;\nto generate the intermediate representation (IR). Although, currently nlvm has some limitations. Keep that in mind\nwhen trying to convert your program to IR. With the IR, you can do in-tree or out-of-tree LLVM obfuscation\nwith tools such as &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/emc2314/YANSOllvm&quot;,
@@ -832,15 +826,15 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://github.com/thebabush/dumb-obfuscator&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;dumb-obfuscator&quot;), &quot;.\nA note with YANSOllvm is that since it is in-tree obfuscation passes\nand does deeper changes you will need to build the entire &quot;, mdx(&quot;a&quot;, _extends({
+  }), &quot;dumb-obfuscator&quot;), &quot;.\nA note with YANSOllvm, since it uses in-tree obfuscation passes\nand does deeper changes you will need to build the entire &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://llvm.org/&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;LLVM framework&quot;), &quot; which\nmay take upwards of an hour.&quot;), mdx(&quot;p&quot;, null, &quot;The other route is to take the generated C/C++ code transform it to IR such as with clang\nand perform the in-tree or out-of-tree obfuscation and then link it all back together.\nDepending on the complexity of your program you may end up working with multiple files\nand have to make sure it\u2019s properly linked.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
+  }), &quot;LLVM framework&quot;), &quot; which\nmay take upwards of an hour.&quot;), mdx(&quot;p&quot;, null, &quot;The other route is to take the generated C/C++ code transform it to IR with clang\nand perform the in-tree or out-of-tree obfuscation and then link it all back together.\nDepending on the complexity of your program you may end up working with multiple files\nand have to make sure they are properly linked.&quot;), mdx(&quot;p&quot;, null, mdx(&quot;strong&quot;, {
     parentName: &quot;p&quot;
-  }, &quot;I will leave this to the reader to experiment with&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;3. IAT Manipulation&quot;)), mdx(&quot;p&quot;, null, &quot;If we throw the executable into a PE analyzer such as pe-studio or PE-bear we can see some imports\nthat could raise some flags for static analysis. Especially the following imports:\n\u201CLoadLibraryA and GetProcAddress\u201D, to help bypass static analysis we can use tools\nsuch as &quot;, mdx(&quot;a&quot;, _extends({
+  }, &quot;I will leave this to the reader to experiment with&quot;)), mdx(&quot;div&quot;, null, mdx(&quot;h4&quot;, null, &quot;3. IAT Manipulation&quot;)), mdx(&quot;p&quot;, null, &quot;If we throw the executable into a PE analyzer such as pe-studio or PE-bear we can see some imports\nthat could raise some flags for static analysis. Especially the imports\n\u201CLoadLibraryA and GetProcAddress\u201D, to help bypass static analysis we can use tools\nsuch as &quot;, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
   }, {
     &quot;href&quot;: &quot;https://github.com/d35ha/CallObfuscator&quot;,
@@ -906,7 +900,17 @@ return function MDXContent(_ref) {
     &quot;href&quot;: &quot;https://twitter.com/its_a_feature_&quot;,
     &quot;target&quot;: &quot;_blank&quot;,
     &quot;rel&quot;: &quot;noreferrer&quot;
-  }), &quot;@its_a_feature&quot;, &quot;_&quot;), &quot;\nThank you for all the help with Nimplant\u2019s development, answering\nany question along the way and helping with late-night debugging sessions.&quot;))), mdx(&quot;h3&quot;, {
+  }), &quot;@its_a_feature&quot;, &quot;_&quot;), &quot;\nThank you for all the help with Nimplant\u2019s development, answering\nany question along the way and helping with late-night debugging sessions.&quot;)), mdx(&quot;li&quot;, {
+    parentName: &quot;ul&quot;
+  }, mdx(&quot;p&quot;, {
+    parentName: &quot;li&quot;
+  }, mdx(&quot;a&quot;, _extends({
+    parentName: &quot;p&quot;
+  }, {
+    &quot;href&quot;: &quot;https://twitter.com/discoverscript&quot;,
+    &quot;target&quot;: &quot;_blank&quot;,
+    &quot;rel&quot;: &quot;noreferrer&quot;
+  }), &quot;@discoverscript&quot;), &quot;\nThanks for providing a technical review of the post.&quot;))), mdx(&quot;h3&quot;, {
     &quot;id&quot;: &quot;references&quot;
   }, &quot;References&quot;), mdx(&quot;p&quot;, null, mdx(&quot;a&quot;, _extends({
     parentName: &quot;p&quot;
