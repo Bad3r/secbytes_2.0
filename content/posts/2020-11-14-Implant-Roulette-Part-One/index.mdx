@@ -49,12 +49,11 @@ Let's compile, run the program:
 nim c --run crtinjection.nim
 ```
 
-<br />
 and make sure everything works. By default when you compile Nim code it generates
 C code. In the latter section "Integrating into Existing Tooling" verification shall
 ensue.
 
-If you do not want to use third party packages that is fine if you examine
+If you do not want to use third-party packages that is fine if you examine
 what Winim does under the hood for example when [calling CreateRemoteThread](https://github.com/khchen/winim/blob/d300192c588f73dddef26e3c317f148aa23465c3/winim/inc/winbase.nim#L1942).
 It is simply importing the function for us as denoted by the [importc pragma](https://nim-lang.org/docs/manual.html#foreign-function-interface-importc-pragma)
 as that allows us to import a proc or a variable from C. Also, available for importing
