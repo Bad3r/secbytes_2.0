@@ -1,1 +1,1 @@
-Sitemap: https://secbytes.net/sitemap.xml
+Sitemap: https://hacklog.sh/sitemap.xml

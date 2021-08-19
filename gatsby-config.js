@@ -1,10 +1,10 @@
 const siteMetadata = {
-    title: `SecBytes`,
-    name: `SecBytes`,
-    siteUrl: `https://secbytes.net`,
-    description: `This is my description that will be used in the meta tags and important for search results`,
+    title: `HackLog`,
+    name: `HackLog`,
+    siteUrl: `https://hacklog.sh`,
+    description: `❯ ~/hacklog.sh`,
     hero: {
-      heading: `<a href="https://secbytes.net"><img src="https://raw.githubusercontent.com/Bad3r/badScripts/master/secbytes.png" alt="SecBytes" border="0"></a>`,
+      heading: `<a href="https://hacklog.sh"><img src="https://raw.githubusercontent.com/Bad3r/badScripts/master/secbytes.png" alt="SecBytes" border="0"></a>`,
       maxWidth: 652,
     },
     social: [
